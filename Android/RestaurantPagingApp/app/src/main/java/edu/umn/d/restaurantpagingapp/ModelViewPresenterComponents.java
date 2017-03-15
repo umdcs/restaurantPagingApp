@@ -37,6 +37,7 @@ public interface ModelViewPresenterComponents{
     interface Model
     {
         float getAllReservations();
-        void setReservationData( float name, float partySize, float arrivalTime );
+        void createReservation(String name, int partySize, int phoneNumber);
+        void addReservation(Reservation reservation);
     }
 }
