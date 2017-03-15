@@ -7,7 +7,7 @@ import android.widget.EditText;
  * Created by melissa on 3/15/17.
  */
 
-public interface ModelViewPresenterComponents {
+public interface ModelViewPresenterComponents{
 
     // View
     interface View
