@@ -7,7 +7,7 @@ package edu.umn.d.restaurantpagingapp;
 public class Reservation {
 
     public Reservation(){
-        
+
     }
 
     public Reservation(String name, int partySize, int phoneNumber){
