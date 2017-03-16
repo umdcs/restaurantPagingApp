@@ -23,7 +23,7 @@ public class RPAPresenter implements ModelViewPresenterComponents.RPAPresenterCo
     @Override
     public String getReservation()
     {
-        float f = mModel.getReservation();
+        float f = mModel.getAllReservations();
         Log.d("presenter", Float.toString(f));
         return Float.toString(f);
     }
