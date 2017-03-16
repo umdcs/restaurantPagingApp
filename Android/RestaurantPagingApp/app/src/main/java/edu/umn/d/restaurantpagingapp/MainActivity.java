@@ -4,8 +4,12 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.ListView;
+
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements ModelViewPresenterComponents.View {
 
@@ -20,20 +24,18 @@ public class MainActivity extends AppCompatActivity implements ModelViewPresente
     }
 
     public void onClickSwitchView(View view) {
-        Intent intent = new Intent(this, );
-        startActivity(intent);
+        //Intent intent = new Intent(this, );
+        //startActivity(intent);
     }
 
     /**
      * Called when the user clicks the createReservation button
      */
-    public void onClickCalcMPG(View view) {
-        // Extract the Editable text fields
-        EditText nameText = (EditText) findViewById(R.id.textview_name);
-        EditText partySizeText = (EditText) findViewById(R.id.textview_partysize);
-        EditText timeArrivedText = (EditText) findViewById(R.id.textview_timearrived);
-
+    public void onClickCreateReservation(View view) {
         // Provide this information to the Presenter
+        String nameText = "Name";
+        int partySizeText = 1;
+        int timeArrivedText = 1;
         mPresenter.clickCreateReservation(nameText, partySizeText, timeArrivedText);
     }
 
@@ -44,9 +46,13 @@ public class MainActivity extends AppCompatActivity implements ModelViewPresente
 
     @Override
     public void notifyCustomerListUpdated() {
-        String mpgData = mPresenter.getReservation();
-        TextView mpgTV = (TextView) findViewById(R.id.res);
-        mpgTV.setText( mpgData );
+
+        List reservationData = mPresenter.getReservation();
+        ListView waitingList = (ListView) findViewById(R.id.waitingList);
+        ArrayAdapter listAdapter = new ArrayAdapter<Reservation>(this, R.layout.row,reservationData);
+
+        waitingList.setAdapter(listAdapter);
+
     }
 
 }

@@ -3,6 +3,8 @@ package edu.umn.d.restaurantpagingapp;
 import android.util.Log;
 import android.widget.EditText;
 
+import java.util.List;
+
 /**
  * Created by melissa on 3/15/17.
  */
@@ -21,29 +23,18 @@ public class RPAPresenter implements ModelViewPresenterComponents.RPAPresenterCo
 
     // setting up recycler adapter
     @Override
-    public String getReservation()
+    public List getReservation()
     {
-        float f = mModel.getReservation();
-        Log.d("presenter", Float.toString(f));
-        return Float.toString(f);
+        return mModel.getAllReservations();
     }
 
     // When the view receives input from the user (after the createReservation button is clicked,
     // this will be called by the view to relay the user data here.  Once here, it can
     // be checked and potentially sent on to the model.
     @Override
-    public void clickCreateReservation(EditText name, EditText partySize, EditText arrivalTime) {
-        float nameGiven = Float.valueOf(name.getText().toString());
-        float party = Float.valueOf(partySize.getText().toString());
-        float time = Float.valueOf(arrivalTime.getText().toString());
-
-        boolean error = false;
-        // doing some error checking here on the inputs would be good before we proceed with
-        // other calculations...
-        if (!error) {
-            mModel.setReservationData(nameGiven, party, time);
-            mView.notifyCustomerListUpdated();
-        }
+    public void clickCreateReservation(String name, int partySize, int arrivalTime) {
+        mModel.createReservation(name,partySize,arrivalTime);
+        mView.notifyCustomerListUpdated();
     }
 }
 

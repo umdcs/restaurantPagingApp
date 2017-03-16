@@ -2,6 +2,8 @@ package edu.umn.d.restaurantpagingapp;
 
 import android.widget.EditText;
 
+import java.util.List;
+
 
 /**
  * Created by melissa on 3/15/17.
@@ -25,9 +27,9 @@ public interface ModelViewPresenterComponents{
         // provides access to the info the user entered
         // - in this way, the views communicate data entered by the user
         //   to be sent to the master list
-        void clickCreateReservation(final EditText name, final EditText partySize, final EditText arrivalTime);
+        void clickCreateReservation(final String name, final int partySize, final int arrivalTime);
 
-        String getReservation();
+        List getReservation();
     }
 
     /** Model Operations
@@ -36,7 +38,7 @@ public interface ModelViewPresenterComponents{
      */
     interface Model
     {
-        float getAllReservations();
+        List getAllReservations();
         void createReservation(String name, int partySize, int phoneNumber);
         void addReservation(Reservation reservation);
     }
