@@ -26,6 +26,7 @@ public class RPAPresenter implements ModelViewPresenterComponents.RPAPresenterCo
     public List getReservation()
     {
         return mModel.getAllReservations();
+
     }
 
     // When the view receives input from the user (after the createReservation button is clicked,
