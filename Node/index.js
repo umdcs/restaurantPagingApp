@@ -29,7 +29,7 @@ var app = express();
 
 /* Set the port in the app system
  */
-app.set("port", 4531);
+app.set("port", 80);
 
 // The next two sections tell bodyParser which content types to
 // parse. We are mainly interested in JSON, ut eventually, encoded,
@@ -39,15 +39,15 @@ app.use(bodyParser.urlencoded({   // support encoded bodies
 		}));
 app.use(bodyParser.json());  // support json encoded bodies
 
-var MPGData = {
-    MPGArray : []
+var reservationList = {
+    reservationArray : []
 };
 
 var dataToReturn = {
-    "MPG" : '27',
-    "prevOdom" :'1000',
-    "curOdom" : '1324',
-    "gallons" : '12'
+    "name" : "John",
+    "phoneNumber" : "320-815-2656",
+    "partySize" : "3",
+    "request" : "None"
 };
     
 /* -------------------------------------------------
@@ -69,7 +69,7 @@ app.get('/', function(request, response) {
 	/* Each write statement in the response can send text/data into the body 
 	 * of the HTTP Response body */
 	response.write('<!DOCTYPE html><head><title>DashBoard</title></head><body>');
-	response.write('<H1>My App Dashboard</H1>');
+	response.write('<H1>Restaurant Paging App</H1>');
 
 	/* You can choose to write other data, such as transforming your internal 
 	 * Javascript state into elements you can view on a Dashboard to help you 
@@ -96,9 +96,9 @@ app.get('/', function(request, response) {
 /* GET - retrieves data from server */
 app.get('/getData', function (request, response) {
 	response.writeHead(200,{'Content-Type': 'text/html'});
-	response.write(JSON.stringify(MPGData));
+	response.write(JSON.stringify(reservationList));
 	response.end();
-	console.log('GET REQUEST: MPG');
+	console.log('GET REQUEST: ReservationList');
     });
 
 /* POST - sends data to server */
@@ -170,5 +170,5 @@ app.use(function(error, request, response, next){
 
 
 app.listen(app.get("port"), function () {
-	console.log('CS4531 Node Example: Node app listening on port: ', app.get("port"));
+	console.log('Restaurant Paging System: Node app listening on port: ', app.get("port"));
     });
