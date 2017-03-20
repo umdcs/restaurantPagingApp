@@ -1,5 +1,7 @@
 package edu.umn.d.restaurantpagingapp;
 
+import android.content.Intent;
+import android.os.Parcelable;
 import android.util.Log;
 
 import java.util.ArrayList;
@@ -16,6 +18,7 @@ public class RPAModel implements ModelViewPresenterComponents.Model {
      */
     public RPAModel(ModelViewPresenterComponents.RPAPresenterContract presenter){
         this.presenter = presenter;
+        this.createReservationPresenter = new CreateReservationPresenter(this);
     }
 
     public List getAllReservations(){
@@ -23,10 +26,10 @@ public class RPAModel implements ModelViewPresenterComponents.Model {
     }
 
     public void addReservation(Reservation reservation){
-
+        waitingReservations.add(reservation);
     }
 
-    public void createReservation(String name, int partySize, int phoneNumber){
+    public void createReservation(String name, int partySize, String phoneNumber){
         Reservation res = new Reservation(name,partySize,phoneNumber);
         waitingReservations.add(res);
 
@@ -35,6 +38,7 @@ public class RPAModel implements ModelViewPresenterComponents.Model {
     }
 
     ModelViewPresenterComponents.RPAPresenterContract presenter;
+    private CreateReservationPresenter createReservationPresenter;
     List waitingReservations = new ArrayList();
     List seatedReservations = new ArrayList();
 }

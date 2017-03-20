@@ -27,7 +27,7 @@ public interface ModelViewPresenterComponents{
         // provides access to the info the user entered
         // - in this way, the views communicate data entered by the user
         //   to be sent to the master list
-        void clickCreateReservation(final String name, final int partySize, final int arrivalTime);
+        void clickCreateReservation(final String name, final int partySize, final String phoneNumber);
 
         List getReservation();
     }
@@ -39,7 +39,7 @@ public interface ModelViewPresenterComponents{
     interface Model
     {
         List getAllReservations();
-        void createReservation(String name, int partySize, int phoneNumber);
+        void createReservation(String name, int partySize, String phoneNumber);
         void addReservation(Reservation reservation);
     }
 }
