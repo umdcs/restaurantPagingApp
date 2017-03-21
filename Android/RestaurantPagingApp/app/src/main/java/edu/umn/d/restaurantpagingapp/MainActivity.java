@@ -26,6 +26,8 @@ public class MainActivity extends AppCompatActivity implements ModelViewPresente
         setContentView(R.layout.activity_main);
 
         setupModelViewPresenterComponents();
+
+
         ListView waitingList = (ListView) findViewById(R.id.waitingList);
         waitingListAdapter = new ArrayAdapter<String>(this, R.layout.row);
         waitingList.setAdapter(waitingListAdapter);
@@ -52,11 +54,6 @@ public class MainActivity extends AppCompatActivity implements ModelViewPresente
         });
 
 
-    }
-
-    public void onClickSwitchView(View view) {
-        //Intent intent = new Intent(this, );
-        //startActivity(intent);
     }
 
     protected void onActivityResult(int requestCode, int resultCode, Intent intent ){
@@ -92,7 +89,7 @@ public class MainActivity extends AppCompatActivity implements ModelViewPresente
     public void moveToSeated(View view){
         ListView waitingList = (ListView) findViewById(R.id.waitingList);
         mPresenter.moveToSeated(waitingList.getCheckedItemPosition());
-        Log.d("list",String.valueOf(waitingList.getCheckedItemPosition()));
+        waitingList.setAdapter(waitingList.getAdapter());   // This is a workaround to reset the choices.
     }
 
     @Override
