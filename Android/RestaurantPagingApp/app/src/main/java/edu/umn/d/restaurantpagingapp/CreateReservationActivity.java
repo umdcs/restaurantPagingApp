@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import java.util.Calendar;
 
 public class CreateReservationActivity extends AppCompatActivity {
 
@@ -16,6 +17,8 @@ public class CreateReservationActivity extends AppCompatActivity {
     }
 
     public void onClickCreateReservation(View view){
+
+        Calendar calendar = Calendar.getInstance();
 
         //Grab the edit texts
         EditText nameEditText = (EditText) findViewById(R.id.nameEditText);
