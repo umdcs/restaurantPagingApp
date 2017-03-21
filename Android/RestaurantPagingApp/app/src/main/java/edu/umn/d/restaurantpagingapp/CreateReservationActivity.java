@@ -16,14 +16,24 @@ public class CreateReservationActivity extends AppCompatActivity {
     }
 
     public void onClickCreateReservation(View view){
+
+        //Grab the edit texts
         EditText nameEditText = (EditText) findViewById(R.id.nameEditText);
         EditText partySizeEditText = (EditText) findViewById(R.id.partySizeEditText);
         EditText phoneNumEditText = (EditText) findViewById(R.id.phoneNumEditTest);
-        //presenter.clickCreateReservation(nameEditText.getText().toString(), Integer.valueOf(partySizeEditText.getText().toString()), Integer.valueOf(phoneNumEditText.getText().toString()));
+
+        //Create an intent with reservation information
         Intent intent = new Intent();
         intent.putExtra("Name", nameEditText.getText().toString());
-        intent.putExtra("Party size", Integer.valueOf(partySizeEditText.getText().toString()));
+        if (!partySizeEditText.getText().toString().equals("")) {
+            intent.putExtra("Party size", Integer.valueOf(partySizeEditText.getText().toString()));
+        }
+        else {
+            intent.putExtra("Party size", 0);
+        }
         intent.putExtra("Phone number", phoneNumEditText.getText().toString());
+
+        //Finish activity and send info back to main activity
         setResult(Activity.RESULT_OK, intent);
         finish();
     }

@@ -54,15 +54,17 @@ public class MainActivity extends AppCompatActivity implements ModelViewPresente
 
     }
 
-    public void onClickSwitchView(View view) {
-        //Intent intent = new Intent(this, );
-        //startActivity(intent);
-    }
-
+    /**
+     * This function is called automatically when the create reservation activity finishes.
+     */
     protected void onActivityResult(int requestCode, int resultCode, Intent intent ){
+
+        //Get information from the intent created in the create reservation activity
         String name = intent.getStringExtra("Name");
         int partySize = intent.getIntExtra("Party size", 0);
         String phoneNum = intent.getStringExtra("Phone number");
+
+        //Create the reservation
         mPresenter.clickCreateReservation(name, partySize, phoneNum);
     }
 
@@ -70,18 +72,11 @@ public class MainActivity extends AppCompatActivity implements ModelViewPresente
      * Called when the user clicks the createReservation button
      */
     public void onClickCreateReservation(View view) {
-        // Provide this information to the Presenter
 
+        // Provide this information to the Presenter
         Intent intent = new Intent(this, CreateReservationActivity.class);
         startActivityForResult(intent, 1);
-        //startActivity(intent);
 
-        /**
-        String nameText = "Name";
-        int partySizeText = 1;
-        String phoneNumberText = "1";
-        mPresenter.clickCreateReservation(nameText, partySizeText, phoneNumberText);
-         */
     }
 
     public void setupModelViewPresenterComponents() {
