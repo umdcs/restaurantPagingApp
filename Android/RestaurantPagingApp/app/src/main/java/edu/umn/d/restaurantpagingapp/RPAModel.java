@@ -22,8 +22,15 @@ public class RPAModel implements ModelViewPresenterComponents.Model {
         return waitingReservations;
     }
 
+    public List getSeatedReservations() {return seatedReservations;}
+
     public void addReservation(Reservation reservation){
 
+    }
+
+    public void moveToSeated(int index){
+        Reservation res = (Reservation)waitingReservations.remove(index);
+        seatedReservations.add(res);
     }
 
     public void createReservation(String name, int partySize, int phoneNumber){

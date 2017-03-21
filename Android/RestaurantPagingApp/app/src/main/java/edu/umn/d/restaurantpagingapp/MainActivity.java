@@ -27,9 +27,9 @@ public class MainActivity extends AppCompatActivity implements ModelViewPresente
 
         setupModelViewPresenterComponents();
         ListView waitingList = (ListView) findViewById(R.id.waitingList);
+        waitingListAdapter = new ArrayAdapter<String>(this, R.layout.row);
         waitingList.setAdapter(waitingListAdapter);
         waitingList.setChoiceMode(AbsListView.CHOICE_MODE_SINGLE);
-        waitingListAdapter = new ArrayAdapter<String>(this, R.layout.row);
 
 
         // Waiting list listener
@@ -40,9 +40,9 @@ public class MainActivity extends AppCompatActivity implements ModelViewPresente
         });
 
         ListView seatedList = (ListView) findViewById(R.id.seatedList);
-        seatedList.setAdapter(waitingListAdapter);
-        seatedList.setChoiceMode(AbsListView.CHOICE_MODE_SINGLE);
         seatedListAdapter = new ArrayAdapter<String>(this, R.layout.row);
+        seatedList.setAdapter(seatedListAdapter);
+        seatedList.setChoiceMode(AbsListView.CHOICE_MODE_SINGLE);
 
         // Seated list listener
         seatedList.setOnItemClickListener(new AdapterView.OnItemClickListener(){
@@ -75,15 +75,33 @@ public class MainActivity extends AppCompatActivity implements ModelViewPresente
         mPresenter = new RPAPresenter(this);
     }
 
+    public void moveToSeated(View view){
+        ListView waitingList = (ListView) findViewById(R.id.waitingList);
+        mPresenter.moveToSeated(waitingList.getCheckedItemPosition());
+        Log.d("list",String.valueOf(waitingList.getCheckedItemPosition()));
+    }
+
     @Override
     public void notifyCustomerListUpdated() {
 
         List reservationData = mPresenter.getReservation();
         reservationData.toString();
         waitingListAdapter.clear();
+
         for (Object obj : reservationData){
             Reservation res = (Reservation) obj;
             waitingListAdapter.add(res.toString());
+        }
+
+
+        // Seated update
+        List seatedData = mPresenter.getSeated();
+        seatedData.toString();
+        seatedListAdapter.clear();
+
+        for (Object obj : seatedData){
+            Reservation res = (Reservation) obj;
+            seatedListAdapter.add(res.toString());
         }
 
     }
