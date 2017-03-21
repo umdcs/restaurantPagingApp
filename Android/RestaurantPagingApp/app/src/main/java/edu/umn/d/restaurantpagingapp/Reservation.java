@@ -16,6 +16,10 @@ public class Reservation {
         this.phoneNumber = phoneNumber;
     }
 
+    public String toString(){
+        return this.name + " " + Integer.valueOf(this.partySize) + " " + Integer.valueOf(phoneNumber);
+    }
+
     public void setName(String name){
         this.name = name;
     }

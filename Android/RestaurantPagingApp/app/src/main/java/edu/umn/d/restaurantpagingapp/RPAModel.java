@@ -24,11 +24,19 @@ public class RPAModel implements ModelViewPresenterComponents.Model {
         return waitingReservations;
     }
 
+    public List getSeatedReservations() {return seatedReservations;}
+
     public void addReservation(Reservation reservation){
         waitingReservations.add(reservation);
     }
 
+    public void moveToSeated(int index){
+        Reservation res = (Reservation)waitingReservations.remove(index);
+        seatedReservations.add(res);
+    }
+
     public void createReservation(String name, int partySize, String phoneNumber){
+        
         Reservation res = new Reservation(name,partySize,phoneNumber);
         waitingReservations.add(res);
 
