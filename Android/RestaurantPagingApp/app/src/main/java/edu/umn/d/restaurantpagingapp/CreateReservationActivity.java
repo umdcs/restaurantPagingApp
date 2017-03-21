@@ -35,6 +35,7 @@ public class CreateReservationActivity extends AppCompatActivity {
             intent.putExtra("Party size", 0);
         }
         intent.putExtra("Phone number", phoneNumEditText.getText().toString());
+        intent.putExtra("Time", calendar.get(Calendar.HOUR)+":"+calendar.get(Calendar.MINUTE));
 
         //Finish activity and send info back to main activity
         setResult(Activity.RESULT_OK, intent);

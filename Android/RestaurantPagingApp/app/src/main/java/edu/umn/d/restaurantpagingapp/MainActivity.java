@@ -63,9 +63,10 @@ public class MainActivity extends AppCompatActivity implements ModelViewPresente
         String name = intent.getStringExtra("Name");
         int partySize = intent.getIntExtra("Party size", 0);
         String phoneNum = intent.getStringExtra("Phone number");
+        String time = intent.getStringExtra("Time");
 
         //Create the reservation
-        mPresenter.clickCreateReservation(name, partySize, phoneNum);
+        mPresenter.clickCreateReservation(name, partySize, phoneNum, time);
     }
 
     /**
