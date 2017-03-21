@@ -38,12 +38,21 @@
         android:onClick="onClickCreateReservation" />
 
     <Button
-        android:text="Button"
+        android:text="To Seated"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/textView"
         android:layout_alignLeft="@+id/makeReservation"
         android:layout_alignStart="@+id/makeReservation"
         android:layout_marginTop="146dp"
-        android:id="@+id/button2" />
+        android:id="@+id/moveToSeated"
+        android:onClick="moveToSeated" />
+
+    <Button
+        android:text="To Waiting"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/moveToWaiting"
+        android:layout_centerVertical="true"
+        android:layout_alignLeft="@+id/moveToSeated"
+        android:layout_alignStart="@+id/moveToSeated" />
 </RelativeLayout>

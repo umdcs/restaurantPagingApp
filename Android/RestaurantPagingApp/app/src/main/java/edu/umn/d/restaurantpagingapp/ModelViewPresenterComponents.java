@@ -28,8 +28,9 @@ public interface ModelViewPresenterComponents{
         // - in this way, the views communicate data entered by the user
         //   to be sent to the master list
         void clickCreateReservation(final String name, final int partySize, final int arrivalTime);
-
+        void moveToSeated(int pos);
         List getReservation();
+        List getAllSeated();
     }
 
     /** Model Operations
@@ -39,7 +40,10 @@ public interface ModelViewPresenterComponents{
     interface Model
     {
         List getAllReservations();
+        List getAllSeated();
         void createReservation(String name, int partySize, int phoneNumber);
         void addReservation(Reservation reservation);
+        void moveToSeated(int pos);
+
     }
 }

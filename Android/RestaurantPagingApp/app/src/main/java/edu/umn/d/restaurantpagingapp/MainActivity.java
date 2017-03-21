@@ -26,10 +26,11 @@ public class MainActivity extends AppCompatActivity implements ModelViewPresente
         setContentView(R.layout.activity_main);
 
         setupModelViewPresenterComponents();
-        ListView waitingList = (ListView) findViewById(R.id.waitingList);
+        final ListView waitingList = (ListView) findViewById(R.id.waitingList);
+        waitingListAdapter = new ArrayAdapter<String>(this, R.layout.row);
         waitingList.setAdapter(waitingListAdapter);
         waitingList.setChoiceMode(AbsListView.CHOICE_MODE_SINGLE);
-        waitingListAdapter = new ArrayAdapter<String>(this, R.layout.row);
+
 
 
         // Waiting list listener
@@ -39,10 +40,12 @@ public class MainActivity extends AppCompatActivity implements ModelViewPresente
             }
         });
 
+
         ListView seatedList = (ListView) findViewById(R.id.seatedList);
-        seatedList.setAdapter(waitingListAdapter);
-        seatedList.setChoiceMode(AbsListView.CHOICE_MODE_SINGLE);
         seatedListAdapter = new ArrayAdapter<String>(this, R.layout.row);
+        seatedList.setAdapter(seatedListAdapter);
+        seatedList.setChoiceMode(AbsListView.CHOICE_MODE_SINGLE);
+
 
         // Seated list listener
         seatedList.setOnItemClickListener(new AdapterView.OnItemClickListener(){
@@ -54,7 +57,13 @@ public class MainActivity extends AppCompatActivity implements ModelViewPresente
 
     }
 
-    public void onClickSwitchView(View view) {
+    public void moveToSeated(View view) {
+        ListView waitingList = (ListView) findViewById(R.id.waitingList);
+        int index = waitingList.getSelectedItemPosition();
+        mPresenter.moveToSeated(index);
+    }
+
+    public void moveToWaiting(View view) {
         //Intent intent = new Intent(this, );
         //startActivity(intent);
     }
@@ -84,6 +93,14 @@ public class MainActivity extends AppCompatActivity implements ModelViewPresente
         for (Object obj : reservationData){
             Reservation res = (Reservation) obj;
             waitingListAdapter.add(res.toString());
+        }
+
+        List seatedReservations = mPresenter.getAllSeated();
+        seatedReservations.toString();
+        seatedListAdapter.clear();
+        for (Object obj : seatedReservations){
+            Reservation res = (Reservation) obj;
+            seatedListAdapter.add(res.toString());
         }
 
     }

@@ -29,6 +29,16 @@ public class RPAPresenter implements ModelViewPresenterComponents.RPAPresenterCo
 
     }
 
+    public List getAllSeated(){
+        return mModel.getAllSeated();
+    }
+
+    public void moveToSeated(int position){
+        mModel.moveToSeated(position);
+        mView.notifyCustomerListUpdated();
+
+    }
+
     // When the view receives input from the user (after the createReservation button is clicked,
     // this will be called by the view to relay the user data here.  Once here, it can
     // be checked and potentially sent on to the model.

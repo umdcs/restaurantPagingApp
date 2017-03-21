@@ -22,6 +22,8 @@ public class RPAModel implements ModelViewPresenterComponents.Model {
         return waitingReservations;
     }
 
+    public List getAllSeated() {return seatedReservations;}
+
     public void addReservation(Reservation reservation){
 
     }
@@ -31,6 +33,15 @@ public class RPAModel implements ModelViewPresenterComponents.Model {
         waitingReservations.add(res);
 
         Log.d("Resrevation","Created reservation");
+
+    }
+
+    public void moveToSeated(int position){
+        Object res = waitingReservations.remove(position);
+        seatedReservations.add(res);
+        Reservation reservation = (Reservation) res;
+        Log.d("Obj", reservation.toString());
+        Log.d("Res", seatedReservations.toString());
 
     }
 
