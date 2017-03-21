@@ -29,7 +29,7 @@ var app = express();
 
 /* Set the port in the app system
  */
-app.set("port", 80);
+app.set("port", 4531);
 
 // The next two sections tell bodyParser which content types to
 // parse. We are mainly interested in JSON, ut eventually, encoded,
