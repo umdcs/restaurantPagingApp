@@ -10,7 +10,7 @@ public class Reservation {
 
     }
 
-    public Reservation(String name, int partySize, int phoneNumber){
+    public Reservation(String name, int partySize, String phoneNumber){
         this.name = name;
         this.partySize = partySize;
         this.phoneNumber = phoneNumber;
@@ -36,15 +36,15 @@ public class Reservation {
         return partySize;
     }
 
-    public void setPhoneNumber(int phoneNumber){
+    public void setPhoneNumber(String phoneNumber){
         this.phoneNumber = phoneNumber;
     }
 
-    public int getPhoneNumber(){
+    public String getPhoneNumber(){
         return phoneNumber;
     }
 
     private String name;
     private int partySize;
-    private int phoneNumber;
+    private String phoneNumber;
 }

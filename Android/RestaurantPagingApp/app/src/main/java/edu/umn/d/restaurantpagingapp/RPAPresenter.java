@@ -15,6 +15,8 @@ public class RPAPresenter implements ModelViewPresenterComponents.RPAPresenterCo
     private ModelViewPresenterComponents.Model mModel;
     private ModelViewPresenterComponents.View mView;
 
+
+
     public RPAPresenter(ModelViewPresenterComponents.View rpaView)
     {
         mView = rpaView;
@@ -42,8 +44,8 @@ public class RPAPresenter implements ModelViewPresenterComponents.RPAPresenterCo
     // this will be called by the view to relay the user data here.  Once here, it can
     // be checked and potentially sent on to the model.
     @Override
-    public void clickCreateReservation(String name, int partySize, int arrivalTime) {
-        mModel.createReservation(name,partySize,arrivalTime);
+    public void clickCreateReservation(String name, int partySize, String phoneNum) {
+        mModel.createReservation(name,partySize,phoneNum);
         mView.notifyCustomerListUpdated();
     }
 }
