@@ -18,7 +18,6 @@ public class RPAModel implements ModelViewPresenterComponents.Model {
      */
     public RPAModel(ModelViewPresenterComponents.RPAPresenterContract presenter){
         this.presenter = presenter;
-        this.createReservationPresenter = new CreateReservationPresenter(this);
     }
 
     public List getAllReservations(){
@@ -38,7 +37,6 @@ public class RPAModel implements ModelViewPresenterComponents.Model {
     }
 
     ModelViewPresenterComponents.RPAPresenterContract presenter;
-    private CreateReservationPresenter createReservationPresenter;
     List waitingReservations = new ArrayList();
     List seatedReservations = new ArrayList();
 }
