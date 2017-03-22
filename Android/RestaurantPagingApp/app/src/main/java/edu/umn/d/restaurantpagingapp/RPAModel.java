@@ -32,9 +32,9 @@ public class RPAModel implements ModelViewPresenterComponents.Model {
     }
 
 
-    public void createReservation(String name, int partySize, String phoneNumber){
+    public void createReservation(String name, int partySize, String phoneNumber, String time){
         
-        Reservation res = new Reservation(name,partySize,phoneNumber);
+        Reservation res = new Reservation(name,partySize,phoneNumber,time);
         waitingReservations.add(res);
 
         Log.d("Resrevation","Created reservation");

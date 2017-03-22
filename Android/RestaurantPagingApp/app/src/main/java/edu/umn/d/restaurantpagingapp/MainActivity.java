@@ -1,5 +1,6 @@
 package edu.umn.d.restaurantpagingapp;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -62,13 +63,40 @@ public class MainActivity extends AppCompatActivity implements ModelViewPresente
 
 
     /**
+     * Automatically called when an activity started with startActvitiyForResult is finished.
+     * @param requestCode   The number given in startActivityForResult
+     * @param resultCode    A code indicating how getting the result went. Activity.RESULT_OK for good result.
+     * @param intent    An intent carrying any data that is supposed to come back.
+     */
+    protected void onActivityResult(int requestCode, int resultCode, Intent intent ){
+
+        if (resultCode == Activity.RESULT_OK) {
+            //Get information from the intent created in the create reservation activity
+            String name = intent.getStringExtra("Name");
+            int partySize = intent.getIntExtra("Party size", 0);
+            String phoneNum = intent.getStringExtra("Phone number");
+            String time = intent.getStringExtra("Time");
+
+            //Create the reservation
+            mPresenter.clickCreateReservation(name, partySize, phoneNum, time);
+        }
+        else if (resultCode == Activity.RESULT_CANCELED) {
+
+        }
+    }
+
+
+    /**
      * Called when the user clicks the createReservation button
      */
     public void onClickCreateReservation(View view) {
+
+
         // Provide this information to the Presenter
         Intent intent = new Intent(this, CreateReservationActivity.class);
         startActivityForResult(intent, 1);
     }
+
 
     /**
      * Initalize the MVP components
@@ -123,34 +151,6 @@ public class MainActivity extends AppCompatActivity implements ModelViewPresente
             Reservation res = (Reservation) obj;
             seatedListAdapter.add(res.toString());
         }
-
-    }
-
-    /**
-     * Automatically called when an activity started with startActvitiyForResult is finished.
-     * @param requestCode   The number given in startActivityForResult
-     * @param resultCode    A code indicating how getting the result went. Activity.RESULT_OK for good result.
-     * @param intent    An intent carrying any data that is supposed to come back.
-     */
-    protected void onActivityResult(int requestCode, int resultCode, Intent intent ){
-        String name = intent.getStringExtra("Name");
-        int partySize = intent.getIntExtra("Party size", 0);
-        String phoneNum = intent.getStringExtra("Phone number");
-        mPresenter.clickCreateReservation(name, partySize, phoneNum);
-        ListView waitingList = (ListView) findViewById(R.id.waitingList);
-        int index = waitingListAdapter.getSelectedPosition();
-        Object obj = waitingList.getItemAtPosition(index);
-        if (obj != null){
-            Log.d("String?",waitingList.getItemAtPosition(index).toString());
-            Log.d("String??",waitingList.getItemAtPosition(index).getClass().toString());
-        }
-        else{
-            Log.d("String?","null");
-        }
-        /*TextView textView = (TextView)waitingList.getItemAtPosition(index);
-        if(textView != null){
-            textView.requestFocusFromTouch();
-        }*/
 
     }
 

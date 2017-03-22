@@ -47,13 +47,14 @@
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:inputType="text"
+        android:inputType="number"
         android:ems="10"
         android:id="@+id/phoneNumEditTest"
         android:hint="Enter phone number"
         android:layout_below="@+id/phoneNumLabel"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:maxLength="10" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -98,5 +99,23 @@
         android:layout_toRightOf="@+id/partySizeLabel"
         android:layout_toEndOf="@+id/partySizeLabel"
         android:onClick="onClickCreateReservation" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/title"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/enterInfoMessage"
+        android:textColor="@color/Red"/>
+
+    <Button
+        android:text="Cancel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/createReservationButton"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"
+        android:id="@+id/cancelButton"
+        android:onClick="onClickCancel"/>
 
 </RelativeLayout>
