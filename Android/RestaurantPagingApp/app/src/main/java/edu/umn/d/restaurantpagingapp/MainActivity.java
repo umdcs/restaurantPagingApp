@@ -1,5 +1,6 @@
 package edu.umn.d.restaurantpagingapp;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -59,14 +60,19 @@ public class MainActivity extends AppCompatActivity implements ModelViewPresente
      */
     protected void onActivityResult(int requestCode, int resultCode, Intent intent ){
 
-        //Get information from the intent created in the create reservation activity
-        String name = intent.getStringExtra("Name");
-        int partySize = intent.getIntExtra("Party size", 0);
-        String phoneNum = intent.getStringExtra("Phone number");
-        String time = intent.getStringExtra("Time");
+        if (resultCode == Activity.RESULT_OK) {
+            //Get information from the intent created in the create reservation activity
+            String name = intent.getStringExtra("Name");
+            int partySize = intent.getIntExtra("Party size", 0);
+            String phoneNum = intent.getStringExtra("Phone number");
+            String time = intent.getStringExtra("Time");
 
-        //Create the reservation
-        mPresenter.clickCreateReservation(name, partySize, phoneNum, time);
+            //Create the reservation
+            mPresenter.clickCreateReservation(name, partySize, phoneNum, time);
+        }
+        else if (resultCode == Activity.RESULT_CANCELED) {
+
+        }
     }
 
     /**

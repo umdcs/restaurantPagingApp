@@ -108,4 +108,14 @@
         android:id="@+id/enterInfoMessage"
         android:textColor="@color/Red"/>
 
+    <Button
+        android:text="Cancel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/createReservationButton"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"
+        android:id="@+id/cancelButton"
+        android:onClick="onClickCancel"/>
+
 </RelativeLayout>

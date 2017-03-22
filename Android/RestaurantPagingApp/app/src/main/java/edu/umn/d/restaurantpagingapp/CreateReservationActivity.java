@@ -20,8 +20,6 @@ public class CreateReservationActivity extends AppCompatActivity {
 
     public void onClickCreateReservation(View view){
 
-
-
         //Grab the edit texts
         EditText nameEditText = (EditText) findViewById(R.id.nameEditText);
         EditText partySizeEditText = (EditText) findViewById(R.id.partySizeEditText);
@@ -53,6 +51,11 @@ public class CreateReservationActivity extends AppCompatActivity {
             setResult(Activity.RESULT_OK, intent);
             finish();
         }
+    }
+
+    public void onClickCancel(View view){
+        setResult(Activity.RESULT_CANCELED);
+        finish();
     }
 
     //Helper method creates the time string
