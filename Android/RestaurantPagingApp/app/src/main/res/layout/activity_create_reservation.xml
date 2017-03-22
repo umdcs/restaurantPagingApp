@@ -99,4 +99,12 @@
         android:layout_toEndOf="@+id/partySizeLabel"
         android:onClick="onClickCreateReservation" />
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/title"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/enterInfoMessage"
+        android:textColor="@color/Red"/>
+
 </RelativeLayout>

@@ -14,7 +14,7 @@ public class Reservation {
     }
 
     public String toString(){
-        return this.name + "/n" + Integer.valueOf(this.partySize) + "/n" + Integer.valueOf(phoneNumber) + "/n" + this.time;
+        return "Name: " + this.name + "\nParty Size: " + Integer.valueOf(this.partySize) + "\nPhone Number:" + this.phoneNumber + "\n" + this.time;
     }
 
     public void setName(String name){
