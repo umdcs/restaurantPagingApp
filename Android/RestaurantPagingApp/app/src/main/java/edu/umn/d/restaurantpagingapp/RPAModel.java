@@ -24,23 +24,29 @@ public class RPAModel implements ModelViewPresenterComponents.Model {
         return waitingReservations;
     }
 
+
     public List getSeatedReservations() {return seatedReservations;}
 
     public void addReservation(Reservation reservation){
         waitingReservations.add(reservation);
     }
 
-    public void moveToSeated(int index){
-        Reservation res = (Reservation)waitingReservations.remove(index);
-        seatedReservations.add(res);
-    }
 
-    public void createReservation(String name, int partySize, String phoneNumber){
+    public void createReservation(String name, int partySize, String phoneNumber, String time){
         
-        Reservation res = new Reservation(name,partySize,phoneNumber);
+        Reservation res = new Reservation(name,partySize,phoneNumber,time);
         waitingReservations.add(res);
 
         Log.d("Resrevation","Created reservation");
+
+    }
+
+    public void moveToSeated(int position){
+        Object res = waitingReservations.remove(position);
+        seatedReservations.add(res);
+        Reservation reservation = (Reservation) res;
+        Log.d("Obj", reservation.toString());
+        Log.d("Res", seatedReservations.toString());
 
     }
 
