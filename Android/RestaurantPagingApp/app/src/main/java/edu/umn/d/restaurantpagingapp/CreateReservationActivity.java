@@ -28,24 +28,30 @@ public class CreateReservationActivity extends AppCompatActivity {
         EditText phoneNumEditText = (EditText) findViewById(R.id.phoneNumEditTest);
 
         //Check to see that all information is entered
-        if (!nameEditText.getText().toString().equals("") && !partySizeEditText.getText().toString().equals("") && !phoneNumEditText.getText().toString().equals("")) {
+        if (nameEditText.getText().toString().equals("") || partySizeEditText.getText().toString().equals("") || phoneNumEditText.getText().toString().equals("")) {
+
+            //Display message indicating that more info is needed
+            TextView enterInfoMessage = (TextView) findViewById(R.id.enterInfoMessage);
+            enterInfoMessage.setText("Please enter all information.");
+        }
+        else if (phoneNumEditText.getText().toString().length() < 10) {
+
+            //Display message indicating that an invalid phone number was entered
+            TextView enterInfoMessage = (TextView) findViewById(R.id.enterInfoMessage);
+            enterInfoMessage.setText("Please enter a valid phone number.");
+        }
+        else {
 
             //Create an intent with reservation information
             Intent intent = new Intent();
             intent.putExtra("Name", nameEditText.getText().toString());
             intent.putExtra("Party size", Integer.valueOf(partySizeEditText.getText().toString()));
-            intent.putExtra("Phone number", phoneNumEditText.getText().toString());
+            intent.putExtra("Phone number", phoneNumber(phoneNumEditText));
             intent.putExtra("Time", time());
 
             //Finish activity and send info back to main activity
             setResult(Activity.RESULT_OK, intent);
             finish();
-        }
-        else {
-
-            //Display message indicating that more info is needed
-            TextView enterInfoMessage = (TextView) findViewById(R.id.enterInfoMessage);
-            enterInfoMessage.setText("Please enter all information.");
         }
     }
 
@@ -70,6 +76,13 @@ public class CreateReservationActivity extends AppCompatActivity {
         }
 
         return time;
+    }
+
+    //Helper method creates phone number String
+    public String phoneNumber(EditText phoneNumEditText){
+        char[] phoneNumArray = phoneNumEditText.getText().toString().toCharArray();
+        String phoneNum = "(" + phoneNumArray[0] + phoneNumArray[1] + phoneNumArray[2] + ")" + phoneNumArray[3] + phoneNumArray[4] + phoneNumArray[5] + "-" + phoneNumArray[6] + phoneNumArray[7] + phoneNumArray[8] + phoneNumArray[9];
+        return phoneNum;
     }
 
 }
