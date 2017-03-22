@@ -46,6 +46,7 @@
         android:layout_marginTop="146dp"
         android:id="@+id/moveToSeated"
         android:onClick="moveToSeated" />
+<<<<<<< HEAD
 
     <Button
         android:text="To Waiting"
@@ -55,4 +56,6 @@
         android:layout_centerVertical="true"
         android:layout_alignLeft="@+id/moveToSeated"
         android:layout_alignStart="@+id/moveToSeated" />
+=======
+>>>>>>> 8399e1e85cb71aa913642f528239ae4d45818250
 </RelativeLayout>
