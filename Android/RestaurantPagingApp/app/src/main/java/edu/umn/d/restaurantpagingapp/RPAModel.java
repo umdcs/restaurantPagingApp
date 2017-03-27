@@ -41,6 +41,10 @@ public class RPAModel implements ModelViewPresenterComponents.Model {
 
     }
 
+    public void deleteReservation(int index){
+        waitingReservations.remove(index);
+    }
+
     public void moveToSeated(int position){
         Object res = waitingReservations.remove(position);
         seatedReservations.add(res);

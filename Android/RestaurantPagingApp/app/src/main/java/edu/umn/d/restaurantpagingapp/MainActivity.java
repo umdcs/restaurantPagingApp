@@ -33,24 +33,32 @@ public class MainActivity extends AppCompatActivity implements ModelViewPresente
         ListView waitingList = (ListView) findViewById(R.id.waitingList);
         waitingListAdapter = new SelectableAdapter(this, R.layout.row);
         waitingList.setAdapter(waitingListAdapter);
-        waitingList.setChoiceMode(AbsListView.CHOICE_MODE_SINGLE);
 
 
-        // Waiting list listener
+        // Waiting list listeners
         waitingList.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             public void onItemClick(AdapterView<?> parent, View view, int position, long id){
-                view.setSelected(true);
                 waitingListAdapter.setSelectedPosition(position);
                 Log.d("listener",String.valueOf(position));
             }
         });
+
+        waitingList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                Log.d("Pos",String.valueOf(position));
+                mPresenter.deleteReservation(position);
+                return false;
+            }
+        });
+
+
 
 
         ListView seatedList = (ListView) findViewById(R.id.seatedList);
 
         seatedListAdapter = new SelectableAdapter(this, R.layout.row);
         seatedList.setAdapter(seatedListAdapter);
-        seatedList.setChoiceMode(AbsListView.CHOICE_MODE_SINGLE);
 
         // Seated list listener
         seatedList.setOnItemClickListener(new AdapterView.OnItemClickListener(){
@@ -84,7 +92,6 @@ public class MainActivity extends AppCompatActivity implements ModelViewPresente
 
         }
     }
-
 
     /**
      * Called when the user clicks the createReservation button
@@ -120,7 +127,7 @@ public class MainActivity extends AppCompatActivity implements ModelViewPresente
             updateListSelections();
         }
         else{
-            Log.d("ERROR", "ARRAY INDEX OUT OF BOUNDS IN moveToSeated in MainActivity");
+            Log.d("ERROR", "ARRAY INDEX OUT OF BOUNDS IN moveToSeated in MainActivity array is of length " + waitingList.getCount()+ " got index of "+ index);
         }
 
     }
@@ -156,7 +163,7 @@ public class MainActivity extends AppCompatActivity implements ModelViewPresente
 
 
     /**
-     * Private helper method to update the selections in the listviews.
+     * Private helper method to update the selected list element in the listviews.
      */
     private void updateListSelections(){
         ListView waitingList = (ListView) findViewById(R.id.waitingList);

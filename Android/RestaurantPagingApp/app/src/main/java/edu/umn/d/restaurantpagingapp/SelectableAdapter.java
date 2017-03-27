@@ -1,6 +1,7 @@
 package edu.umn.d.restaurantpagingapp;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -57,14 +58,20 @@ public class SelectableAdapter extends ArrayAdapter {
 
 
         TextView textView = (TextView)convertView.findViewById(R.id.rowTextView);
-
+        /*textView.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                Log.d("Long click","Long click");
+                return false;
+            }
+        });*/
         textView.setText(this.getItem(position).toString());
         if(position != -1 && position == selectedPos){
 
-            textView.setBackgroundColor(context.getResources().getColor(R.color.colorPrimaryDark));
+            textView.setBackgroundColor(context.getResources().getColor(R.color.colorPurple));
         }
         else{
-            textView.setBackgroundColor(context.getResources().getColor(R.color.colorPrimary));
+            textView.setBackgroundColor(context.getResources().getColor(R.color.colorRed));
 
         }
         return convertView;

@@ -31,6 +31,10 @@ public class RPAPresenter implements ModelViewPresenterComponents.RPAPresenterCo
 
     }
 
+    public void deleteReservation(int index){
+        mModel.deleteReservation(index);
+        mView.notifyCustomerListUpdated();
+    }
 
     public List getSeated(){
         return mModel.getSeatedReservations();
