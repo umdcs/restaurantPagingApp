@@ -41,6 +41,14 @@ public class RPAModel implements ModelViewPresenterComponents.Model {
 
     }
 
+    public void editReservation(int index, String name, int partySize, String phoneNumber){
+        Reservation res = (Reservation)waitingReservations.remove(index);
+        res.setName(name);
+        res.setPartySize(partySize);
+        res.setPhoneNumber(phoneNumber);
+        waitingReservations.add(index, res);
+    }
+
     public void deleteReservation(int index){
         waitingReservations.remove(index);
     }

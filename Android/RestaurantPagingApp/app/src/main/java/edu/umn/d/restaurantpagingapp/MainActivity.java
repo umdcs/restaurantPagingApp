@@ -20,14 +20,13 @@ import android.widget.ListView;
 
 import java.util.List;
 
-import static edu.umn.d.restaurantpagingapp.R.id.edit;
-import static edu.umn.d.restaurantpagingapp.R.id.waitingList;
-
 public class MainActivity extends AppCompatActivity implements ModelViewPresenterComponents.View {
 
     private ModelViewPresenterComponents.RPAPresenterContract mPresenter;
     private SelectableAdapter waitingListAdapter;
     private SelectableAdapter seatedListAdapter;
+
+    private int editedPosition;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -95,6 +94,8 @@ public class MainActivity extends AppCompatActivity implements ModelViewPresente
         switch(item.getItemId()){
             case R.id.edit:
                 Log.d("Edit","Open editor");
+                editedPosition = arrayAdapterPosition;
+
                 Intent intent = new Intent(this, CreateReservationActivity.class);
                 ListView waitingList = (ListView)findViewById(R.id.waitingList);
                 Reservation res = (Reservation)waitingList.getItemAtPosition(arrayAdapterPosition);
@@ -119,19 +120,27 @@ public class MainActivity extends AppCompatActivity implements ModelViewPresente
      * @param intent    An intent carrying any data that is supposed to come back.
      */
     protected void onActivityResult(int requestCode, int resultCode, Intent intent ){
+        if(requestCode == 1) {
 
-        if (resultCode == Activity.RESULT_OK) {
-            //Get information from the intent created in the create reservation activity
+            if (resultCode == Activity.RESULT_OK) {
+                //Get information from the intent created in the create reservation activity
+                String name = intent.getStringExtra("Name");
+                int partySize = intent.getIntExtra("Party size", 0);
+                String phoneNum = intent.getStringExtra("Phone number");
+                String time = intent.getStringExtra("Time");
+
+                //Create the reservation
+                mPresenter.clickCreateReservation(name, partySize, phoneNum, time);
+            } else if (resultCode == Activity.RESULT_CANCELED) {
+
+            }
+        }
+        else if(requestCode == 2){
             String name = intent.getStringExtra("Name");
             int partySize = intent.getIntExtra("Party size", 0);
             String phoneNum = intent.getStringExtra("Phone number");
             String time = intent.getStringExtra("Time");
-
-            //Create the reservation
-            mPresenter.clickCreateReservation(name, partySize, phoneNum, time);
-        }
-        else if (resultCode == Activity.RESULT_CANCELED) {
-
+            mPresenter.editReservation(editedPosition,name,partySize,phoneNum);
         }
     }
 
@@ -201,6 +210,7 @@ public class MainActivity extends AppCompatActivity implements ModelViewPresente
             Reservation res = (Reservation) obj;
             seatedListAdapter.add(res);
         }
+        updateListSelections();
 
     }
 

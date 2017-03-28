@@ -34,6 +34,7 @@ public interface ModelViewPresenterComponents{
         List getSeated();
         List getReservation();
         void deleteReservation(int index);
+        void editReservation(int index, String name, int partySize, String phoneNumber);
     }
 
     /** Model Operations
@@ -48,6 +49,7 @@ public interface ModelViewPresenterComponents{
         List getSeatedReservations();
         void moveToSeated(int index);
         void addReservation(Reservation reservation);
+        void editReservation(int index, String name, int partySize, String phoneNumber);
 
     }
 }
