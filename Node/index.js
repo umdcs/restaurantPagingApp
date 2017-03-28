@@ -10,6 +10,14 @@
  * request/repsonse sequences simpler
  */
 var express = require('express');
+var http = require('http');
+
+
+//Socket.io allows for netowrk streaming between connected clients.
+// It's a convenient way to broadcast data to specific clients and also implement real-time
+//services such as chat.
+
+var socket.io = require('socket.io');
 
 
 // Body Parser - body parser is a convenient piece of "middleware"
@@ -27,6 +35,8 @@ var bodyParser = require('body-parser');
  */
 var app = express();
 
+
+var httpServerRef = http.createServer(app);
 /* Set the port in the app system
  */
 app.set("port", 4531);
@@ -39,6 +49,43 @@ app.use(bodyParser.urlencoded({   // support encoded bodies
 		}));
 app.use(bodyParser.json());  // support json encoded bodies
 
+//Start the app and let it listen for connections
+httpServerRef.listen(app.get("port"), function () {
+	console.log('Node app listening on port: ', app.get("port"));
+    });
+
+//
+// This is the main Socket.io handler.  When data is emitted to our
+// server, this connection handler will respond with a socket
+// connection. The networkIORef is the listening socket. When it
+// receives a network connection, a new socket (argument of inline
+// function below) will be created to process the network data that
+// was emitted from a client.
+//
+networkIORef.on('connection', function(socket) {
+	console.log('user connected');
+	
+// At this point, the socket connection has been made.  We now
+// need to process the type of message that was sent. This is
+// somewhat similar to how routes are processed with express.  We
+// give a name, in this case, "log message" when we emit data (see
+// below in the POST route handler). When a "log message" packet
+// comes in, this function processes it but 
+
+// if we get a log message, we blindly emit it to all of the
+// connected clients that have made connections to our server.
+//
+// Note that in this index.js file, no HTTP "connections" are
+// made.  To see how we connect a client, check the baseHTML.html
+// file that we send back on the Default GET route (below).
+// 
+	socket.on('log message', function(msg){
+		networkIORef.emit('log message', msg);
+	    });
+	socket.on('disconnect', function(){
+		console.log('user now disconnected');
+	    });
+    });
 var reservationList = {
     reservationArray : []
 };
@@ -95,27 +142,38 @@ app.get('/', function(request, response) {
 
 /* GET - retrieves data from server */
 app.get('/getData', function (request, response) {
-	response.writeHead(200,{'Content-Type': 'text/html'});
-	response.write(JSON.stringify(reservationList));
-	response.end();
-	console.log('GET REQUEST: ReservationList');
+	res.sendFile(__dirname + '/baseHTML.html');
     });
 
 /* POST - sends data to server */
-app.post('/postData', function (request, response) {
+app.post('/api/exportData', function (request, response) {
 
 	/* If for some reason, the JSON isn't parsed due to error, return a HTTP ERROR
 	 * 400 - in other words, if there is no body
 	 */
 	if (!request.body) return response.sendStatus(400);
 
-	/* Otherwise, get the data out and do something with it */
-	var name = req.body.name;
-	var descr = req.body.description;
-	var enable = req.body.enable;
+	// Get a timestamp that we can use to seeing ordered log messages
+	var timestamp = new Date().valueOf();
 
-	console.log('   name=', name, ', description=', descr, ', enable=', enable);
-    });
+	// In this example, I'm just iterating over all of the JSON
+	// elements in the REQUEST body to write to a "log" message.
+	var logstr = '';
+	for(var elemName in req.body) {
+	    logstr = logstr + "[" + elemName + ": " + req.body[elemName] + "] ";
+	}
+
+	// With the log message data, EMIT a network packet to our
+	// socket.io network reference - this will send a packet with the
+	// string (the second argument below) to our socket.io
+	// connection. See the connection handler above for what happens
+	// when the server receives this data.
+	networkIORef.emit('log message', timestamp + ': Received /api/exportData POST' + logstr);
+
+	// Finally, send a status RESPONSE back letting the client know
+	// the POST succeeded.
+	res.status(200).send('OK');
+    })
 
 /* PUT - sends data to server */
 app.put('/putData', function (request, response) {
