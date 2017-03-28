@@ -21,6 +21,7 @@ import android.widget.ListView;
 import java.util.List;
 
 import static edu.umn.d.restaurantpagingapp.R.id.edit;
+import static edu.umn.d.restaurantpagingapp.R.id.waitingList;
 
 public class MainActivity extends AppCompatActivity implements ModelViewPresenterComponents.View {
 
@@ -83,8 +84,8 @@ public class MainActivity extends AppCompatActivity implements ModelViewPresente
 
     /**
      * Called automatically when a context menu item is selected.
-     * @param item
-     * @return
+     * @param item The menu item that was selected.
+     * @return I think this determines whether the click event is consumed or not.
      */
     public boolean onContextItemSelected(MenuItem item){
         Log.d("Context",String.valueOf(item.getClass()));
@@ -94,6 +95,14 @@ public class MainActivity extends AppCompatActivity implements ModelViewPresente
         switch(item.getItemId()){
             case R.id.edit:
                 Log.d("Edit","Open editor");
+                Intent intent = new Intent(this, CreateReservationActivity.class);
+                ListView waitingList = (ListView)findViewById(R.id.waitingList);
+                Reservation res = (Reservation)waitingList.getItemAtPosition(arrayAdapterPosition);
+                intent.putExtra("Name",res.getName());
+                intent.putExtra("Party Size",String.valueOf(res.getPartySize()));
+                intent.putExtra("Phone Number",res.getPhoneNumber());
+
+                startActivityForResult(intent, 2);
                 break;
             case R.id.delete:
                 Log.d("Delete","Deleted");
@@ -134,6 +143,9 @@ public class MainActivity extends AppCompatActivity implements ModelViewPresente
 
         // Provide this information to the Presenter
         Intent intent = new Intent(this, CreateReservationActivity.class);
+        intent.putExtra("Name","");
+        intent.putExtra("Party Size","");
+        intent.putExtra("Phone Number","");
         startActivityForResult(intent, 1);
     }
 
