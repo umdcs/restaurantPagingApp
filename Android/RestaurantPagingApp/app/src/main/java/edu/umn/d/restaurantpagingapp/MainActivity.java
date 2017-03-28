@@ -1,10 +1,14 @@
 package edu.umn.d.restaurantpagingapp;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.ContextMenu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
@@ -15,6 +19,8 @@ import android.widget.TextView;
 import android.widget.ListView;
 
 import java.util.List;
+
+import static edu.umn.d.restaurantpagingapp.R.id.edit;
 
 public class MainActivity extends AppCompatActivity implements ModelViewPresenterComponents.View {
 
@@ -30,7 +36,9 @@ public class MainActivity extends AppCompatActivity implements ModelViewPresente
 
 
 
+
         ListView waitingList = (ListView) findViewById(R.id.waitingList);
+        registerForContextMenu(waitingList);
         waitingListAdapter = new SelectableAdapter(this, R.layout.row);
         waitingList.setAdapter(waitingListAdapter);
 
@@ -40,15 +48,6 @@ public class MainActivity extends AppCompatActivity implements ModelViewPresente
             public void onItemClick(AdapterView<?> parent, View view, int position, long id){
                 waitingListAdapter.setSelectedPosition(position);
                 Log.d("listener",String.valueOf(position));
-            }
-        });
-
-        waitingList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-            @Override
-            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                Log.d("Pos",String.valueOf(position));
-                mPresenter.deleteReservation(position);
-                return false;
             }
         });
 
@@ -69,6 +68,40 @@ public class MainActivity extends AppCompatActivity implements ModelViewPresente
         });
     }
 
+    /**
+     * Called automatically when a context menu is created.
+     * @param menu
+     * @param v
+     * @param menuInfo
+     */
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo){
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.context_menu, menu);
+
+
+    }
+
+    /**
+     * Called automatically when a context menu item is selected.
+     * @param item
+     * @return
+     */
+    public boolean onContextItemSelected(MenuItem item){
+        Log.d("Context",String.valueOf(item.getClass()));
+        AdapterView.AdapterContextMenuInfo menuInfo = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+        int arrayAdapterPosition = menuInfo.position;
+
+        switch(item.getItemId()){
+            case R.id.edit:
+                Log.d("Edit","Open editor");
+                break;
+            case R.id.delete:
+                Log.d("Delete","Deleted");
+                mPresenter.deleteReservation(arrayAdapterPosition);
+                break;
+        }
+        return true;
+    }
 
     /**
      * Automatically called when an activity started with startActvitiyForResult is finished.
@@ -139,24 +172,22 @@ public class MainActivity extends AppCompatActivity implements ModelViewPresente
     public void notifyCustomerListUpdated() {
 
         List reservationData = mPresenter.getReservation();
-        reservationData.toString();
         waitingListAdapter.clear();
 
         for (Object obj : reservationData){
             Reservation res = (Reservation) obj;
-            waitingListAdapter.add(res.toString());
+            waitingListAdapter.add(res);
         }
 
 
 
         // Seated update
         List seatedData = mPresenter.getSeated();
-        seatedData.toString();
         seatedListAdapter.clear();
 
         for (Object obj : seatedData){
             Reservation res = (Reservation) obj;
-            seatedListAdapter.add(res.toString());
+            seatedListAdapter.add(res);
         }
 
     }

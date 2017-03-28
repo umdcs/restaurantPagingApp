@@ -66,6 +66,7 @@ public class SelectableAdapter extends ArrayAdapter {
             }
         });*/
         textView.setText(this.getItem(position).toString());
+        
         if(position != -1 && position == selectedPos){
 
             textView.setBackgroundColor(context.getResources().getColor(R.color.colorPurple));
