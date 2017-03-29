@@ -3,6 +3,7 @@ package edu.umn.d.restaurantpagingapp;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -18,13 +19,14 @@ import android.widget.ListAdapter;
 import android.widget.TextView;
 import android.widget.ListView;
 
+import java.nio.channels.Selector;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements ModelViewPresenterComponents.View {
 
     private ModelViewPresenterComponents.RPAPresenterContract mPresenter;
-    private SelectableAdapter waitingListAdapter;
-    private SelectableAdapter seatedListAdapter;
+    private ArrayAdapter waitingListAdapter;
+    private ArrayAdapter seatedListAdapter;
 
     private int editedPosition;
     @Override
@@ -33,39 +35,18 @@ public class MainActivity extends AppCompatActivity implements ModelViewPresente
         setContentView(R.layout.activity_main);
 
         setupModelViewPresenterComponents();
+        
 
-
-
-
-        ListView waitingList = (ListView) findViewById(R.id.waitingList);
+        final ListView waitingList = (ListView) findViewById(R.id.waitingList);
         registerForContextMenu(waitingList);
-        waitingListAdapter = new SelectableAdapter(this, R.layout.row);
+        waitingListAdapter = new ArrayAdapter(this, R.layout.row);
         waitingList.setAdapter(waitingListAdapter);
-
-
-        // Waiting list listeners
-        waitingList.setOnItemClickListener(new AdapterView.OnItemClickListener(){
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id){
-                waitingListAdapter.setSelectedPosition(position);
-                Log.d("listener",String.valueOf(position));
-            }
-        });
-
-
-
 
         ListView seatedList = (ListView) findViewById(R.id.seatedList);
 
-        seatedListAdapter = new SelectableAdapter(this, R.layout.row);
+        seatedListAdapter = new ArrayAdapter(this, R.layout.row);
         seatedList.setAdapter(seatedListAdapter);
 
-        // Seated list listener
-        seatedList.setOnItemClickListener(new AdapterView.OnItemClickListener(){
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id){
-                seatedListAdapter.setSelectedPosition(position);
-                Log.d("listener",String.valueOf(position));
-            }
-        });
     }
 
     /**
@@ -87,7 +68,6 @@ public class MainActivity extends AppCompatActivity implements ModelViewPresente
      * @return I think this determines whether the click event is consumed or not.
      */
     public boolean onContextItemSelected(MenuItem item){
-        Log.d("Context",String.valueOf(item.getClass()));
         AdapterView.AdapterContextMenuInfo menuInfo = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
         int arrayAdapterPosition = menuInfo.position;
 
@@ -128,6 +108,10 @@ public class MainActivity extends AppCompatActivity implements ModelViewPresente
                 int partySize = intent.getIntExtra("Party size", 0);
                 String phoneNum = intent.getStringExtra("Phone number");
                 String time = intent.getStringExtra("Time");
+                ListView waitingList = (ListView) findViewById(R.id.waitingList);
+                waitingList.setSelection(-1);
+                waitingList.setItemChecked(-1,false);
+                waitingList.clearChoices();
 
                 //Create the reservation
                 mPresenter.clickCreateReservation(name, partySize, phoneNum, time);
@@ -173,17 +157,22 @@ public class MainActivity extends AppCompatActivity implements ModelViewPresente
      * @param view View is the view that this listener is linked to. Button in this case.
      */
     public void moveToSeated(View view){
+
         ListView waitingList = (ListView) findViewById(R.id.waitingList);
         int index = waitingList.getCheckedItemPosition();
         if (index >= 0 && index < waitingList.getCount()){
             Log.d("index",String.valueOf(index));
             mPresenter.moveToSeated(index);
-            updateListSelections();
         }
         else{
             Log.d("ERROR", "ARRAY INDEX OUT OF BOUNDS IN moveToSeated in MainActivity array is of length " + waitingList.getCount()+ " got index of "+ index);
         }
 
+    }
+
+    @Override
+    public void addReservationToList(Reservation reservation){
+        waitingListAdapter.add(reservation);
     }
 
     /**
@@ -210,23 +199,6 @@ public class MainActivity extends AppCompatActivity implements ModelViewPresente
             Reservation res = (Reservation) obj;
             seatedListAdapter.add(res);
         }
-        updateListSelections();
 
     }
-
-
-    /**
-     * Private helper method to update the selected list element in the listviews.
-     */
-    private void updateListSelections(){
-        ListView waitingList = (ListView) findViewById(R.id.waitingList);
-        waitingList.clearChoices();
-        waitingList.setAdapter(waitingList.getAdapter());   // This is a workaround to reset the choices.
-
-        ListView seatedList = (ListView) findViewById(R.id.seatedList);
-        seatedList.clearChoices();
-        seatedList.setAdapter(seatedList.getAdapter());   // This is a workaround to reset the choices.
-    }
-
-
 }

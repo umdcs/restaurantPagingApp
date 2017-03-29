@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.List;
@@ -66,7 +67,9 @@ public class SelectableAdapter extends ArrayAdapter {
             }
         });*/
         textView.setText(this.getItem(position).toString());
+        ListView listView = (ListView)parent;
 
+        Log.d("Selectable",String.valueOf(listView));
         if(position != -1 && position == selectedPos){
             textView.setBackgroundColor(context.getResources().getColor(R.color.colorPurple));
         }

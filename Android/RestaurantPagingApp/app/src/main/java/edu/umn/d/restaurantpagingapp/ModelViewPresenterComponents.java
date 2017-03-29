@@ -14,6 +14,7 @@ public interface ModelViewPresenterComponents{
     // View
     interface View
     {
+        void addReservationToList(Reservation reservation);
         void notifyCustomerListUpdated();
     }
 
@@ -45,7 +46,7 @@ public interface ModelViewPresenterComponents{
     {
         List getAllReservations();
         void deleteReservation(int index);
-        void createReservation(String name, int partySize, String phoneNumber, String time);
+        Reservation createReservation(String name, int partySize, String phoneNumber, String time);
         List getSeatedReservations();
         void moveToSeated(int index);
         void addReservation(Reservation reservation);

@@ -55,7 +55,7 @@ public class RPAPresenter implements ModelViewPresenterComponents.RPAPresenterCo
     // be checked and potentially sent on to the model.
     @Override
     public void clickCreateReservation(String name, int partySize, String phoneNum, String time) {
-        mModel.createReservation(name,partySize,phoneNum,time);
+        Reservation reservation = mModel.createReservation(name,partySize,phoneNum,time);
         mView.notifyCustomerListUpdated();
     }
 }
