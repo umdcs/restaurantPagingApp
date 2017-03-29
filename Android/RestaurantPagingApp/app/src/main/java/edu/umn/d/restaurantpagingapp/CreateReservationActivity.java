@@ -44,7 +44,7 @@ public class CreateReservationActivity extends AppCompatActivity {
             Intent intent = new Intent();
             intent.putExtra("Name", nameEditText.getText().toString());
             intent.putExtra("Party size", Integer.valueOf(partySizeEditText.getText().toString()));
-            intent.putExtra("Phone number", phoneNumber(phoneNumEditText));
+            intent.putExtra("Phone number", phoneNumEditText.getText().toString());
             intent.putExtra("Time", time());
 
             //Finish activity and send info back to main activity
@@ -79,13 +79,6 @@ public class CreateReservationActivity extends AppCompatActivity {
         }
 
         return time;
-    }
-
-    //Helper method creates phone number String
-    public String phoneNumber(EditText phoneNumEditText){
-        char[] phoneNumArray = phoneNumEditText.getText().toString().toCharArray();
-        String phoneNum = "(" + phoneNumArray[0] + phoneNumArray[1] + phoneNumArray[2] + ")" + phoneNumArray[3] + phoneNumArray[4] + phoneNumArray[5] + "-" + phoneNumArray[6] + phoneNumArray[7] + phoneNumArray[8] + phoneNumArray[9];
-        return phoneNum;
     }
 
 }
