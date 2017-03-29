@@ -31,11 +31,11 @@ public interface ModelViewPresenterComponents{
 
 
         void clickCreateReservation(final String name, final int partySize, final String phoneNumber, final String time);
-        void moveToSeated(int index);
-        List getSeated();
-        List getReservation();
-        void deleteReservation(int index);
-        void editReservation(int index, String name, int partySize, String phoneNumber);
+        void moveReservation(int index, String list);
+        List getReservations(String list);
+        Reservation getReservation(int index, String list);
+        void deleteReservation(int index,String list);
+        void editReservation(int index, String name, int partySize, String phoneNumber,String list);
     }
 
     /** Model Operations
@@ -44,13 +44,18 @@ public interface ModelViewPresenterComponents{
      */
     interface Model
     {
-        List getAllReservations();
-        void deleteReservation(int index);
-        Reservation createReservation(String name, int partySize, String phoneNumber, String time);
+        List getReservations();
         List getSeatedReservations();
+        Reservation getReservation(int index);
+        Reservation getSeatedReservation(int index);
+        void deleteReservation(int index);
+        void deleteSeatedReservation(int index);
         void moveToSeated(int index);
-        void addReservation(Reservation reservation);
+        void moveToMaster(int index);
         void editReservation(int index, String name, int partySize, String phoneNumber);
+        void editSeatedReservation(int index, String name, int partySize, String phoneNumber);
+        Reservation createReservation(String name, int partySize, String phoneNumber, String time);
+
 
     }
 }

@@ -13,6 +13,7 @@ public class Reservation {
         this.partySize = partySize;
         this.phoneNumber = phoneNumber;
         this.time = time;
+        this.waiting = true;
     }
 
     public String toString(){
@@ -58,4 +59,5 @@ public class Reservation {
     private int partySize;
     private String phoneNumber;
     private final String time;
+    private boolean waiting;
 }

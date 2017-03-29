@@ -42,8 +42,8 @@ public class MainActivity extends AppCompatActivity implements ModelViewPresente
         waitingListAdapter = new ArrayAdapter(this, R.layout.row);
         waitingList.setAdapter(waitingListAdapter);
 
-        ListView seatedList = (ListView) findViewById(R.id.seatedList);
-
+        final ListView seatedList = (ListView) findViewById(R.id.seatedList);
+        registerForContextMenu(seatedList);
         seatedListAdapter = new ArrayAdapter(this, R.layout.row);
         seatedList.setAdapter(seatedListAdapter);
 
@@ -70,27 +70,40 @@ public class MainActivity extends AppCompatActivity implements ModelViewPresente
     public boolean onContextItemSelected(MenuItem item){
         AdapterView.AdapterContextMenuInfo menuInfo = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
         int arrayAdapterPosition = menuInfo.position;
-
+        ListView listView = (ListView)menuInfo.targetView.getParent();
+        ListView seatedList = (ListView)findViewById(R.id.seatedList);
+        ListView waitingList = (ListView)findViewById(R.id.waitingList);
+        String list;
+        int requestCode;
+        if(listView.equals(seatedList)){
+            list = "seated";
+            requestCode = 3;
+        }
+        else{
+            list = "master";
+            requestCode = 2;
+        }
+        Log.d("List",list);
+        Log.d("requestcode",String.valueOf(requestCode));
         switch(item.getItemId()){
             case R.id.edit:
                 Log.d("Edit","Open editor");
                 editedPosition = arrayAdapterPosition;
 
                 Intent intent = new Intent(this, CreateReservationActivity.class);
-                ListView waitingList = (ListView)findViewById(R.id.waitingList);
-                Reservation res = (Reservation)waitingList.getItemAtPosition(arrayAdapterPosition);
+                Reservation res = mPresenter.getReservation(arrayAdapterPosition,list);
                 intent.putExtra("Name",res.getName());
                 intent.putExtra("Party Size",String.valueOf(res.getPartySize()));
                 intent.putExtra("Phone Number",res.getPhoneNumber());
 
-                startActivityForResult(intent, 2);
+                startActivityForResult(intent, requestCode);
                 break;
             case R.id.delete:
                 Log.d("Delete","Deleted");
-                mPresenter.deleteReservation(arrayAdapterPosition);
+                mPresenter.deleteReservation(arrayAdapterPosition,list);
                 break;
         }
-        return true;
+        return true;    // This consumes the long click or whatever input made this call.
     }
 
     /**
@@ -124,7 +137,14 @@ public class MainActivity extends AppCompatActivity implements ModelViewPresente
             int partySize = intent.getIntExtra("Party size", 0);
             String phoneNum = intent.getStringExtra("Phone number");
             String time = intent.getStringExtra("Time");
-            mPresenter.editReservation(editedPosition,name,partySize,phoneNum);
+            mPresenter.editReservation(editedPosition,name,partySize,phoneNum,"master");
+        }
+        else if(requestCode == 3){
+            String name = intent.getStringExtra("Name");
+            int partySize = intent.getIntExtra("Party size", 0);
+            String phoneNum = intent.getStringExtra("Phone number");
+            String time = intent.getStringExtra("Time");
+            mPresenter.editReservation(editedPosition,name,partySize,phoneNum,"seated");
         }
     }
 
@@ -159,10 +179,14 @@ public class MainActivity extends AppCompatActivity implements ModelViewPresente
     public void moveToSeated(View view){
 
         ListView waitingList = (ListView) findViewById(R.id.waitingList);
+        ListView seatedList = (ListView) findViewById(R.id.seatedList);
+
         int index = waitingList.getCheckedItemPosition();
+        Log.d("Seated",String.valueOf(seatedList.getCheckedItemPosition()));
+        seatedList.setItemChecked(0,false); // This makes it so the item doesn't start selected when it ends up on the seated list. I think this is a workaround and might reflect an overarching bug.
         if (index >= 0 && index < waitingList.getCount()){
             Log.d("index",String.valueOf(index));
-            mPresenter.moveToSeated(index);
+            mPresenter.moveReservation(index,"master");
         }
         else{
             Log.d("ERROR", "ARRAY INDEX OUT OF BOUNDS IN moveToSeated in MainActivity array is of length " + waitingList.getCount()+ " got index of "+ index);
@@ -170,6 +194,10 @@ public class MainActivity extends AppCompatActivity implements ModelViewPresente
 
     }
 
+    /**
+     * Adds a reservation to the end of the waitingListAdapter and therefore the waitingList
+     * @param reservation   The reservation to add to the list.
+     */
     @Override
     public void addReservationToList(Reservation reservation){
         waitingListAdapter.add(reservation);
@@ -181,7 +209,7 @@ public class MainActivity extends AppCompatActivity implements ModelViewPresente
     @Override
     public void notifyCustomerListUpdated() {
 
-        List reservationData = mPresenter.getReservation();
+        List reservationData = mPresenter.getReservations("master");
         waitingListAdapter.clear();
 
         for (Object obj : reservationData){
@@ -192,7 +220,7 @@ public class MainActivity extends AppCompatActivity implements ModelViewPresente
 
 
         // Seated update
-        List seatedData = mPresenter.getSeated();
+        List seatedData = mPresenter.getReservations("seated");
         seatedListAdapter.clear();
 
         for (Object obj : seatedData){

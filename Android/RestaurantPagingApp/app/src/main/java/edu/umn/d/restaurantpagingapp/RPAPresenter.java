@@ -23,31 +23,77 @@ public class RPAPresenter implements ModelViewPresenterComponents.RPAPresenterCo
         mModel = new RPAModel(this);
     }
 
+    public Reservation getReservation(int index, String list){
+        Reservation reservation;
+        switch (list){
+            case "seated":
+                reservation = mModel.getSeatedReservation(index);
+                break;
+            default:
+                reservation = mModel.getReservation(index);
+                break;
+        }
+        return reservation;
+    }
+
     // setting up recycler adapter
     @Override
-    public List getReservation()
+    public List getReservations(String list)
     {
-        return mModel.getAllReservations();
+        List returnedList;
+        switch (list){
+            case "seated":
+                returnedList = mModel.getSeatedReservations();
+                break;
+            default:
+                returnedList = mModel.getReservations();
+                break;
+        }
+        return returnedList;
+    }
+
+    public void deleteReservation(int index, String list){
+        switch (list){
+            case "seated":
+                mModel.deleteSeatedReservation(index);
+                mView.notifyCustomerListUpdated();
+                break;
+            case "master":
+                mModel.deleteReservation(index);
+                mView.notifyCustomerListUpdated();
+                break;
+        }
 
     }
 
-    public void deleteReservation(int index){
-        mModel.deleteReservation(index);
-        mView.notifyCustomerListUpdated();
+
+    public void moveReservation(int index, String from){
+        switch (from){
+            case "master":
+                mModel.moveToSeated(index);
+                mView.notifyCustomerListUpdated();
+                break;
+            case "seated":
+                mModel.moveToMaster(index);
+                mView.notifyCustomerListUpdated();
+                break;
+        }
     }
 
-    public List getSeated(){
-        return mModel.getSeatedReservations();
-    }
+    public void editReservation(int index, String name, int partySize, String phoneNumber, String list){
+        switch (list){
+            case "master":
+                mModel.editReservation(index,name,partySize,phoneNumber);
+                mView.notifyCustomerListUpdated();
+                break;
 
-    public void moveToSeated(int index){
-        mModel.moveToSeated(index);
-        mView.notifyCustomerListUpdated();
-    }
+            case "seated":
+                mModel.editSeatedReservation(index,name,partySize,phoneNumber);
+                mView.notifyCustomerListUpdated();
+                break;
 
-    public void editReservation(int index, String name, int partySize, String phoneNumber){
-        mModel.editReservation(index,name,partySize,phoneNumber);
-        mView.notifyCustomerListUpdated();
+        }
+
     }
 
     // When the view receives input from the user (after the createReservation button is clicked,
@@ -56,7 +102,7 @@ public class RPAPresenter implements ModelViewPresenterComponents.RPAPresenterCo
     @Override
     public void clickCreateReservation(String name, int partySize, String phoneNum, String time) {
         Reservation reservation = mModel.createReservation(name,partySize,phoneNum,time);
-        mView.notifyCustomerListUpdated();
+        mView.addReservationToList(reservation);
     }
 }
 

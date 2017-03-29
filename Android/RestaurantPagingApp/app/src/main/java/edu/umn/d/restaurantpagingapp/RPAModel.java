@@ -20,16 +20,18 @@ public class RPAModel implements ModelViewPresenterComponents.Model {
         this.presenter = presenter;
     }
 
-    public List getAllReservations(){
+    public Reservation getReservation(int index){return (Reservation)waitingReservations.get(index);}
+
+    public Reservation getSeatedReservation(int index){return (Reservation)seatedReservations.get(index);}
+
+    public List getReservations(){
         return waitingReservations;
     }
 
 
     public List getSeatedReservations() {return seatedReservations;}
 
-    public void addReservation(Reservation reservation){
-        waitingReservations.add(reservation);
-    }
+
 
 
     public Reservation createReservation(String name, int partySize, String phoneNumber, String time){
@@ -50,16 +52,33 @@ public class RPAModel implements ModelViewPresenterComponents.Model {
         waitingReservations.add(index, res);
     }
 
+    public void editSeatedReservation(int index, String name, int partySize, String phoneNumber){
+        Reservation res = (Reservation)seatedReservations.remove(index);
+        res.setName(name);
+        res.setPartySize(partySize);
+        res.setPhoneNumber(phoneNumber);
+        seatedReservations.add(index, res);
+    }
+
     public void deleteReservation(int index){
         waitingReservations.remove(index);
+    }
+
+    public void deleteSeatedReservation(int index){
+        seatedReservations.remove(index);
     }
 
     public void moveToSeated(int position){
         Object res = waitingReservations.remove(position);
         seatedReservations.add(res);
         Reservation reservation = (Reservation) res;
-        Log.d("Obj", reservation.toString());
-        Log.d("Res", seatedReservations.toString());
+
+    }
+
+    public void moveToMaster(int position){
+        Object res = seatedReservations.remove(position);
+        waitingReservations.add(res);
+        Reservation reservation = (Reservation) res;
 
     }
 
