@@ -1,5 +1,7 @@
 package edu.umn.d.restaurantpagingapp;
 
+import com.google.gson.Gson;
+
 /**
  * Created by tinar on 3/15/2017.
  */
@@ -46,8 +48,13 @@ public class Reservation {
         return time;
     }
 
+    public String getJson() {
+        return gson.toJson(this);
+    }
+
     private String name;
     private int partySize;
     private String phoneNumber;
     private final String time;
+    private final Gson gson = new Gson();
 }
