@@ -75,13 +75,14 @@ public class MainActivity extends AppCompatActivity implements ModelViewPresente
         ListView waitingList = (ListView)findViewById(R.id.waitingList);
         String list;
         int requestCode;
-        if(listView.equals(seatedList)){
-            list = "seated";
-            requestCode = 3;
-        }
-        else{
+        if(listView.equals(waitingList)){   // Check which list the view is from.
             list = "master";
             requestCode = 2;
+        }
+        else{
+
+            list = "seated";
+            requestCode = 3;
         }
         Log.d("List",list);
         Log.d("requestcode",String.valueOf(requestCode));

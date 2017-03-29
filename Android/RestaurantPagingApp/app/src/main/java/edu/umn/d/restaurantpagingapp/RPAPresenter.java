@@ -16,13 +16,22 @@ public class RPAPresenter implements ModelViewPresenterComponents.RPAPresenterCo
     private ModelViewPresenterComponents.View mView;
 
 
-
+    /**
+     * Constructor
+     * @param rpaView The view that this presenter is presenting for
+     */
     public RPAPresenter(ModelViewPresenterComponents.View rpaView)
     {
         mView = rpaView;
         mModel = new RPAModel(this);
     }
 
+    /**
+     * Get a single reservation from a list.
+     * @param index Index indicating which element to get
+     * @param list  Which list to get from
+     * @return  A reservation at the specified index
+     */
     public Reservation getReservation(int index, String list){
         Reservation reservation;
         switch (list){
@@ -36,7 +45,11 @@ public class RPAPresenter implements ModelViewPresenterComponents.RPAPresenterCo
         return reservation;
     }
 
-    // setting up recycler adapter
+    /**
+     * Get all the reservations of one of the lists
+     * @param list  Which list to get reservations from
+     * @return  A list containing all the reservations in one of the lists
+     */
     @Override
     public List getReservations(String list)
     {
@@ -52,6 +65,11 @@ public class RPAPresenter implements ModelViewPresenterComponents.RPAPresenterCo
         return returnedList;
     }
 
+    /**
+     * Deletes a reservation from a list
+     * @param index Index of the reservation to delete
+     * @param list  Which list to delete from
+     */
     public void deleteReservation(int index, String list){
         switch (list){
             case "seated":
@@ -66,7 +84,11 @@ public class RPAPresenter implements ModelViewPresenterComponents.RPAPresenterCo
 
     }
 
-
+    /**
+     * Move a reservation from one list to another
+     * @param index Index of the reservation to move.
+     * @param from  Which list to move from
+     */
     public void moveReservation(int index, String from){
         switch (from){
             case "master":
@@ -80,6 +102,14 @@ public class RPAPresenter implements ModelViewPresenterComponents.RPAPresenterCo
         }
     }
 
+    /**
+     * Edit a reservation in the model.
+     * @param index The index of the element in the list
+     * @param name  The new name on the reservation
+     * @param partySize The new party size on the reservation
+     * @param phoneNumber   The new phone number on the reservation
+     * @param list  A string determining which list to edit from
+     */
     public void editReservation(int index, String name, int partySize, String phoneNumber, String list){
         switch (list){
             case "master":
