@@ -17,6 +17,7 @@ public class Reservation {
 
         // TESTING SMS!!!!!!!!!!!!!
         SmsManager.getDefault().sendTextMessage(this.phoneNumber,null,"Testing SMS",null,null);
+
     }
 
     public String toString(){
