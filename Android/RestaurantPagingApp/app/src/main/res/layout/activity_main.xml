@@ -10,6 +10,7 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="edu.umn.d.restaurantpagingapp.MainActivity">
 
+
     <ListView
         android:layout_height="match_parent"
         android:choiceMode="singleChoice"
@@ -18,24 +19,10 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_width="150dp"
-        android:id="@+id/waitingList" />
-
-    <ListView
-        android:layout_height="match_parent"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_width="150dp"
-        android:id="@+id/seatedList" />
-
-    <Button
-        android:text="Make Res"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/makeReservation"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:onClick="onClickCreateReservation" />
+        android:id="@+id/waitingList"
+        android:divider="@drawable/listdivider"
+        android:background="@drawable/listdivider"
+        android:dividerHeight="2px"/>
 
     <Button
         android:text="To Seated"
@@ -45,6 +32,28 @@
         android:layout_alignStart="@+id/makeReservation"
         android:layout_marginTop="146dp"
         android:id="@+id/moveToSeated"
-        android:onClick="moveToSeated" />
+        android:onClick="moveToSeated"
+        android:background="@drawable/listdivider"/>
+
+    <ListView
+        android:layout_height="match_parent"
+        android:layout_width="150dp"
+        android:id="@+id/seatedList"
+        android:divider="@drawable/listdivider"
+        android:dividerHeight="2px"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:background="@drawable/listdivider"/>
+
+    <Button
+        android:text="Make Res"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/makeReservation"
+        android:onClick="onClickCreateReservation"
+        android:background="@drawable/listdivider"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>
