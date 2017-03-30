@@ -16,7 +16,7 @@ public class Reservation {
         this.time = time;
 
         // TESTING SMS!!!!!!!!!!!!!
-        SmsManager.getDefault().sendTextMessage(this.phoneNumber,null,"Testing SMS",null,null);
+        //SmsManager.getDefault().sendTextMessage(this.phoneNumber,null,"Testing SMS",null,null);
 
     }
 

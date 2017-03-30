@@ -100,7 +100,7 @@ public class MainActivity extends AppCompatActivity implements ModelViewPresente
                 }
             }
         }
-
+    }
 
 
     /**
@@ -153,6 +153,7 @@ public class MainActivity extends AppCompatActivity implements ModelViewPresente
      * @param view View is the view that this listener is linked to. Button in this case.
      */
     public void moveToSeated(View view){
+        sendSMSMessage();
         ListView waitingList = (ListView) findViewById(R.id.waitingList);
         int index = waitingList.getCheckedItemPosition();
         if (index >= 0 && index < waitingList.getCount()){
