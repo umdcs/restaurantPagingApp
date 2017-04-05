@@ -31,6 +31,7 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity implements ModelViewPresenterComponents.View {
     private String phoneNo= "7632583591";
     private String message = "Hello Melissa!";
+    private String version = "0.1.0";
     private ModelViewPresenterComponents.RPAPresenterContract mPresenter;
     private ArrayAdapter waitingListAdapter;
     private ArrayAdapter seatedListAdapter;
