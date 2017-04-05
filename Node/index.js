@@ -9,16 +9,15 @@
 /* Express provides a framework that makes handling HTTP
  * request/repsonse sequences simpler
  */
+// Express provides a framework that makes handling HTTP
+// request/repsonse sequences simpler
 var express = require('express');
 var http = require('http');
 
-
-//Socket.io allows for netowrk streaming between connected clients.
-// It's a convenient way to broadcast data to specific clients and also implement real-time
-//services such as chat.
-
-var socket.io = require('socket.io');
-
+// Socket.io allows for network streaming between connected
+// clients. It's a convenient way to broadcast data to specific
+// clients and also implement real-time services, such as chat
+var socketio = require('socket.io');
 
 // Body Parser - body parser is a convenient piece of "middleware"
 // that parses the incoming body of the HTTP request before your route
@@ -30,16 +29,22 @@ var socket.io = require('socket.io');
 // you can access its value with req.body.name.
 var bodyParser = require('body-parser');
 
+// The main instanced class, called app will be initialized by express
+var app = express()
 
-/* The main instanced class, called app will be initialized by express
- */
-var app = express();
-
-
+// Much of the Socket.io use in this example is derived from
+//   https://socket.io/get-started/chat/
+//
+// First, we need to get create a HTTP server using the Express app
+// reference.
 var httpServerRef = http.createServer(app);
-/* Set the port in the app system
- */
-app.set("port", 4531);
+
+// At this point, we can create a reference for listening to network
+// communications with socket.io
+var networkIORef = socketio.listen(httpServerRef);
+
+// Set the port in the app system
+app.set("port", 16081);
 
 // The next two sections tell bodyParser which content types to
 // parse. We are mainly interested in JSON, ut eventually, encoded,
