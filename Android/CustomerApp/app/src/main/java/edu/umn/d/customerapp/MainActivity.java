@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
         startActivityForResult(intent, 1);
     }
 
-    protected void onActivityResult(int requestCode, int resultCode, Intent intent ){
+    protected void onActivityResult(int requestCode, int resultCode, Intent intent){
         if(requestCode == 1) {
 
             if (resultCode == Activity.RESULT_OK) {
@@ -42,6 +42,8 @@ public class MainActivity extends AppCompatActivity {
                 TextView reservationTextView = (TextView) findViewById(R.id.reservationTextView);
                 if (mPresenter.getReservation() != null) {
                     reservationTextView.setText(mPresenter.getReservation().toString());
+                    TextView message = (TextView)findViewById(R.id.textView3);
+                    message.setText("My Reservation");
                 }
             }
         }

@@ -8,19 +8,14 @@ import java.util.List;
  * Created by tinar on 4/4/2017.
  */
 
-public class RPAPresenter {
+public class RPAPresenter{
     // presenter needs to talk with this model
     private RPAModel mModel;
     private View mView;
 
-
-    /**
-     * Constructor
-     * @param rpaView The view that this presenter is presenting for
-     */
-    public RPAPresenter(View rpaView)
+    public RPAPresenter(Object view)
     {
-        mView = rpaView;
+        mView = (View)view;
         mModel = new RPAModel(this);
     }
 
