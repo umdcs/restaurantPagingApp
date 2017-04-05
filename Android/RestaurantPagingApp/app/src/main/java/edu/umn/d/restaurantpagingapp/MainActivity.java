@@ -29,8 +29,8 @@ import java.nio.channels.Selector;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements ModelViewPresenterComponents.View {
-    private String phoneNo= "6128340520";
-    private String message = "Hello Tina!";
+    private String phoneNo= "7632583591";
+    private String message = "Hello Melissa!";
     private ModelViewPresenterComponents.RPAPresenterContract mPresenter;
     private ArrayAdapter waitingListAdapter;
     private ArrayAdapter seatedListAdapter;
@@ -126,6 +126,19 @@ public class MainActivity extends AppCompatActivity implements ModelViewPresente
                         1);
             }
         }
+        else{
+            sendText();
+        }
+    }
+
+    private void sendText(){
+        SmsManager smsManager = SmsManager.getDefault();
+        smsManager.sendTextMessage(phoneNo, null, message, null, null);
+        Toast.makeText(getApplicationContext(), "SMS sent.",
+                Toast.LENGTH_LONG).show();
+
+        return;
+
     }
 
     @Override
@@ -155,38 +168,40 @@ public class MainActivity extends AppCompatActivity implements ModelViewPresente
      * @param intent    An intent carrying any data that is supposed to come back.
      */
     protected void onActivityResult(int requestCode, int resultCode, Intent intent ){
-        if(requestCode == 1) {
+        if(resultCode == Activity.RESULT_OK) {
 
-            if (resultCode == Activity.RESULT_OK) {
-                //Get information from the intent created in the create reservation activity
-                String name = intent.getStringExtra("Name");
-                int partySize = intent.getIntExtra("Party size", 0);
-                String phoneNum = intent.getStringExtra("Phone number");
-                String time = intent.getStringExtra("Time");
-                ListView waitingList = (ListView) findViewById(R.id.waitingList);
-                waitingList.setSelection(-1);
-                waitingList.setItemChecked(-1,false);
-                waitingList.clearChoices();
 
-                //Create the reservation
-                mPresenter.clickCreateReservation(name, partySize, phoneNum, time);
+            if (requestCode == 1) {
+                if (resultCode == Activity.RESULT_OK) {
+                    //Get information from the intent created in the create reservation activity
+                    String name = intent.getStringExtra("Name");
+                    int partySize = intent.getIntExtra("Party size", 0);
+                    String phoneNum = intent.getStringExtra("Phone number");
+                    String time = intent.getStringExtra("Time");
+                    ListView waitingList = (ListView) findViewById(R.id.waitingList);
+                    waitingList.setSelection(-1);
+                    waitingList.setItemChecked(-1, false);
+                    waitingList.clearChoices();
+
+                    //Create the reservation
+                    mPresenter.clickCreateReservation(name, partySize, phoneNum, time);
+
+                } else if (requestCode == 2) {
+                    String name = intent.getStringExtra("Name");
+                    int partySize = intent.getIntExtra("Party size", 0);
+                    String phoneNum = intent.getStringExtra("Phone number");
+                    String time = intent.getStringExtra("Time");
+                    mPresenter.editReservation(editedPosition, name, partySize, phoneNum, "master");
+                } else if (requestCode == 3) {
+                    String name = intent.getStringExtra("Name");
+                    int partySize = intent.getIntExtra("Party size", 0);
+                    String phoneNum = intent.getStringExtra("Phone number");
+                    String time = intent.getStringExtra("Time");
+                    mPresenter.editReservation(editedPosition, name, partySize, phoneNum, "seated");
+                }
             } else if (resultCode == Activity.RESULT_CANCELED) {
 
             }
-        }
-        else if(requestCode == 2){
-            String name = intent.getStringExtra("Name");
-            int partySize = intent.getIntExtra("Party size", 0);
-            String phoneNum = intent.getStringExtra("Phone number");
-            String time = intent.getStringExtra("Time");
-            mPresenter.editReservation(editedPosition,name,partySize,phoneNum,"master");
-        }
-        else if(requestCode == 3){
-            String name = intent.getStringExtra("Name");
-            int partySize = intent.getIntExtra("Party size", 0);
-            String phoneNum = intent.getStringExtra("Phone number");
-            String time = intent.getStringExtra("Time");
-            mPresenter.editReservation(editedPosition,name,partySize,phoneNum,"seated");
         }
     }
 
