@@ -18,6 +18,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import android.view.View;
 
 /**
  * HTTPAsyncTask for managing HTTP messages in a separate thread
@@ -160,5 +161,63 @@ class HTTPAsyncTask extends AsyncTask<String, Integer, String> {
         } catch (JSONException e) {
             e.printStackTrace();
         }
+    }
+
+
+
+
+    /**
+     * Acts as the onClick callback for the REST GET Button. The code will generate a REST GET
+     * action to the REST Server.
+     *
+     * @param view
+     */
+    public void restGET(View view) {
+        new HTTPAsyncTask().execute("http://10.0.2.2:16081/reservation", "GET");
+    }
+
+    /**
+     * Acts as the onClick callback for the REST POST Button. The code will generate a REST POST
+     * action to the REST Server.
+     *
+     * @param view
+     */
+    public void restPOST(View view) {
+
+        JSONObject jsonParam = null;
+        try {
+            //Create JSONObject here
+            jsonParam = new JSONObject();
+            jsonParam.put("reservation", 12.323f );
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        Log.d("DEBUG:", jsonParam.toString());
+        new HTTPAsyncTask().execute("http://10.0.2.2:16081/reservation", "POST", jsonParam.toString());
+    }
+
+    /**
+     * Acts as the onClick callback for the REST PUT Button. The code will generate a REST PUT
+     * action to the REST Server.
+     *
+     * @param view
+     */
+    public void restPUT(View view) {
+
+        JSONObject jsonParam = null;
+        Log.d("DEBUG [PUT]:", jsonParam.toString());
+        new HTTPAsyncTask().execute("http://10.0.2.2:16081/userData", "PUT", jsonParam.toString());
+    }
+
+    /**
+     * Acts as the onClick callback for the REST DELETE Button. The code will generate a REST DELETE
+     * action to the REST Server.
+     *
+     * @param view
+     */
+    public void restDELETE(View view) {
+
+        JSONObject jsonParam = null;
+        new HTTPAsyncTask().execute("http://10.0.2.2:16081/userData", "DELETE", jsonParam.toString());
     }
 }
