@@ -6,7 +6,7 @@ import java.util.Comparator;
  * Created by tinar on 3/15/2017.
  */
 
-public class Reservation implements Comparable<Reservation>, Comparator<Reservation> {
+public class Reservation implements Comparable<Reservation> {
 
     public Reservation(String name, int partySize, String phoneNumber, String time){
         this.name = name;
@@ -53,10 +53,26 @@ public class Reservation implements Comparable<Reservation>, Comparator<Reservat
         return name.compareTo(otherReservation.name);
     }
 
-    @Override
-    public int compare(Reservation r, Reservation r1){
-        return r.partySize - r1.partySize;
-    }
+    static final Comparator<Reservation> PARTY_SIZE =
+            new Comparator<Reservation>() {
+                public int compare(Reservation r1, Reservation r2) {
+                    return Integer.toString(r1.getPartySize()).compareTo(Integer.toString(r2.getPartySize()));
+                }
+            };
+
+    static final Comparator<Reservation> TIME_CREATED =
+            new Comparator<Reservation>() {
+                public int compare(Reservation r1, Reservation r2) {
+                    return r1.getTime().compareTo(r2.getTime());
+                }
+            };
+
+    static final Comparator<Reservation> PHONE_NUMBER =
+            new Comparator<Reservation>() {
+                public int compare(Reservation r1, Reservation r2) {
+                    return r1.getPhoneNumber().compareTo(r2.getPhoneNumber());
+                }
+            };
 
     private String name;
     private int partySize;

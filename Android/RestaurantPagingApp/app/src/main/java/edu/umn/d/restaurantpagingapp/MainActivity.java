@@ -22,6 +22,10 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
+import static edu.umn.d.restaurantpagingapp.Reservation.PARTY_SIZE;
+import static edu.umn.d.restaurantpagingapp.Reservation.PHONE_NUMBER;
+import static edu.umn.d.restaurantpagingapp.Reservation.TIME_CREATED;
+
 public class MainActivity extends AppCompatActivity implements ModelViewPresenterComponents.View {
 
     private ModelViewPresenterComponents.RPAPresenterContract mPresenter;
@@ -127,9 +131,10 @@ public class MainActivity extends AppCompatActivity implements ModelViewPresente
     @Override
     public void onCreateContextMenu(ContextMenu menu, View view, ContextMenu.ContextMenuInfo menuInfo){
         menu.setHeaderTitle("Sort by:");
-        menu.add(Menu.NONE, 1, Menu.NONE, "Party Size");
-        menu.add(Menu.NONE, 2, Menu.NONE, "Time Created");
-        menu.add(Menu.NONE, 3, Menu.NONE, "Phone Number");
+        menu.add(Menu.NONE, 1, Menu.NONE, "Name");
+        menu.add(Menu.NONE, 2, Menu.NONE, "Party Size");
+        menu.add(Menu.NONE, 3, Menu.NONE, "Time Created");
+        menu.add(Menu.NONE, 4, Menu.NONE, "Phone Number");
     }
 
     @Override
@@ -137,16 +142,23 @@ public class MainActivity extends AppCompatActivity implements ModelViewPresente
         // TODO Auto-generated method stub
         switch (item.getItemId()) {
             case 1: {
-
+                Collections.sort(mPresenter.getReservation());
+                notifyCustomerListUpdated();
             }
             break;
             case 2: {
-                // Edit Action
-
+                Collections.sort(mPresenter.getReservation(), PARTY_SIZE);
+                notifyCustomerListUpdated();
             }
             break;
             case 3: {
-
+                Collections.sort(mPresenter.getReservation(), TIME_CREATED);
+                notifyCustomerListUpdated();
+            }
+            break;
+            case 4: {
+                Collections.sort(mPresenter.getReservation(), PHONE_NUMBER);
+                notifyCustomerListUpdated();
             }
             break;
         }
