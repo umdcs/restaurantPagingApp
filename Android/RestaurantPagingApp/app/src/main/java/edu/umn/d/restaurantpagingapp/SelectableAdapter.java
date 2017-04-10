@@ -33,6 +33,7 @@ public class SelectableAdapter extends ArrayAdapter {
         notifyDataSetChanged();
     }
 
+
     public int getSelectedPosition(){
         return selectedPos;
     }

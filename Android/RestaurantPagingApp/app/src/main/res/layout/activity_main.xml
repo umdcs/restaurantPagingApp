@@ -24,17 +24,6 @@
         android:background="@drawable/listdivider"
         android:dividerHeight="2px"/>
 
-    <Button
-        android:text="To Seated"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/makeReservation"
-        android:layout_alignStart="@+id/makeReservation"
-        android:layout_marginTop="146dp"
-        android:id="@+id/moveToSeated"
-        android:onClick="moveToSeated"
-        android:background="@drawable/listdivider"/>
-
     <ListView
         android:layout_height="match_parent"
         android:layout_width="150dp"
@@ -52,8 +41,28 @@
         android:layout_height="wrap_content"
         android:id="@+id/makeReservation"
         android:onClick="onClickCreateReservation"
-        android:background="@drawable/listdivider"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true" />
+
+    <Button
+        android:text="To Seated"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/moveToSeated"
+        android:onClick="moveToSeated"
+        android:layout_marginBottom="144dp"
+        android:layout_above="@+id/makeReservation"
+        android:layout_alignRight="@+id/makeReservation"
+        android:layout_alignEnd="@+id/makeReservation" />
+
+    <Button
+        android:text="Sort"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/sort"
+        android:onClick="onClickSort"
+        android:layout_alignParentTop="true"
+        android:layout_alignLeft="@+id/makeReservation"
+        android:layout_alignStart="@+id/makeReservation" />
 
 </RelativeLayout>

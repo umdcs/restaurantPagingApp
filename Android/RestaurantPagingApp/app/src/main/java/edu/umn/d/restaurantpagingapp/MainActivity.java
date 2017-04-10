@@ -14,6 +14,8 @@ import android.widget.ListAdapter;
 import android.widget.TextView;
 import android.widget.ListView;
 
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements ModelViewPresenterComponents.View {
@@ -97,6 +99,14 @@ public class MainActivity extends AppCompatActivity implements ModelViewPresente
         startActivityForResult(intent, 1);
     }
 
+    /**
+     * This method is a button listener for the sort seated button
+     * @param view
+     */
+    public void onClickSort(View view){
+        Collections.sort(mPresenter.getReservation());
+        notifyCustomerListUpdated();
+    }
 
     /**
      * Initalize the MVP components

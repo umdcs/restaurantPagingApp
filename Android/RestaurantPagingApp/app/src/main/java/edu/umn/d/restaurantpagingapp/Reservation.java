@@ -1,10 +1,12 @@
 package edu.umn.d.restaurantpagingapp;
 
+import java.util.Comparator;
+
 /**
  * Created by tinar on 3/15/2017.
  */
 
-public class Reservation {
+public class Reservation implements Comparable<Reservation>, Comparator<Reservation> {
 
     public Reservation(String name, int partySize, String phoneNumber, String time){
         this.name = name;
@@ -44,6 +46,16 @@ public class Reservation {
 
     public String getTime() {
         return time;
+    }
+
+    @Override
+    public int compareTo(Reservation otherReservation){
+        return name.compareTo(otherReservation.name);
+    }
+
+    @Override
+    public int compare(Reservation r, Reservation r1){
+        return r.partySize - r1.partySize;
     }
 
     private String name;
