@@ -5,10 +5,14 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.ContextMenu;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListAdapter;
 import android.widget.TextView;
@@ -61,6 +65,17 @@ public class MainActivity extends AppCompatActivity implements ModelViewPresente
                 Log.d("listener",String.valueOf(position));
             }
         });
+
+        final Button sortButton = (Button) findViewById(R.id.sort);
+
+        sortButton.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                registerForContextMenu(sortButton);
+                openContextMenu(sortButton);
+                return true;
+            }
+        });
     }
 
 
@@ -108,6 +123,36 @@ public class MainActivity extends AppCompatActivity implements ModelViewPresente
         notifyCustomerListUpdated();
     }
 
+
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View view, ContextMenu.ContextMenuInfo menuInfo){
+        menu.setHeaderTitle("Sort by:");
+        menu.add(Menu.NONE, 1, Menu.NONE, "Party Size");
+        menu.add(Menu.NONE, 2, Menu.NONE, "Time Created");
+        menu.add(Menu.NONE, 3, Menu.NONE, "Phone Number");
+    }
+
+    @Override
+    public boolean onContextItemSelected (MenuItem item){
+        // TODO Auto-generated method stub
+        switch (item.getItemId()) {
+            case 1: {
+
+            }
+            break;
+            case 2: {
+                // Edit Action
+
+            }
+            break;
+            case 3: {
+
+            }
+            break;
+        }
+
+        return super.onContextItemSelected(item);
+    }
     /**
      * Initalize the MVP components
      */
