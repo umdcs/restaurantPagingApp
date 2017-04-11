@@ -11,11 +11,11 @@ import java.util.List;
 public class RPAPresenter{
     // presenter needs to talk with this model
     private RPAModel mModel;
-    private View mView;
+    private Object mView;
 
     public RPAPresenter(Object view)
     {
-        mView = (View)view;
+        mView = view;
         mModel = new RPAModel(this);
     }
 
