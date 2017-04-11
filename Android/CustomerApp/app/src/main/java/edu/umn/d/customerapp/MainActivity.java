@@ -1,6 +1,8 @@
 package edu.umn.d.customerapp;
 
 import android.app.Activity;
+import android.app.Fragment;
+import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -10,11 +12,29 @@ import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
     private RPAPresenter mPresenter = new RPAPresenter(this);
-
+    private CreateReservationFragment firstFragment;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        // However, if we're being restored from a previous state,
+        // then we don't need to do anything and should return or else
+        // we could end up with overlapping fragments.
+        if (savedInstanceState != null) {
+            return;
+        }
+
+        // Create a new Fragment to be placed in the activity layout
+        firstFragment = new CreateReservationFragment();
+
+        // In case this activity was started with special instructions from an
+        // Intent, pass the Intent's extras to the fragment as arguments
+        firstFragment.setArguments(getIntent().getExtras());
+
+        // Add the fragment to the 'fragment_container' FrameLayout
+        getSupportFragmentManager().beginTransaction()
+                .add(R.id.fragment_container, firstFragment).commit();
     }
 
     /**
@@ -42,8 +62,14 @@ public class MainActivity extends AppCompatActivity {
                 TextView reservationTextView = (TextView) findViewById(R.id.reservationTextView);
                 if (mPresenter.getReservation() != null) {
                     reservationTextView.setText(mPresenter.getReservation().toString());
-                    TextView message = (TextView)findViewById(R.id.textView3);
+                    TextView message = (TextView)findViewById(R.id.messageTextView);
                     message.setText("My Reservation");
+                    DeleteEditFragment deleteEditFragment = new DeleteEditFragment();
+
+
+                    android.support.v4.app.FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                    transaction.replace(R.id.fragment_container,deleteEditFragment);
+                    transaction.commitAllowingStateLoss();
                 }
             }
         }
