@@ -17,6 +17,8 @@ public class CreateReservationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_reservation);
 
+        populateEditTexts();
+
     }
 
     public void onClickCreateReservation(View view){
@@ -47,7 +49,13 @@ public class CreateReservationActivity extends AppCompatActivity {
             intent.putExtra("Party size", Integer.valueOf(partySizeEditText.getText().toString()));
 
             intent.putExtra("Phone number", phoneNumEditText.getText().toString());
-            intent.putExtra("Time", time());
+
+            if (this.getIntent().getBooleanExtra("Editting", false) == true){
+                intent.putExtra("Time", this.getIntent().getStringExtra("Time"));
+            }
+            else {
+                intent.putExtra("Time", time());
+            }
 
             //Finish activity and send info back to main activity
             setResult(Activity.RESULT_OK, intent);
@@ -81,5 +89,20 @@ public class CreateReservationActivity extends AppCompatActivity {
         }
 
         return time;
+    }
+
+    private void populateEditTexts(){
+        if (this.getIntent().getBooleanExtra("Editting", false) == true) {
+
+            EditText nameEditText = (EditText) findViewById(R.id.nameEditText);
+            nameEditText.setText(this.getIntent().getStringExtra("Name"));
+
+            EditText partySizeEditText = (EditText) findViewById(R.id.partySizeEditText);
+            partySizeEditText.setText(this.getIntent().getStringExtra("Party Size"));
+
+            EditText phoneNumEditText = (EditText) findViewById(R.id.phoneNumEditTest);
+            phoneNumEditText.setText(this.getIntent().getStringExtra("Phone Number"));
+
+        }
     }
 }
