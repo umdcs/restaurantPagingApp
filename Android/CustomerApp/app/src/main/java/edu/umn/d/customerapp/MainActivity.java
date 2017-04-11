@@ -19,6 +19,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        if(mPresenter.getReservation() != null){
+            this.reservationCreated = true;
+        }
+
         // However, if we're being restored from a previous state,
         // then we don't need to do anything and should return or else
         // we could end up with overlapping fragments.
@@ -38,6 +42,22 @@ public class MainActivity extends AppCompatActivity {
                 .add(R.id.fragment_container, firstFragment).commit();
     }
 
+    public void deleteReservation(View view){
+        reservationCreated = false;
+        mPresenter.getReservation();
+        TextView message = (TextView)findViewById(R.id.messageTextView);
+        TextView reservationTextView = (TextView) findViewById(R.id.reservationTextView);
+        message.setText("You haven't created  a reservation yet!");
+        reservationTextView.setText("");
+
+        CreateReservationFragment createReservationFragment = new CreateReservationFragment();
+
+
+        android.support.v4.app.FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.fragment_container,createReservationFragment);
+        transaction.commitAllowingStateLoss();
+    }
+
     /**
      * Called when the user clicks the createReservation button
      */
@@ -45,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
 
         Intent intent = new Intent(this, CreateReservationActivity.class);
 
-        if (mPresenter.getReservation() == null) {
+        if (!reservationCreated) {
             intent.putExtra("Editting", false);
             startActivityForResult(intent, 1);
         }
@@ -64,13 +84,11 @@ public class MainActivity extends AppCompatActivity {
         if(requestCode == 1) {
 
             if (resultCode == Activity.RESULT_OK) {
-
-                this.reservationCreated = true;
-
+                reservationCreated = true;
                 //Get information from the intent created in the create reservation activity
                 String name = intent.getStringExtra("Name");
-                int partySize = intent.getIntExtra("Party size", 0);
-                String phoneNum = intent.getStringExtra("Phone number");
+                int partySize = intent.getIntExtra("Party Size", 0);
+                String phoneNum = intent.getStringExtra("Phone Number");
                 String time = intent.getStringExtra("Time");
 
                 //Create the reservation
@@ -89,13 +107,6 @@ public class MainActivity extends AppCompatActivity {
                     transaction.commitAllowingStateLoss();
                 }
             }
-        }
-    }
-
-    private void changeButtons(){
-        if (reservationCreated) {
-            Button createReservationButton = (Button) findViewById(R.id.createReservationButton);
-            createReservationButton.setText("Edit Reservation");
         }
     }
 

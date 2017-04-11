@@ -46,9 +46,9 @@ public class CreateReservationActivity extends AppCompatActivity {
             //Create an intent with reservation information
             Intent intent = new Intent();
             intent.putExtra("Name", nameEditText.getText().toString());
-            intent.putExtra("Party size", Integer.valueOf(partySizeEditText.getText().toString()));
+            intent.putExtra("Party Size", Integer.valueOf(partySizeEditText.getText().toString()));
 
-            intent.putExtra("Phone number", phoneNumEditText.getText().toString());
+            intent.putExtra("Phone Number", phoneNumEditText.getText().toString());
 
             if (this.getIntent().getBooleanExtra("Editting", false) == true){
                 intent.putExtra("Time", this.getIntent().getStringExtra("Time"));
@@ -98,7 +98,7 @@ public class CreateReservationActivity extends AppCompatActivity {
             nameEditText.setText(this.getIntent().getStringExtra("Name"));
 
             EditText partySizeEditText = (EditText) findViewById(R.id.partySizeEditText);
-            partySizeEditText.setText(this.getIntent().getStringExtra("Party Size"));
+            partySizeEditText.setText(String.valueOf(this.getIntent().getIntExtra("Party Size",2)));
 
             EditText phoneNumEditText = (EditText) findViewById(R.id.phoneNumEditTest);
             phoneNumEditText.setText(this.getIntent().getStringExtra("Phone Number"));

@@ -31,6 +31,10 @@ public class RPAPresenter{
 
     }
 
+    public void deleteReservation(){
+        mModel.deleteReservation();
+    }
+
     public Reservation getReservation(){
         return mModel.getReservation();
     }

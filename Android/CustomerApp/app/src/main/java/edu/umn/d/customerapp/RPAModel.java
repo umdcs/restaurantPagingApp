@@ -33,6 +33,12 @@ public class RPAModel {
 
     }
 
+    public void deleteReservation(){
+        reservation = null;
+    }
+
+
+
     public Reservation getReservation(){
         return this.reservation;
     }
