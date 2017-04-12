@@ -12,6 +12,10 @@ import java.util.List;
  */
 
 public class RPAModel implements ModelViewPresenterComponents.Model {
+    public RPAModel(){
+
+    }
+
     /**
      * Here we will instantiate any of the classes that are used by the model
      * for calculations or otherwise.

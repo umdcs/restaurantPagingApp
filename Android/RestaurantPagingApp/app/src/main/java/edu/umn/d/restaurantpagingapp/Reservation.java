@@ -2,13 +2,17 @@ package edu.umn.d.restaurantpagingapp;
 
 import android.widget.EditText;
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
 import android.telephony.SmsManager;
+
+import java.lang.reflect.Type;
 
 /**
  * Created by tinar on 3/15/2017.
  */
 
-public class Reservation {
+public class Reservation implements java.io.Serializable{
 
     public Reservation(String name, int partySize, String phoneNumber, String time){
         this.name = name;
@@ -21,7 +25,6 @@ public class Reservation {
     public String toString(){
 
         return "Name: " + this.name + "\nParty Size: " + Integer.valueOf(this.partySize) + "\nPhone Number:" + formatPhoneNumber(this.phoneNumber) + "\n" + this.time;
-
     }
 
     public void setName(String name){
