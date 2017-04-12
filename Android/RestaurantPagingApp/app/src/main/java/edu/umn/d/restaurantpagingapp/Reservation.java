@@ -1,15 +1,13 @@
 package edu.umn.d.restaurantpagingapp;
 
 
-import android.widget.EditText;
 import com.google.gson.Gson;
-import android.telephony.SmsManager;
 
 import java.util.Comparator;
 
 
 /**
- * Created by tinar on 3/15/2017.
+ * Created by tina on 3/15/2017.
  */
 
 public class Reservation implements Comparable<Reservation> {

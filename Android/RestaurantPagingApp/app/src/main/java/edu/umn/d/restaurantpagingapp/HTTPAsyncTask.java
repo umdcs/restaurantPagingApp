@@ -1,7 +1,7 @@
 package edu.umn.d.restaurantpagingapp;
 
-/**
- * Created by Jeff Smith on 4/5/2017.
+/*
+  Created by Jeff Smith on 4/5/2017.
  */
 
 import android.os.AsyncTask;
@@ -29,6 +29,7 @@ import android.view.View;
  * managing the response.  Upon completion of doInBackground, the task
  * calls the onPostExecute function.
  */
+@SuppressWarnings("JavaDoc")
 class HTTPAsyncTask extends AsyncTask<String, Integer, String> {
 
     @Override
