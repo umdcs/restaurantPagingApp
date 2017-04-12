@@ -24,7 +24,7 @@ public class Reservation implements Comparable<Reservation> {
 
     public String toString(){
 
-        return "Name: " + this.name + "\nParty Size: " + Integer.valueOf(this.partySize) + "\nPhone Number:" + formatPhoneNumber(this.phoneNumber) + "\n" + this.time;
+        return "Name: " + this.name + "\nParty Size: " + Integer.valueOf(this.partySize) + "\nPhone Number: " + formatPhoneNumber(this.phoneNumber) + "\n" + this.time;
 
     }
 
@@ -98,8 +98,7 @@ public class Reservation implements Comparable<Reservation> {
                     return r1.getPhoneNumber().compareTo(r2.getPhoneNumber());
                 }
             };
-
-
+    
     private String name;
     private int partySize;
     private String phoneNumber;
