@@ -13,20 +13,34 @@ import android.os.Bundle;
 import android.telephony.SmsManager;
 import android.util.Log;
 import android.view.ContextMenu;
+
 import android.view.MenuInflater;
+
+import android.view.Menu;
+
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListAdapter;
 import android.widget.TextView;
 import android.widget.ListView;
 import android.widget.Toast;
 
+
 import java.nio.channels.Selector;
+
+import java.util.Collection;
+import java.util.Collections;
+
 import java.util.List;
+
+import static edu.umn.d.restaurantpagingapp.Reservation.PARTY_SIZE;
+import static edu.umn.d.restaurantpagingapp.Reservation.PHONE_NUMBER;
+import static edu.umn.d.restaurantpagingapp.Reservation.TIME_CREATED;
 
 public class MainActivity extends AppCompatActivity implements ModelViewPresenterComponents.View {
     private String phoneNo= "7632583591";
@@ -55,6 +69,17 @@ public class MainActivity extends AppCompatActivity implements ModelViewPresente
         seatedListAdapter = new ArrayAdapter(this, R.layout.row);
         seatedList.setAdapter(seatedListAdapter);
 
+        final Button sortButton = (Button) findViewById(R.id.sort);
+
+        sortButton.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                registerForContextMenu(sortButton);
+                openContextMenu(sortButton);
+                return true;
+            }
+        });
+
     }
 
     /**
@@ -64,9 +89,16 @@ public class MainActivity extends AppCompatActivity implements ModelViewPresente
      * @param menuInfo
      */
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo){
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.context_menu, menu);
-
+        if(v.getParent() == findViewById(R.id.waitingList) || v.getParent() == findViewById(R.id.seatedList)) {
+            MenuInflater inflater = getMenuInflater();
+            inflater.inflate(R.menu.context_menu, menu);
+        }else {
+            menu.setHeaderTitle("Sort by:");
+            menu.add(Menu.NONE, 1, Menu.NONE, "Name");
+            menu.add(Menu.NONE, 2, Menu.NONE, "Party Size");
+            menu.add(Menu.NONE, 3, Menu.NONE, "Time Created");
+            menu.add(Menu.NONE, 4, Menu.NONE, "Phone Number");
+        }
 
     }
 
@@ -94,6 +126,7 @@ public class MainActivity extends AppCompatActivity implements ModelViewPresente
         }
         Log.d("List",list);
         Log.d("requestcode",String.valueOf(requestCode));
+
         switch(item.getItemId()){
             case R.id.edit:
                 Log.d("Edit","Open editor");
@@ -111,6 +144,26 @@ public class MainActivity extends AppCompatActivity implements ModelViewPresente
                 Log.d("Delete","Deleted");
                 mPresenter.deleteReservation(arrayAdapterPosition,list);
                 break;
+            case 1:
+                Collections.sort(mPresenter.getReservations(""));
+                notifyCustomerListUpdated();
+
+            break;
+            case 2: {
+                Collections.sort(mPresenter.getReservations(""), PARTY_SIZE);
+                notifyCustomerListUpdated();
+            }
+            break;
+            case 3: {
+                Collections.sort(mPresenter.getReservations(""), TIME_CREATED);
+                notifyCustomerListUpdated();
+            }
+            break;
+            case 4: {
+                Collections.sort(mPresenter.getReservations(""), PHONE_NUMBER);
+                notifyCustomerListUpdated();
+            }
+            break;
         }
         return true;    // This consumes the long click or whatever input made this call.
     }
@@ -158,7 +211,9 @@ public class MainActivity extends AppCompatActivity implements ModelViewPresente
                     return;
                 }
             }
+
         }
+
     }
 
 
@@ -220,6 +275,14 @@ public class MainActivity extends AppCompatActivity implements ModelViewPresente
         startActivityForResult(intent, 1);
     }
 
+    /**
+     * This method is a button listener for the sort seated button
+     * @param view
+     */
+    public void onClickSort(View view){
+        Collections.sort(mPresenter.getReservations(""));
+        notifyCustomerListUpdated();
+    }
 
     /**
      * Initalize the MVP components
