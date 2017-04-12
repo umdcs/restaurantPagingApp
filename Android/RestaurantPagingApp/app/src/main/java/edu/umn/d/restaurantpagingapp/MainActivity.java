@@ -45,7 +45,7 @@ import static edu.umn.d.restaurantpagingapp.Reservation.TIME_CREATED;
 public class MainActivity extends AppCompatActivity implements ModelViewPresenterComponents.View {
     private String phoneNo= "7632583591";
     private String message = "Hello Melissa!";
-    private String version = "0.1.0";
+    private String version = "0.2.0";
     private ModelViewPresenterComponents.RPAPresenterContract mPresenter;
     private ArrayAdapter waitingListAdapter;
     private ArrayAdapter seatedListAdapter;
@@ -89,9 +89,11 @@ public class MainActivity extends AppCompatActivity implements ModelViewPresente
      * @param menuInfo
      */
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo){
-        if(v.getParent() == findViewById(R.id.waitingList) || v.getParent() == findViewById(R.id.seatedList)) {
+        Log.d("List",String.valueOf(v));
+        if(v.equals(findViewById(R.id.waitingList)) || v.equals(findViewById(R.id.seatedList))) {
             MenuInflater inflater = getMenuInflater();
             inflater.inflate(R.menu.context_menu, menu);
+            Log.d("Menu","Jeff");
         }else {
             menu.setHeaderTitle("Sort by:");
             menu.add(Menu.NONE, 1, Menu.NONE, "Name");
@@ -108,28 +110,41 @@ public class MainActivity extends AppCompatActivity implements ModelViewPresente
      * @return I think this determines whether the click event is consumed or not.
      */
     public boolean onContextItemSelected(MenuItem item){
+        int arrayAdapterPosition;
         AdapterView.AdapterContextMenuInfo menuInfo = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
-        int arrayAdapterPosition = menuInfo.position;
-        ListView listView = (ListView)menuInfo.targetView.getParent();
-        ListView seatedList = (ListView)findViewById(R.id.seatedList);
-        ListView waitingList = (ListView)findViewById(R.id.waitingList);
         String list;
         int requestCode;
-        if(listView.equals(waitingList)){   // Check which list the view is from.
-            list = "master";
-            requestCode = 2;
-        }
-        else{
+        if(menuInfo!=null){ // We got here from the listviews
+            arrayAdapterPosition = menuInfo.position;
+            ListView listView = (ListView)menuInfo.targetView.getParent();
+            ListView seatedList = (ListView)findViewById(R.id.seatedList);
+            ListView waitingList = (ListView)findViewById(R.id.waitingList);
 
-            list = "seated";
-            requestCode = 3;
+            if(listView.equals(waitingList)){   // Check which list the view is from.
+                list = "master";
+                requestCode = 2;
+            }
+            else{
+
+                list = "seated";
+                requestCode = 3;
+            }
+            Log.d("List",list);
+            Log.d("requestcode",String.valueOf(requestCode));
         }
-        Log.d("List",list);
-        Log.d("requestcode",String.valueOf(requestCode));
+        else{   // We got here from the button
+            arrayAdapterPosition = -1;
+            requestCode = -1;
+            list = "BAD LIST";
+        }
+
+
+
 
         switch(item.getItemId()){
             case R.id.edit:
                 Log.d("Edit","Open editor");
+                Log.d("Request code",String.valueOf(requestCode));
                 editedPosition = arrayAdapterPosition;
 
                 Intent intent = new Intent(this, CreateReservationActivity.class);
@@ -228,19 +243,18 @@ public class MainActivity extends AppCompatActivity implements ModelViewPresente
 
 
             if (requestCode == 1) {
-                if (resultCode == Activity.RESULT_OK) {
-                    //Get information from the intent created in the create reservation activity
-                    String name = intent.getStringExtra("Name");
-                    int partySize = intent.getIntExtra("Party size", 0);
-                    String phoneNum = intent.getStringExtra("Phone number");
-                    String time = intent.getStringExtra("Time");
-                    ListView waitingList = (ListView) findViewById(R.id.waitingList);
-                    waitingList.setSelection(-1);
-                    waitingList.setItemChecked(-1, false);
-                    waitingList.clearChoices();
+                //Get information from the intent created in the create reservation activity
+                String name = intent.getStringExtra("Name");
+                int partySize = intent.getIntExtra("Party size", 0);
+                String phoneNum = intent.getStringExtra("Phone number");
+                String time = intent.getStringExtra("Time");
+                ListView waitingList = (ListView) findViewById(R.id.waitingList);
+                waitingList.setSelection(-1);
+                waitingList.setItemChecked(-1, false);
+                waitingList.clearChoices();
 
-                    //Create the reservation
-                    mPresenter.clickCreateReservation(name, partySize, phoneNum, time);
+                //Create the reservation
+                mPresenter.clickCreateReservation(name, partySize, phoneNum, time);
 
                 } else if (requestCode == 2) {
                     String name = intent.getStringExtra("Name");
@@ -257,9 +271,9 @@ public class MainActivity extends AppCompatActivity implements ModelViewPresente
                 }
             } else if (resultCode == Activity.RESULT_CANCELED) {
 
-            }
         }
     }
+
 
     /**
      * Called when the user clicks the createReservation button
