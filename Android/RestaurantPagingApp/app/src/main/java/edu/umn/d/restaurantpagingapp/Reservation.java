@@ -13,7 +13,7 @@ import java.lang.reflect.Type;
 
 public class Reservation implements Comparable<Reservation> {
 
-    public Reservation(String name, int partySize, String phoneNumber, String time, Boolean[] requests, String otherRequestString){
+    public Reservation(String name, int partySize, String phoneNumber, String time, boolean[] requests, String otherRequestString){
         this.name = name;
         this.partySize = partySize;
         this.phoneNumber = phoneNumber;
@@ -83,23 +83,23 @@ public class Reservation implements Comparable<Reservation> {
         return time;
     }
 
-    public Boolean highChairRequested(){
+    public boolean highChairRequested(){
         return highChair;
     }
 
-    public Boolean boothRequested(){
+    public boolean boothRequested(){
         return booth;
     }
 
-    public Boolean wheelChairRequested() {
+    public boolean wheelChairRequested() {
         return wheelChair;
     }
 
-    public Boolean willSplitRequested(){
+    public boolean willSplitRequested(){
         return willSplit;
     }
 
-    public Boolean otherRequested(){
+    public boolean otherRequested(){
         return otherRequest;
     }
 
@@ -170,10 +170,10 @@ public class Reservation implements Comparable<Reservation> {
     private String phoneNumber;
     private final String time;
     private final Gson gson = new Gson();
-    private Boolean highChair;
-    private Boolean booth;
-    private Boolean wheelChair;
-    private Boolean willSplit;
-    private Boolean otherRequest;
+    private boolean highChair;
+    private boolean booth;
+    private boolean wheelChair;
+    private boolean willSplit;
+    private boolean otherRequest;
     private String otherRequestString;
 }
