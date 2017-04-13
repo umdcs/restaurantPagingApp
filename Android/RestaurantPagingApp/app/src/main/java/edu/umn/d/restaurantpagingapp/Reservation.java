@@ -2,9 +2,10 @@ package edu.umn.d.restaurantpagingapp;
 
 
 import com.google.gson.Gson;
-
 import java.util.Comparator;
 
+
+import java.lang.reflect.Type;
 
 /**
  * Created by tina on 3/15/2017.
@@ -22,8 +23,7 @@ public class Reservation implements Comparable<Reservation> {
 
     public String toString(){
 
-        return "Name: " + this.name + "\nParty Size: " + Integer.valueOf(this.partySize) + "\nPhone Number: " + formatPhoneNumber(this.phoneNumber) + "\n" + this.time;
-
+        return "Name: " + this.name + "\nParty Size: " + Integer.valueOf(this.partySize) + "\nPhone Number:" + formatPhoneNumber(this.phoneNumber) + "\n" + this.time;
     }
 
     public void setName(String name){
