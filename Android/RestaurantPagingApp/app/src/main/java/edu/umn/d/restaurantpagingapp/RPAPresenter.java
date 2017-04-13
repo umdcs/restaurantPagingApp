@@ -20,7 +20,7 @@ public class RPAPresenter implements ModelViewPresenterComponents.RPAPresenterCo
     public RPAPresenter(ModelViewPresenterComponents.View rpaView)
     {
         mView = rpaView;
-        mModel = new RPAModel(this);
+        mModel = new RPAModel();
     }
 
     /**
