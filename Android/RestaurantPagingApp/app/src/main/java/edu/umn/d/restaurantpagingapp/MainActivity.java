@@ -34,8 +34,6 @@ import static edu.umn.d.restaurantpagingapp.Reservation.PHONE_NUMBER;
 import static edu.umn.d.restaurantpagingapp.Reservation.TIME_CREATED;
 
 public class MainActivity extends AppCompatActivity implements ModelViewPresenterComponents.View {
-    private final String phoneNo= "7632583591";
-    private final String message = "Hello Melissa!";
     private final String version = "0.2.0";
     private ModelViewPresenterComponents.RPAPresenterContract mPresenter;
     private ArrayAdapter waitingListAdapter;
@@ -150,6 +148,11 @@ public class MainActivity extends AppCompatActivity implements ModelViewPresente
                 Log.d("Delete","Deleted");
                 mPresenter.deleteReservation(arrayAdapterPosition,list);
                 break;
+            case R.id.notify:
+
+                Reservation reservation = mPresenter.getReservation(arrayAdapterPosition,list);
+                String phone = reservation.getPhoneNumber();
+                sendSMSMessage(phone,this.getString(R.string.message));
             case 1:
                 Collections.sort(mPresenter.getReservations(""));
                 notifyCustomerListUpdated();
@@ -173,7 +176,7 @@ public class MainActivity extends AppCompatActivity implements ModelViewPresente
         }
         return true;    // This consumes the long click or whatever input made this call.
     }
-    private void sendSMSMessage() {
+    private void sendSMSMessage(String phoneNo, String message) {
 
         if (ContextCompat.checkSelfPermission(this,
                 Manifest.permission.SEND_SMS)
@@ -184,14 +187,15 @@ public class MainActivity extends AppCompatActivity implements ModelViewPresente
                 ActivityCompat.requestPermissions(this,
                         new String[]{Manifest.permission.SEND_SMS},
                         1);
+                sendText(phoneNo,message);
             }
         }
         else{
-            sendText();
+            sendText(phoneNo,message);
         }
     }
 
-    private void sendText(){
+    private void sendText(String phoneNo, String message){
         SmsManager smsManager = SmsManager.getDefault();
         smsManager.sendTextMessage(phoneNo, null, message, null, null);
         Toast.makeText(getApplicationContext(), "SMS sent.",
@@ -205,13 +209,9 @@ public class MainActivity extends AppCompatActivity implements ModelViewPresente
             case 1: {
                 if (grantResults.length > 0
                         && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    SmsManager smsManager = SmsManager.getDefault();
-                    smsManager.sendTextMessage(phoneNo, null, message, null, null);
-                    Toast.makeText(getApplicationContext(), "SMS sent.",
-                            Toast.LENGTH_LONG).show();
+                    // Nothing special happens when we get permission
                 } else {
                     Toast.makeText(getApplicationContext(),
-
                             "SMS failed, please try again.", Toast.LENGTH_LONG).show();
                     return;
                     
@@ -304,7 +304,6 @@ public class MainActivity extends AppCompatActivity implements ModelViewPresente
      */
     public void moveToSeated(View view){
 
-        sendSMSMessage();
         ListView waitingList = (ListView) findViewById(R.id.waitingList);
         ListView seatedList = (ListView) findViewById(R.id.seatedList);
 
