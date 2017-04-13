@@ -12,8 +12,7 @@ public class RPAModel implements ModelViewPresenterComponents.Model {
      * Here we will instantiate any of the classes that are used by the model
      * for calculations or otherwise.
      */
-    public RPAModel(ModelViewPresenterComponents.RPAPresenterContract presenter){
-        this.presenter = presenter;
+    public RPAModel(){
     }
 
     /**
@@ -130,7 +129,6 @@ public class RPAModel implements ModelViewPresenterComponents.Model {
 
     }
 
-    private final ModelViewPresenterComponents.RPAPresenterContract presenter;
     private List waitingReservations = new ArrayList();
     private List seatedReservations = new ArrayList();
 }
