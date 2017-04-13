@@ -36,9 +36,9 @@ import static edu.umn.d.restaurantpagingapp.Reservation.TIME_CREATED_ASC;
 import static edu.umn.d.restaurantpagingapp.Reservation.TIME_CREATED_DESC;
 
 public class MainActivity extends AppCompatActivity implements ModelViewPresenterComponents.View {
-    private String phoneNo= "7632583591";
-    private String message = "Hello Melissa!";
-    private String version = "0.2.0";
+    private final String phoneNo= "7632583591";
+    private final String message = "Hello Melissa!";
+    private final String version = "0.2.0";
     private ModelViewPresenterComponents.RPAPresenterContract mPresenter;
     private ArrayAdapter waitingListAdapter;
     private ArrayAdapter seatedListAdapter;
@@ -193,7 +193,7 @@ public class MainActivity extends AppCompatActivity implements ModelViewPresente
         }
         return true;    // This consumes the long click or whatever input made this call.
     }
-    protected void sendSMSMessage() {
+    private void sendSMSMessage() {
 
         if (ContextCompat.checkSelfPermission(this,
                 Manifest.permission.SEND_SMS)
@@ -313,7 +313,7 @@ public class MainActivity extends AppCompatActivity implements ModelViewPresente
     /**
      * Initialize the MVP components
      */
-    public void setupModelViewPresenterComponents() {
+    private void setupModelViewPresenterComponents() {
         // Create the MPGPresenter
         mPresenter = new RPAPresenter(this);
     }

@@ -130,7 +130,7 @@ public class RPAModel implements ModelViewPresenterComponents.Model {
 
     }
 
-    ModelViewPresenterComponents.RPAPresenterContract presenter;
-    List waitingReservations = new ArrayList();
-    List seatedReservations = new ArrayList();
+    private final ModelViewPresenterComponents.RPAPresenterContract presenter;
+    private List waitingReservations = new ArrayList();
+    private List seatedReservations = new ArrayList();
 }

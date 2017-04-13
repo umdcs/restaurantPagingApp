@@ -12,7 +12,7 @@
 
 
     <Button
-        android:text="Make Res"
+        android:text="@string/make_res"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/makeReservation"
@@ -21,7 +21,7 @@
         android:layout_centerHorizontal="true" />
 
     <Button
-        android:text="To Seated"
+        android:text="@string/to_seated"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/moveToSeated"
@@ -32,7 +32,7 @@
         android:layout_alignEnd="@+id/makeReservation" />
 
     <Button
-        android:text="Sort"
+        android:text="@string/sort"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/sort"
