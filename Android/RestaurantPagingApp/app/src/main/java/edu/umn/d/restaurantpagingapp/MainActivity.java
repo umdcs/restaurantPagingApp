@@ -197,8 +197,6 @@ public class MainActivity extends AppCompatActivity implements ModelViewPresente
         Toast.makeText(getApplicationContext(), "SMS sent.",
                 Toast.LENGTH_LONG).show();
 
-        return;
-
     }
 
     @Override
@@ -213,8 +211,10 @@ public class MainActivity extends AppCompatActivity implements ModelViewPresente
                             Toast.LENGTH_LONG).show();
                 } else {
                     Toast.makeText(getApplicationContext(),
+
                             "SMS failed, please try again.", Toast.LENGTH_LONG).show();
                     return;
+                    
                 }
             }
 
