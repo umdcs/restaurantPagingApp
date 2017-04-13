@@ -22,7 +22,7 @@ public class Reservation implements Comparable<Reservation> {
 
     public String toString(){
 
-        return "Name: " + this.name + "\nParty Size: " + Integer.valueOf(this.partySize) + "\nPhone Number: " + formatPhoneNumber(this.phoneNumber) + "\n" + this.time;
+        return "Name: " + this.name + "\nParty Size: " + this.partySize + "\nPhone Number: " + formatPhoneNumber(this.phoneNumber) + "\n" + this.time;
 
     }
 
@@ -60,7 +60,7 @@ public class Reservation implements Comparable<Reservation> {
         char[] phoneNumArray = phoneNum.toCharArray();
         return "(" + phoneNumArray[0] + phoneNumArray[1] + phoneNumArray[2] + ")" + phoneNumArray[3] + phoneNumArray[4] + phoneNumArray[5] + "-" + phoneNumArray[6] + phoneNumArray[7] + phoneNumArray[8] + phoneNumArray[9];
     }
-    
+
     public String getJson() {
         return gson.toJson(this);
     }
