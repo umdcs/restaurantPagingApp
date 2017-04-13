@@ -71,6 +71,26 @@ public class MainActivity extends AppCompatActivity implements ModelViewPresente
             }
         });
 
+        waitingList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                int size = seatedList.getCount();
+                for(int i=0;i<size;i++){
+                    seatedList.setItemChecked(i,false);
+                }
+            }
+        });
+
+        seatedList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                int size = waitingList.getCount();
+                for(int i=0;i<size;i++){
+                    waitingList.setItemChecked(i,false);
+                }
+            }
+        });
+
     }
 
     /**
@@ -331,6 +351,7 @@ public class MainActivity extends AppCompatActivity implements ModelViewPresente
         int index = waitingList.getCheckedItemPosition();
         Log.d("Seated",String.valueOf(seatedList.getCheckedItemPosition()));
         seatedList.setItemChecked(0,false); // This makes it so the item doesn't start selected when it ends up on the seated list. I think this is a workaround and might reflect an overarching bug.
+        waitingList.setItemChecked(0,false);
         if (index >= 0 && index < waitingList.getCount()){
             Log.d("index",String.valueOf(index));
             mPresenter.moveReservation(index,"master");
