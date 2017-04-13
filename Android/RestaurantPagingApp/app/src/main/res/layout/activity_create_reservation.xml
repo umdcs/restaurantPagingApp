@@ -15,34 +15,36 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/title"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
         android:textSize="30sp"
-        android:textColor="@color/Black"/>
+        android:textColor="@color/Black"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="22dp"
+        android:layout_marginEnd="22dp" />
 
     <TextView
-        android:text="@string/name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/title"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="28dp"
         android:id="@+id/nameLabel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/name"
         android:textColor="@color/Black"
-        android:textSize="20sp"/>
+        android:textSize="20sp"
+        android:layout_alignBottom="@+id/enterInfoMessage"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
     <TextView
         android:text="@string/party_size"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/nameEditText"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="19dp"
+        android:layout_marginTop="11dp"
         android:id="@+id/partySizeLabel"
         android:textColor="@color/Black"
-        android:textSize="20sp"/>
+        android:textSize="20sp"
+        android:layout_below="@+id/nameEditText"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
     <EditText
         android:id="@+id/phoneNumEditTest"
@@ -85,20 +87,21 @@
         android:id="@+id/phoneNumLabel"
         android:textColor="@color/Black"
         android:textSize="20sp"
-        android:layout_centerVertical="true"
+        android:layout_below="@+id/partySizeEditText"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="11dp" />
 
     <Button
         android:text="@string/create_reservation"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
         android:id="@+id/createReservationButton"
-        android:layout_below="@+id/phoneNumEditTest"
-        android:layout_toRightOf="@+id/partySizeLabel"
-        android:layout_toEndOf="@+id/partySizeLabel"
-        android:onClick="onClickCreateReservation" />
+        android:onClick="onClickCreateReservation"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginBottom="53dp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -112,10 +115,10 @@
         android:text="@string/cancel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/createReservationButton"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="16dp"
         android:id="@+id/cancelButton"
-        android:onClick="onClickCancel"/>
+        android:onClick="onClickCancel"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
 </RelativeLayout>
