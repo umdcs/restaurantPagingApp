@@ -13,11 +13,19 @@ import java.lang.reflect.Type;
 
 public class Reservation implements Comparable<Reservation> {
 
-    public Reservation(String name, int partySize, String phoneNumber, String time){
+    public Reservation(String name, int partySize, String phoneNumber, String time, Boolean[] requests, String otherRequestString){
         this.name = name;
         this.partySize = partySize;
         this.phoneNumber = phoneNumber;
         this.time = time;
+
+        this.highChair = requests[0];
+        this.booth = requests[1];
+        this.wheelChair = requests[2];
+        this.willSplit = requests[3];
+        this.otherRequest = requests[4];
+
+        this.otherRequestString = otherRequestString;
 
     }
 
@@ -118,4 +126,10 @@ public class Reservation implements Comparable<Reservation> {
     private String phoneNumber;
     private final String time;
     private final Gson gson = new Gson();
+    private Boolean highChair;
+    private Boolean booth;
+    private Boolean wheelChair;
+    private Boolean willSplit;
+    private Boolean otherRequest;
+    private String otherRequestString;
 }
