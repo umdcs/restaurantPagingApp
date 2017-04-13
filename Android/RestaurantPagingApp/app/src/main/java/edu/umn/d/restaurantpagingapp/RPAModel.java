@@ -1,9 +1,5 @@
 package edu.umn.d.restaurantpagingapp;
 
-import android.content.Intent;
-import android.os.Parcelable;
-import android.util.Log;
-
 import java.util.ArrayList;
 import java.util.List;
 
