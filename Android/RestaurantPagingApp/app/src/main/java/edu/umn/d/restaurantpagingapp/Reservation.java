@@ -63,6 +63,30 @@ public class Reservation implements Comparable<Reservation> {
         return time;
     }
 
+    public Boolean highChairRequested(){
+        return highChair;
+    }
+
+    public Boolean boothRequested(){
+        return booth;
+    }
+
+    public Boolean wheelChairRequested() {
+        return wheelChair;
+    }
+
+    public Boolean willSplitRequested(){
+        return willSplit;
+    }
+
+    public Boolean otherRequested(){
+        return otherRequest;
+    }
+
+    public String getOtherRequest() {
+        return otherRequestString;
+    }
+
 
     //Helper method creates phone number String
     private String formatPhoneNumber(String phoneNum) {
