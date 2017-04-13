@@ -173,7 +173,7 @@ public class MainActivity extends AppCompatActivity implements ModelViewPresente
         }
         return true;    // This consumes the long click or whatever input made this call.
     }
-    protected void sendSMSMessage() {
+    private void sendSMSMessage() {
 
         if (ContextCompat.checkSelfPermission(this,
                 Manifest.permission.SEND_SMS)
@@ -292,7 +292,7 @@ public class MainActivity extends AppCompatActivity implements ModelViewPresente
     /**
      * Initialize the MVP components
      */
-    public void setupModelViewPresenterComponents() {
+    private void setupModelViewPresenterComponents() {
         // Create the MPGPresenter
         mPresenter = new RPAPresenter(this);
     }

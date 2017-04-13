@@ -71,7 +71,7 @@ public class CreateReservationActivity extends AppCompatActivity {
     }
 
     //Helper method creates the time string
-    public String time(){
+    private String time(){
         Calendar calendar = Calendar.getInstance();
         String time;
 
