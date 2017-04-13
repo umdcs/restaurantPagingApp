@@ -31,8 +31,28 @@ public class Reservation implements Comparable<Reservation> {
 
     public String toString(){
 
-        return "Name: " + this.name + "\nParty Size: " + this.partySize + "\nPhone Number: " + formatPhoneNumber(this.phoneNumber) + "\n" + this.time;
+        String string = "Name: " + this.name + "\nParty Size: " + this.partySize + "\nPhone Number: " + formatPhoneNumber(this.phoneNumber) + "\n" + this.time;
 
+        if (highChair || booth || wheelChair || willSplit || otherRequest) {
+            string += "\nSpecial Requests:";
+            if (highChair) {
+                string += "\nHigh chair";
+            }
+            if (booth){
+                string += "\nBooth";
+            }
+            if (wheelChair){
+                string += "\nWheel chair";
+            }
+            if(willSplit){
+                string += "\nWill split";
+            }
+            if (otherRequest){
+                string += "\n" + otherRequestString;
+            }
+        }
+
+        return string;
     }
 
     public void setName(String name){
