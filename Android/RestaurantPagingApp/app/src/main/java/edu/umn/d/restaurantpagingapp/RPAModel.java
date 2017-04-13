@@ -1,9 +1,5 @@
 package edu.umn.d.restaurantpagingapp;
 
-import android.content.Intent;
-import android.os.Parcelable;
-import android.util.Log;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -134,7 +130,7 @@ public class RPAModel implements ModelViewPresenterComponents.Model {
 
     }
 
-    ModelViewPresenterComponents.RPAPresenterContract presenter;
-    List waitingReservations = new ArrayList();
-    List seatedReservations = new ArrayList();
+    private final ModelViewPresenterComponents.RPAPresenterContract presenter;
+    private List waitingReservations = new ArrayList();
+    private List seatedReservations = new ArrayList();
 }

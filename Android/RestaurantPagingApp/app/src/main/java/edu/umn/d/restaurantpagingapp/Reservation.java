@@ -1,15 +1,13 @@
 package edu.umn.d.restaurantpagingapp;
 
 
-import android.widget.EditText;
 import com.google.gson.Gson;
-import android.telephony.SmsManager;
 
 import java.util.Comparator;
 
 
 /**
- * Created by tinar on 3/15/2017.
+ * Created by tina on 3/15/2017.
  */
 
 public class Reservation implements Comparable<Reservation> {
@@ -58,7 +56,7 @@ public class Reservation implements Comparable<Reservation> {
 
 
     //Helper method creates phone number String
-    public String formatPhoneNumber(String phoneNum) {
+    private String formatPhoneNumber(String phoneNum) {
         char[] phoneNumArray = phoneNum.toCharArray();
         return "(" + phoneNumArray[0] + phoneNumArray[1] + phoneNumArray[2] + ")" + phoneNumArray[3] + phoneNumArray[4] + phoneNumArray[5] + "-" + phoneNumArray[6] + phoneNumArray[7] + phoneNumArray[8] + phoneNumArray[9];
     }
@@ -67,7 +65,7 @@ public class Reservation implements Comparable<Reservation> {
     }
 
     //Helper method creates phone number String
-    public String phoneNumber(String phoneNumber){
+    private String phoneNumber(String phoneNumber){
         char[] phoneNumArray = phoneNumber.toCharArray();
         String phoneNum = "(" + phoneNumArray[0] + phoneNumArray[1] + phoneNumArray[2] + ")" + phoneNumArray[3] + phoneNumArray[4] + phoneNumArray[5] + "-" + phoneNumArray[6] + phoneNumArray[7] + phoneNumArray[8] + phoneNumArray[9];
         return phoneNum;

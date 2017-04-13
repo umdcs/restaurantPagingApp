@@ -2,9 +2,7 @@ package edu.umn.d.restaurantpagingapp;
 
 import android.Manifest;
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.content.pm.PackageManager;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -20,20 +18,13 @@ import android.view.Menu;
 
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ListAdapter;
-import android.widget.TextView;
 import android.widget.ListView;
 import android.widget.Toast;
 
 
-import java.nio.channels.Selector;
-
-import java.util.Collection;
 import java.util.Collections;
 
 import java.util.List;
@@ -43,9 +34,9 @@ import static edu.umn.d.restaurantpagingapp.Reservation.PHONE_NUMBER;
 import static edu.umn.d.restaurantpagingapp.Reservation.TIME_CREATED;
 
 public class MainActivity extends AppCompatActivity implements ModelViewPresenterComponents.View {
-    private String phoneNo= "7632583591";
-    private String message = "Hello Melissa!";
-    private String version = "0.2.0";
+    private final String phoneNo= "7632583591";
+    private final String message = "Hello Melissa!";
+    private final String version = "0.2.0";
     private ModelViewPresenterComponents.RPAPresenterContract mPresenter;
     private ArrayAdapter waitingListAdapter;
     private ArrayAdapter seatedListAdapter;
@@ -84,9 +75,9 @@ public class MainActivity extends AppCompatActivity implements ModelViewPresente
 
     /**
      * Called automatically when a context menu is created.
-     * @param menu
-     * @param v
-     * @param menuInfo
+     * @param menu what the menu is?
+     * @param v where this method was called from. From the seated/waiting listviews for Jeffs menu.
+     * @param menuInfo infor attached to the menu.
      */
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo){
         Log.d("List",String.valueOf(v));
@@ -182,7 +173,7 @@ public class MainActivity extends AppCompatActivity implements ModelViewPresente
         }
         return true;    // This consumes the long click or whatever input made this call.
     }
-    protected void sendSMSMessage() {
+    private void sendSMSMessage() {
 
         if (ContextCompat.checkSelfPermission(this,
                 Manifest.permission.SEND_SMS)
@@ -206,8 +197,6 @@ public class MainActivity extends AppCompatActivity implements ModelViewPresente
         Toast.makeText(getApplicationContext(), "SMS sent.",
                 Toast.LENGTH_LONG).show();
 
-        return;
-
     }
 
     @Override
@@ -222,8 +211,10 @@ public class MainActivity extends AppCompatActivity implements ModelViewPresente
                             Toast.LENGTH_LONG).show();
                 } else {
                     Toast.makeText(getApplicationContext(),
-                            "SMS faild, please try again.", Toast.LENGTH_LONG).show();
+
+                            "SMS failed, please try again.", Toast.LENGTH_LONG).show();
                     return;
+                    
                 }
             }
 
@@ -233,7 +224,7 @@ public class MainActivity extends AppCompatActivity implements ModelViewPresente
 
 
     /**
-     * Automatically called when an activity started with startActvitiyForResult is finished.
+     * Automatically called when an activity started with startActivityForResult is finished.
      * @param requestCode   The number given in startActivityForResult
      * @param resultCode    A code indicating how getting the result went. Activity.RESULT_OK for good result.
      * @param intent    An intent carrying any data that is supposed to come back.
@@ -291,7 +282,7 @@ public class MainActivity extends AppCompatActivity implements ModelViewPresente
 
     /**
      * This method is a button listener for the sort seated button
-     * @param view
+     * @param view the view where the sort button is
      */
     public void onClickSort(View view){
         Collections.sort(mPresenter.getReservations(""));
@@ -299,9 +290,9 @@ public class MainActivity extends AppCompatActivity implements ModelViewPresente
     }
 
     /**
-     * Initalize the MVP components
+     * Initialize the MVP components
      */
-    public void setupModelViewPresenterComponents() {
+    private void setupModelViewPresenterComponents() {
         // Create the MPGPresenter
         mPresenter = new RPAPresenter(this);
     }

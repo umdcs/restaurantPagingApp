@@ -1,7 +1,5 @@
 package edu.umn.d.restaurantpagingapp;
 
-import android.widget.EditText;
-
 import java.util.List;
 
 

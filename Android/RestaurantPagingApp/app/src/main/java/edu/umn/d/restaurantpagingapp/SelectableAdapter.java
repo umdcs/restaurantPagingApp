@@ -9,9 +9,6 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import java.util.List;
-import java.util.zip.Inflater;
-
 
 /**
  * Created by Jeff Smith on 3/21/2017.
@@ -46,7 +43,7 @@ public class SelectableAdapter extends ArrayAdapter {
      * @param position  Where in the adapter the view is
      * @param convertView   The view that is being converted. See http://stackoverflow.com/questions/10120119/how-does-the-getview-method-work-when-creating-your-own-custom-adapter for questions.
      * @param parent    The parent of the view. Usually a listView or something similar.
-     * @return
+     * @return the converted view
      */
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
