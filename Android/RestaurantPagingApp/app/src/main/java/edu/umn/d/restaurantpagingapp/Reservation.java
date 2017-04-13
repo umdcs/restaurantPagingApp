@@ -76,24 +76,45 @@ public class Reservation implements Comparable<Reservation> {
         return name.compareTo(otherReservation.name);
     }
 
-    static final Comparator<Reservation> PARTY_SIZE =
+    static final Comparator<Reservation> PARTY_SIZE_ASC =
             new Comparator<Reservation>() {
                 public int compare(Reservation r1, Reservation r2) {
                     return Integer.toString(r1.getPartySize()).compareTo(Integer.toString(r2.getPartySize()));
                 }
             };
 
-    static final Comparator<Reservation> TIME_CREATED =
+    static final Comparator<Reservation> PARTY_SIZE_DESC =
+            new Comparator<Reservation>() {
+                public int compare(Reservation r1, Reservation r2) {
+                    return Integer.toString(r2.getPartySize()).compareTo(Integer.toString(r1.getPartySize()));
+                }
+            };
+
+    static final Comparator<Reservation> TIME_CREATED_ASC =
             new Comparator<Reservation>() {
                 public int compare(Reservation r1, Reservation r2) {
                     return r1.getTime().compareTo(r2.getTime());
                 }
             };
 
-    static final Comparator<Reservation> PHONE_NUMBER =
+    static final Comparator<Reservation> TIME_CREATED_DESC =
+            new Comparator<Reservation>() {
+                public int compare(Reservation r1, Reservation r2) {
+                    return r2.getTime().compareTo(r1.getTime());
+                }
+            };
+
+    static final Comparator<Reservation> PHONE_NUMBER_ASC =
             new Comparator<Reservation>() {
                 public int compare(Reservation r1, Reservation r2) {
                     return r1.getPhoneNumber().compareTo(r2.getPhoneNumber());
+                }
+            };
+
+    static final Comparator<Reservation> PHONE_NUMBER_DESC =
+            new Comparator<Reservation>() {
+                public int compare(Reservation r1, Reservation r2) {
+                    return r2.getPhoneNumber().compareTo(r1.getPhoneNumber());
                 }
             };
     
