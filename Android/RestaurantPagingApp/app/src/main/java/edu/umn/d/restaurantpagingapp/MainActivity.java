@@ -29,9 +29,11 @@ import java.util.Collections;
 
 import java.util.List;
 
-import static edu.umn.d.restaurantpagingapp.Reservation.PARTY_SIZE;
-import static edu.umn.d.restaurantpagingapp.Reservation.PHONE_NUMBER;
-import static edu.umn.d.restaurantpagingapp.Reservation.TIME_CREATED;
+import static edu.umn.d.restaurantpagingapp.Reservation.PARTY_SIZE_ASC;
+import static edu.umn.d.restaurantpagingapp.Reservation.PARTY_SIZE_DESC;
+import static edu.umn.d.restaurantpagingapp.Reservation.PHONE_NUMBER_ASC;
+import static edu.umn.d.restaurantpagingapp.Reservation.TIME_CREATED_ASC;
+import static edu.umn.d.restaurantpagingapp.Reservation.TIME_CREATED_DESC;
 
 public class MainActivity extends AppCompatActivity implements ModelViewPresenterComponents.View {
     private final String version = "0.2.0";
@@ -86,8 +88,10 @@ public class MainActivity extends AppCompatActivity implements ModelViewPresente
         }else {
             menu.setHeaderTitle("Sort by:");
             menu.add(Menu.NONE, 1, Menu.NONE, "Name");
-            menu.add(Menu.NONE, 2, Menu.NONE, "Party Size");
-            menu.add(Menu.NONE, 3, Menu.NONE, "Time Created");
+            menu.add(Menu.NONE, 2, Menu.NONE, "Party Size (Low-High)");
+            menu.add(Menu.NONE, 5, Menu.NONE, "Party Size (High-Low)");
+            menu.add(Menu.NONE, 6, Menu.NONE, "Time Created (Newest)");
+            menu.add(Menu.NONE, 3, Menu.NONE, "Time Created (Oldest)");
             menu.add(Menu.NONE, 4, Menu.NONE, "Phone Number");
         }
 
@@ -155,21 +159,37 @@ public class MainActivity extends AppCompatActivity implements ModelViewPresente
                 sendSMSMessage(phone,this.getString(R.string.message));
             case 1:
                 Collections.sort(mPresenter.getReservations(""));
+                Collections.sort(mPresenter.getReservations("seated"));
                 notifyCustomerListUpdated();
 
             break;
             case 2: {
-                Collections.sort(mPresenter.getReservations(""), PARTY_SIZE);
+                Collections.sort(mPresenter.getReservations(""), PARTY_SIZE_ASC);
+                Collections.sort(mPresenter.getReservations("seated"), PARTY_SIZE_ASC);
                 notifyCustomerListUpdated();
             }
             break;
             case 3: {
-                Collections.sort(mPresenter.getReservations(""), TIME_CREATED);
+                Collections.sort(mPresenter.getReservations(""), TIME_CREATED_ASC);
+                Collections.sort(mPresenter.getReservations("seated"), TIME_CREATED_ASC);
                 notifyCustomerListUpdated();
             }
             break;
             case 4: {
-                Collections.sort(mPresenter.getReservations(""), PHONE_NUMBER);
+                Collections.sort(mPresenter.getReservations(""), PHONE_NUMBER_ASC);
+                Collections.sort(mPresenter.getReservations("seated"), PHONE_NUMBER_ASC);
+                notifyCustomerListUpdated();
+                break;
+            }
+            case 5: {
+                Collections.sort(mPresenter.getReservations(""), PARTY_SIZE_DESC);
+                Collections.sort(mPresenter.getReservations("seated"), PARTY_SIZE_DESC);
+                notifyCustomerListUpdated();
+            }
+            break;
+            case 6: {
+                Collections.sort(mPresenter.getReservations(""), TIME_CREATED_DESC);
+                Collections.sort(mPresenter.getReservations("seated"), TIME_CREATED_DESC);
                 notifyCustomerListUpdated();
             }
             break;
@@ -214,7 +234,7 @@ public class MainActivity extends AppCompatActivity implements ModelViewPresente
                     Toast.makeText(getApplicationContext(),
                             "SMS failed, please try again.", Toast.LENGTH_LONG).show();
                     return;
-                    
+
                 }
             }
 
@@ -286,6 +306,7 @@ public class MainActivity extends AppCompatActivity implements ModelViewPresente
      */
     public void onClickSort(View view){
         Collections.sort(mPresenter.getReservations(""));
+        Collections.sort(mPresenter.getReservations("seated"));
         notifyCustomerListUpdated();
     }
 

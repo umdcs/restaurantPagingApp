@@ -23,7 +23,8 @@ public class Reservation implements Comparable<Reservation> {
 
     public String toString(){
 
-        return "Name: " + this.name + "\nParty Size: " + Integer.valueOf(this.partySize) + "\nPhone Number:" + formatPhoneNumber(this.phoneNumber) + "\n" + this.time;
+        return "Name: " + this.name + "\nParty Size: " + this.partySize + "\nPhone Number: " + formatPhoneNumber(this.phoneNumber) + "\n" + this.time;
+
     }
 
     public void setName(String name){
@@ -60,7 +61,7 @@ public class Reservation implements Comparable<Reservation> {
         char[] phoneNumArray = phoneNum.toCharArray();
         return "(" + phoneNumArray[0] + phoneNumArray[1] + phoneNumArray[2] + ")" + phoneNumArray[3] + phoneNumArray[4] + phoneNumArray[5] + "-" + phoneNumArray[6] + phoneNumArray[7] + phoneNumArray[8] + phoneNumArray[9];
     }
-    
+
     public String getJson() {
         return gson.toJson(this);
     }
@@ -70,24 +71,45 @@ public class Reservation implements Comparable<Reservation> {
         return name.compareTo(otherReservation.name);
     }
 
-    static final Comparator<Reservation> PARTY_SIZE =
+    static final Comparator<Reservation> PARTY_SIZE_ASC =
             new Comparator<Reservation>() {
                 public int compare(Reservation r1, Reservation r2) {
                     return Integer.toString(r1.getPartySize()).compareTo(Integer.toString(r2.getPartySize()));
                 }
             };
 
-    static final Comparator<Reservation> TIME_CREATED =
+    static final Comparator<Reservation> PARTY_SIZE_DESC =
+            new Comparator<Reservation>() {
+                public int compare(Reservation r1, Reservation r2) {
+                    return Integer.toString(r2.getPartySize()).compareTo(Integer.toString(r1.getPartySize()));
+                }
+            };
+
+    static final Comparator<Reservation> TIME_CREATED_ASC =
             new Comparator<Reservation>() {
                 public int compare(Reservation r1, Reservation r2) {
                     return r1.getTime().compareTo(r2.getTime());
                 }
             };
 
-    static final Comparator<Reservation> PHONE_NUMBER =
+    static final Comparator<Reservation> TIME_CREATED_DESC =
+            new Comparator<Reservation>() {
+                public int compare(Reservation r1, Reservation r2) {
+                    return r2.getTime().compareTo(r1.getTime());
+                }
+            };
+
+    static final Comparator<Reservation> PHONE_NUMBER_ASC =
             new Comparator<Reservation>() {
                 public int compare(Reservation r1, Reservation r2) {
                     return r1.getPhoneNumber().compareTo(r2.getPhoneNumber());
+                }
+            };
+
+    static final Comparator<Reservation> PHONE_NUMBER_DESC =
+            new Comparator<Reservation>() {
+                public int compare(Reservation r1, Reservation r2) {
+                    return r2.getPhoneNumber().compareTo(r1.getPhoneNumber());
                 }
             };
     
