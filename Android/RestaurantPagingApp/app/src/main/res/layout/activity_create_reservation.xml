@@ -11,7 +11,7 @@
     tools:context="edu.umn.d.restaurantpagingapp.CreateReservationActivity">
 
     <TextView
-        android:text="New Reservation"
+        android:text="@string/create_reservation"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/title"
@@ -21,7 +21,7 @@
         android:textColor="@color/Black"/>
 
     <TextView
-        android:text="Name"
+        android:text="@string/name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/title"
@@ -33,7 +33,7 @@
         android:textSize="20dp"/>
 
     <TextView
-        android:text="Party Size"
+        android:text="@string/party_size"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/nameEditText"
@@ -50,7 +50,7 @@
         android:inputType="number"
         android:ems="10"
         android:id="@+id/phoneNumEditTest"
-        android:hint="Enter phone number"
+        android:hint="@string/phone_number_field"
         android:layout_below="@+id/phoneNumLabel"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
@@ -62,7 +62,7 @@
         android:inputType="number"
         android:ems="10"
         android:id="@+id/partySizeEditText"
-        android:hint="Enter party size"
+        android:hint="@string/party_size_field"
         android:layout_below="@+id/partySizeLabel"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
@@ -73,13 +73,13 @@
         android:inputType="textPersonName"
         android:ems="10"
         android:id="@+id/nameEditText"
-        android:hint="Enter name"
+        android:hint="@string/name_field"
         android:layout_below="@+id/nameLabel"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
     <TextView
-        android:text="Phone Number"
+        android:text="@string/phone_number"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/phoneNumLabel"
@@ -90,7 +90,7 @@
         android:layout_alignParentStart="true" />
 
     <Button
-        android:text="Create Reservation"
+        android:text="@string/create_reservation"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
@@ -109,7 +109,7 @@
         android:textColor="@color/Red"/>
 
     <Button
-        android:text="Cancel"
+        android:text="@string/cancel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/createReservationButton"

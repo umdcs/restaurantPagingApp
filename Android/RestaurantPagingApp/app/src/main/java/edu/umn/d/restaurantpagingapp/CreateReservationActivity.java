@@ -41,13 +41,13 @@ public class CreateReservationActivity extends AppCompatActivity {
 
             //Display message indicating that more info is needed
             TextView enterInfoMessage = (TextView) findViewById(R.id.enterInfoMessage);
-            enterInfoMessage.setText("Please enter all information.");
+            enterInfoMessage.setText(R.string.empty_field_error);
         }
         else if (phoneNumEditText.getText().toString().length() < 10) {
 
             //Display message indicating that an invalid phone number was entered
             TextView enterInfoMessage = (TextView) findViewById(R.id.enterInfoMessage);
-            enterInfoMessage.setText("Please enter a valid phone number.");
+            enterInfoMessage.setText(R.string.invalid_phone_error);
         }
         else {
 
