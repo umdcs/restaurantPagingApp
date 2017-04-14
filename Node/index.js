@@ -85,6 +85,9 @@ app.get('/getData', function (request, response) {
 
 /* POST - sends data to server */
 var postCount = 0;
+var array = {
+	waitList : []
+}
 app.post('/postReservation', function (request, response) {
 
     if (!request.body) return response.sendStatus(400);
@@ -92,10 +95,18 @@ app.post('/postReservation', function (request, response) {
 	
 	var reservation = Reservation();
 	
-	reservation.customerNname = request.body.name,
-	reservation.size = request.body.partySize,
-	reservation.number = request.body.phoneNumber,
-	reservation.arrivalTime = request.body.time
+	var reservation.name = request.body.name,
+	var reservation.size = request.body.size,
+	var reservation.phoneNumber = request.body.phoneNumber,
+	var reservation.time = request.body.time
+	
+	
+	
+	//Posting to the array 
+	array.waitList.push(name);
+	array.waitlist.push(size);
+	array.waitlist.push(phoneNumber);
+	array.waitlist.push(time);
 	
         // Get a timestamp that we can use to seeing ordered log messages                                                                 
         var timestamp = new Date().valueOf();
@@ -109,6 +120,8 @@ app.post('/postReservation', function (request, response) {
 
 
         res.status(200).send('OK');
+        
+        res.end();
     })
 
 /* PUT - sends data to server */
@@ -122,10 +135,10 @@ app.delete('/deleteData', function (request, response) {
     });
 
 /* Functions */
-networkIORef.emit('customerName', name);
-networkIORef.emit('partySize', size);
-networkIORef.emit('phoneNumber', number);
-networkIORef.emit('time', arrivalTime);
+networkIORef.emit('name', name);
+networkIORef.emit('size', size);
+networkIORef.emit('phoneNumber', phoneNumber);
+networkIORef.emit('time', time);
 /* ================================================                                                                                       
  * ================================================                                                                                       
  * ================================================                                                                                       
