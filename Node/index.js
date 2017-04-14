@@ -24,7 +24,7 @@ var app = express(),
 //   https://socket.io/get-started/chat/                                                                                                  
 
 // Set the port in the app system                                                                                                         
-app.set("port", 8080);
+app.set("port", 4532);
 
 app.use(bodyParser.urlencoded({   // support encoded bodies                                                                               
             extended: true
