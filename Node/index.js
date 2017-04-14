@@ -58,7 +58,7 @@ networkIORef.on('connection', function(socket) {
  */
  
  //GET REQUESTS//
-app.get('/getAllReservations', function(request, response) {
+app.get('/', function(request, response) {
 
         response.writeHead(200, {'Content-Type': 'text/html'});
 
