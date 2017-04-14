@@ -140,10 +140,10 @@ app.delete('/deleteData', function (request, response) {
     });
 
 /* Functions */
-networkIORef.emit('name', name);
-networkIORef.emit('size', size);
-networkIORef.emit('phoneNumber', phoneNumber);
-networkIORef.emit('time', time);
+//networkIORef.emit('name', name);
+//networkIORef.emit('size', size);
+//networkIORef.emit('phoneNumber', phoneNumber);
+//networkIORef.emit('time', time);
 /* ================================================                                                                                       
  * ================================================                                                                                       
  * ================================================                                                                                       
