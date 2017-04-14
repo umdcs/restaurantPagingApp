@@ -118,12 +118,12 @@ app.post('/postReservation', function (request, response) {
         // Get a timestamp that we can use to seeing ordered log messages                                                                 
         var timestamp = new Date().valueOf();
 
-        var logstr = '';
-        for(var elemName in req.body) {
-            logstr = logstr + "[" + elemName + ": " + req.body[elemName] + "] ";
-        }
+        //var logstr = '';
+        //for(var elemName in req.body) {
+          //  logstr = logstr + "[" + elemName + ": " + req.body[elemName] + "] ";
+        //}
 
-        networkIORef.emit('log message', timestamp + ': Received /postReservation POST' + logstr);
+        //networkIORef.emit('log message', timestamp + ': Received /postReservation POST' + logstr);
 
 
         res.status(200).send('OK');
