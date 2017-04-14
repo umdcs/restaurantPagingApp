@@ -32,7 +32,7 @@ app.use(bodyParser.urlencoded({   // support encoded bodies
 app.use(bodyParser.json());  // support json encoded bodies
 
 //Start the app and let it listen for connections                                                                                         
-httpServerRef.listen(app.get("port"), function () {
+httpServer.listen(app.get("port"), function () {
         console.log('Node app listening on port: ', app.get("port"));
     });
 
