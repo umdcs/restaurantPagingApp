@@ -167,10 +167,12 @@ public class MainActivity extends AppCompatActivity implements ModelViewPresente
                 intent.putExtra("Phone Number",res.getPhoneNumber());
 
                 startActivityForResult(intent, requestCode);
+
                 break;
             case R.id.delete:
                 Log.d("Delete","Deleted");
                 mPresenter.deleteReservation(arrayAdapterPosition,list);
+                clearListSelections();
                 break;
             case R.id.notify:
 
@@ -369,6 +371,17 @@ public class MainActivity extends AppCompatActivity implements ModelViewPresente
     @Override
     public void addReservationToList(Reservation reservation){
         waitingListAdapter.add(reservation);
+    }
+
+    private void clearListSelections(){
+        final ListView waitingList = (ListView) findViewById(R.id.waitingList);
+        final ListView seatedList = (ListView) findViewById(R.id.seatedList);
+        for(int i=0;i<waitingList.getCount();i++){
+            waitingList.setItemChecked(i,false);
+        }
+        for(int i=0;i<seatedList.getCount();i++){
+            seatedList.setItemChecked(i,false);
+        }
     }
 
     /**
