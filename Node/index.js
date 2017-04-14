@@ -100,10 +100,10 @@ app.post('/postReservation', function (request, response) {
 	postCount++;
 	
 	
-	var reservation.name = request.body.name,
-	var reservation.size = request.body.size,
-	var reservation.phoneNumber = request.body.phoneNumber,
-	var reservation.time = request.body.time
+	reservation.name = request.body.name,
+	reservation.size = request.body.size,
+	reservation.phoneNumber = request.body.phoneNumber,
+	reservation.time = request.body.time
 	
 	
 	
