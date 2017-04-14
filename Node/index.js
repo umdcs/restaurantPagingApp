@@ -10,14 +10,16 @@ var http = require('http');
 // Socket.io allows for network streaming between connected                                                                               
 // clients. It's a convenient way to broadcast data to specific                                                                           
 // clients and also implement real-time services, such as chat                                                                            
-var socketio = require('socket.io');
+//var socketio = require('socket.io');
                                                                                            
 var bodyParser = require('body-parser');
 
 // The main instanced class, called app will be initialized by express                                                                    
-var app = express(),
-	httpServer = http.createServer(app),
-	networkIORef = socketio.listen(httpServer);
+
+var app = express();
+//var app = express(),
+//	httpServer = http.createServer(app),
+//	networkIORef = socketio.listen(httpServer);
 	
 
 // Much of the Socket.io use in this example is derived from                                                                              
@@ -26,27 +28,27 @@ var app = express(),
 // Set the port in the app system                                                                                                         
 app.set("port", 4532);
 
-app.use(bodyParser.urlencoded({   // support encoded bodies                                                                               
-            extended: true
-                }));
-app.use(bodyParser.json());  // support json encoded bodies
+//app.use(bodyParser.urlencoded({   // support encoded bodies                                                                               
+  //          extended: true
+    //            }));
+//app.use(bodyParser.json());  // support json encoded bodies
 
 //Start the app and let it listen for connections                                                                                         
-httpServer.listen(app.get("port"), function () {
-        console.log('Node app listening on port: ', app.get("port"));
-    });
+//httpServer.listen(app.get("port"), function () {
+  //      console.log('Node app listening on port: ', app.get("port"));
+    //});
 
 //Socket.io handler                                                                                                                       
-networkIORef.on('connection', function(socket) {
-        console.log('user connected');
+//networkIORef.on('connection', function(socket) {
+  //      console.log('user connected');
 
-        socket.on('log message', function(msg){
-                networkIORef.emit('log message', msg);
-            });
-        socket.on('disconnect', function(){
-                console.log('user now disconnected');
-            });
-    });
+    //    socket.on('log message', function(msg){
+      //          networkIORef.emit('log message', msg);
+        //    });
+        //socket.on('disconnect', function(){
+          //      console.log('user now disconnected');
+            //});
+    //});
 
 /* -------------------------------------------------                                                                                      
  * ROUTE Descriptions                                                                                                                     
