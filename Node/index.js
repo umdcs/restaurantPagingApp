@@ -66,7 +66,7 @@ app.get('/getAllReservations', function(request, response) {
          * of the HTTP Response body */
         response.write('<!DOCTYPE html><head><title>Client DashBoard</title></head><body>');
         response.write('<H1>Restaurant Paging App</H1>');
-        response.write(JSON.stringify(dataToReturn));
+        response.write(JSON.stringify(array));
 
         response.write('</body></html>');
 
@@ -74,7 +74,7 @@ app.get('/getAllReservations', function(request, response) {
 
         /* Occasional console output can be helpful for debugging too. */
         console.log('Received Dashboard request!');
-        getReservation.reservationArray.push(dataToReturn);
+        getReservation.reservationArray.push(array);
 
     });
 
@@ -88,12 +88,17 @@ var postCount = 0;
 var array = {
 	waitList : []
 }
+var reservation = {
+	"name" : "",
+	"size" : "",
+	"phoneNumber" : "",
+	"time" : ""
+};
 app.post('/postReservation', function (request, response) {
 
     if (!request.body) return response.sendStatus(400);
 	postCount++;
 	
-	var reservation = Reservation();
 	
 	var reservation.name = request.body.name,
 	var reservation.size = request.body.size,
