@@ -92,7 +92,7 @@ app.post('/postReservation', function (request, response) {
 	
 	var reservation = Reservation();
 	
-	reservation.customerName = request.body.name,
+	reservation.customerNname = request.body.name,
 	reservation.size = request.body.partySize,
 	reservation.number = request.body.phoneNumber,
 	reservation.arrivalTime = request.body.time
@@ -122,7 +122,7 @@ app.delete('/deleteData', function (request, response) {
     });
 
 /* Functions */
-networkIORef.emit('name', customerName);
+networkIORef.emit('customerName', name);
 networkIORef.emit('partySize', size);
 networkIORef.emit('phoneNumber', number);
 networkIORef.emit('time', arrivalTime);
