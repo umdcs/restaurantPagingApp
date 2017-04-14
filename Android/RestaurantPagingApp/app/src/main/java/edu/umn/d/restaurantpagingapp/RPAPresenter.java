@@ -127,8 +127,8 @@ public class RPAPresenter implements ModelViewPresenterComponents.RPAPresenterCo
     // this will be called by the view to relay the user data here.  Once here, it can
     // be checked and potentially sent on to the model.
     @Override
-    public void clickCreateReservation(String name, int partySize, String phoneNum, String time) {
-        Reservation reservation = mModel.createReservation(name,partySize,phoneNum,time);
+    public void clickCreateReservation(String name, int partySize, String phoneNum, String time, boolean[] specialRequests, String otherRequest) {
+        Reservation reservation = mModel.createReservation(name,partySize,phoneNum,time,specialRequests,otherRequest);
         mView.addReservationToList(reservation);
     }
 }

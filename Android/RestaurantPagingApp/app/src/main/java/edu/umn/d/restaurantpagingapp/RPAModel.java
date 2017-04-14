@@ -8,9 +8,6 @@ import java.util.List;
  */
 
 public class RPAModel implements ModelViewPresenterComponents.Model {
-    public RPAModel(){
-
-    }
 
     /**
      * Here we will instantiate any of the classes that are used by the model
@@ -56,9 +53,9 @@ public class RPAModel implements ModelViewPresenterComponents.Model {
      * @param time  The time when the reservation was created
      * @return  A reference to the reservation that was created.
      */
-    public Reservation createReservation(String name, int partySize, String phoneNumber, String time){
+    public Reservation createReservation(String name, int partySize, String phoneNumber, String time, boolean[] specialRequests, String otherRequest){
         
-        Reservation res = new Reservation(name,partySize,phoneNumber,time);
+        Reservation res = new Reservation(name,partySize,phoneNumber,time,specialRequests,otherRequest);
         waitingReservations.add(res);
 
 
