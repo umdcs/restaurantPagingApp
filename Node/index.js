@@ -17,7 +17,7 @@ var bodyParser = require('body-parser');
 // The main instanced class, called app will be initialized by express                                                                    
 var app = express(),
 	httpServer = http.createServer(app),
-	networkIORef = socketio.listen(httpServer),
+	networkIORef = socketio.listen(httpServer);
 	
 
 // Much of the Socket.io use in this example is derived from                                                                              
