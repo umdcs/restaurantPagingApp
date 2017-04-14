@@ -76,14 +76,14 @@ app.get('/', function(request, response) {
 
         /* Occasional console output can be helpful for debugging too. */
         console.log('Received Dashboard request!');
-        getReservation.reservationArray.push(array);
+       // getReservation.reservationArray.push(array);
 
     });
 
 /* GET - retrieves data from server */
-app.get('/getData', function (request, response) {
-        res.sendFile(__dirname + '/baseHTML.html');
-    });
+//app.get('/getData', function (request, response) {
+  //      res.sendFile(__dirname + '/baseHTML.html');
+    //});
 
 /* POST - sends data to server */
 var postCount = 0;
