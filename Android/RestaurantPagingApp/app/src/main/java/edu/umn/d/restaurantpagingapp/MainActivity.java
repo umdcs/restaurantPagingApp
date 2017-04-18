@@ -103,11 +103,9 @@ public class MainActivity extends AppCompatActivity implements ModelViewPresente
      * @param menuInfo infor attached to the menu.
      */
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo){
-        Log.d("List",String.valueOf(v));
         if(v.equals(findViewById(R.id.waitingList)) || v.equals(findViewById(R.id.seatedList))) {
             MenuInflater inflater = getMenuInflater();
             inflater.inflate(R.menu.context_menu, menu);
-            Log.d("Menu","Jeff");
         }else {
             menu.setHeaderTitle("Sort by:");
             menu.add(Menu.NONE, 1, Menu.NONE, "Name");
@@ -145,8 +143,7 @@ public class MainActivity extends AppCompatActivity implements ModelViewPresente
                 list = "seated";
                 requestCode = 3;
             }
-            Log.d("List",list);
-            Log.d("requestcode",String.valueOf(requestCode));
+
         }
         else{   // We got here from the button
             arrayAdapterPosition = -1;
@@ -159,8 +156,6 @@ public class MainActivity extends AppCompatActivity implements ModelViewPresente
 
         switch(item.getItemId()){
             case R.id.edit:
-                Log.d("Edit","Open editor");
-                Log.d("Request code",String.valueOf(requestCode));
                 editedPosition = arrayAdapterPosition;
 
                 Intent intent = new Intent(this, CreateReservationActivity.class);
@@ -173,8 +168,8 @@ public class MainActivity extends AppCompatActivity implements ModelViewPresente
 
                 break;
             case R.id.delete:
-                Log.d("Delete","Deleted");
-                mPresenter.deleteReservation(arrayAdapterPosition,list);
+                Reservation deletedReservation = mPresenter.deleteReservation(arrayAdapterPosition,list);
+                restDELETE(deletedReservation);
                 clearListSelections();
                 break;
             case R.id.notify:
@@ -359,16 +354,15 @@ public class MainActivity extends AppCompatActivity implements ModelViewPresente
 
         int index = waitingList.getCheckedItemPosition();
 
-        //Get the reservation that we are moving to seated and set "isSeated" to true
-        Reservation res = (Reservation)waitingListAdapter.getItem(index);
-        res.toSeated();
-
-        Log.d("Seated",String.valueOf(seatedList.getCheckedItemPosition()));
         seatedList.setItemChecked(0,false); // This makes it so the item doesn't start selected when it ends up on the seated list. I think this is a workaround and might reflect an overarching bug.
         waitingList.setItemChecked(0,false);
         if (index >= 0 && index < waitingList.getCount()){
             Log.d("index",String.valueOf(index));
+            Reservation res = (Reservation)waitingListAdapter.getItem(index);
+            restDELETE(res);
             mPresenter.moveReservation(index,"master");
+            restPOST(res);
+
         }
         else{
             Log.d("ERROR", "ARRAY INDEX OUT OF BOUNDS IN moveToSeated in MainActivity array is of length " + waitingList.getCount()+ " got index of "+ index);
@@ -435,6 +429,7 @@ public class MainActivity extends AppCompatActivity implements ModelViewPresente
             jsonParam.put("size", String.valueOf(res.getPartySize()));
             jsonParam.put("phoneNumber", res.getPhoneNumber());
             jsonParam.put("time", res.getTime());
+            jsonParam.put("isSeated", res.isSeated());
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -458,13 +453,17 @@ public class MainActivity extends AppCompatActivity implements ModelViewPresente
         new HTTPAsyncTask().execute("http://10.0.2.2:4532/putReservation", "PUT", jsonParam.toString());
     }
 
-    public void restDELETE() {
+    public void restDELETE(Reservation res) {
 
         JSONObject jsonParam = null;
         try {
             //Create JSONObject here
             jsonParam = new JSONObject();
-            jsonParam.put("name", "Pete");
+            jsonParam.put("name", res.getName() );
+            jsonParam.put("size", String.valueOf(res.getPartySize()));
+            jsonParam.put("phoneNumber", res.getPhoneNumber());
+            jsonParam.put("time", res.getTime());
+            jsonParam.put("isSeated", res.isSeated());
         } catch (JSONException e) {
             e.printStackTrace();
         }

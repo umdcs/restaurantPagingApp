@@ -32,7 +32,7 @@ public interface ModelViewPresenterComponents{
         void moveReservation(int index, String list);
         List getReservations(String list);
         Reservation getReservation(int index, String list);
-        void deleteReservation(int index,String list);
+        Reservation deleteReservation(int index,String list);
         void editReservation(int index, String name, int partySize, String phoneNumber,String list);
     }
 
@@ -46,8 +46,8 @@ public interface ModelViewPresenterComponents{
         List getSeatedReservations();
         Reservation getReservation(int index);
         Reservation getSeatedReservation(int index);
-        void deleteReservation(int index);
-        void deleteSeatedReservation(int index);
+        Reservation deleteReservation(int index);
+        Reservation deleteSeatedReservation(int index);
         void moveToSeated(int index);
         void moveToMaster(int index);
         void editReservation(int index, String name, int partySize, String phoneNumber);

@@ -67,17 +67,21 @@ public class RPAPresenter implements ModelViewPresenterComponents.RPAPresenterCo
      * @param index Index of the reservation to delete
      * @param list  Which list to delete from
      */
-    public void deleteReservation(int index, String list){
+    public Reservation deleteReservation(int index, String list){
+        Reservation reservation;
         switch (list){
             case "seated":
-                mModel.deleteSeatedReservation(index);
+                reservation = mModel.deleteSeatedReservation(index);
                 mView.notifyCustomerListUpdated();
                 break;
-            case "master":
-                mModel.deleteReservation(index);
+            default:
+                reservation = mModel.deleteReservation(index);
                 mView.notifyCustomerListUpdated();
                 break;
+
         }
+
+        return reservation;
 
     }
 

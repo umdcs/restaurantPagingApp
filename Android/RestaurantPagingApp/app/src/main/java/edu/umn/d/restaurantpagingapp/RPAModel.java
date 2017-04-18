@@ -1,5 +1,7 @@
 package edu.umn.d.restaurantpagingapp;
 
+import android.service.restrictions.RestrictionsReceiver;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -97,15 +99,15 @@ public class RPAModel implements ModelViewPresenterComponents.Model {
      * Delete a reservation in the waiting list at a specific index
      * @param index Index of the element
      */
-    public void deleteReservation(int index){
-        waitingReservations.remove(index);
+    public Reservation deleteReservation(int index){
+        return (Reservation)waitingReservations.remove(index);
     }
     /**
      * Delete a reservation in the seated list at a specific index
      * @param index Index of the element
      */
-    public void deleteSeatedReservation(int index){
-        seatedReservations.remove(index);
+    public Reservation deleteSeatedReservation(int index){
+        return (Reservation)seatedReservations.remove(index);
     }
 
     /**
@@ -113,9 +115,9 @@ public class RPAModel implements ModelViewPresenterComponents.Model {
      * @param position  The position of the reservation to be moved
      */
     public void moveToSeated(int position){
-        Object res = waitingReservations.remove(position);
+        Reservation res = (Reservation)waitingReservations.remove(position);
+        res.toSeated();
         seatedReservations.add(res);
-        Reservation reservation = (Reservation) res;
 
     }
 
@@ -124,9 +126,9 @@ public class RPAModel implements ModelViewPresenterComponents.Model {
      * @param position  The position of the reservation to be moved
      */
     public void moveToMaster(int position){
-        Object res = seatedReservations.remove(position);
+        Reservation res = (Reservation)seatedReservations.remove(position);
+        res.toMaster();
         waitingReservations.add(res);
-        Reservation reservation = (Reservation) res;
 
     }
 

@@ -113,6 +113,8 @@ public class Reservation implements Comparable<Reservation> {
         this.isSeated = true;
     }
 
+    public void toMaster() { this.isSeated = false; }
+
     public boolean isSeated() {
         return this.isSeated;
     }
