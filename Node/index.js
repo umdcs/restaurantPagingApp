@@ -12,7 +12,6 @@ var http = require('http');
 // clients and also implement real-time services, such as chat                                                                            
 //var socketio = require('socket.io');
                                                                                            
-var bodyParser = require('body-parser');
 
 // The main instanced class, called app will be initialized by express                                                                    
 
@@ -28,10 +27,12 @@ var app = express();
 // Set the port in the app system                                                                                                         
 app.set("port", 4532);
 
-//app.use(bodyParser.urlencoded({   // support encoded bodies                                                                               
-  //          extended: true
-    //            }));
-//app.use(bodyParser.json());  // support json encoded bodies
+var bodyParser = require('body-parser');
+
+app.use(bodyParser.urlencoded({   // support encoded bodies                                                                               
+            extended: true
+                }));
+app.use(bodyParser.json());  // support json encoded bodies
 
 //Start the app and let it listen for connections                                                                                         
 //httpServer.listen(app.get("port"), function () {
@@ -49,6 +50,18 @@ app.set("port", 4532);
           //      console.log('user now disconnected');
             //});
     //});
+
+var postCount = 0;
+var stages = {
+    waitList : [],
+    seatedList : []
+}
+var reservation = {
+    "name" : "",
+    "size" : 0,
+    "phoneNumber" : "",
+    "time" : ""
+};
 
 /* -------------------------------------------------                                                                                      
  * ROUTE Descriptions                                                                                                                     
@@ -68,7 +81,7 @@ app.get('/', function(request, response) {
          * of the HTTP Response body */
         response.write('<!DOCTYPE html><head><title>Client DashBoard</title></head><body>');
         response.write('<H1>Restaurant Paging App</H1>');
-        response.write(JSON.stringify(array));
+        response.write(JSON.stringify(stages));
 
         response.write('</body></html>');
 
@@ -76,7 +89,6 @@ app.get('/', function(request, response) {
 
         /* Occasional console output can be helpful for debugging too. */
         console.log('Received Dashboard request!');
-       // getReservation.reservationArray.push(array);
 
     });
 
@@ -85,36 +97,39 @@ app.get('/', function(request, response) {
   //      res.sendFile(__dirname + '/baseHTML.html');
     //});
 
+app.get('/getWaiting', function(request, response) {
+
+        response.json(stages.waitList);
+        
+        response.end();
+
+        /* Occasional console output can be helpful for debugging too. */
+        console.log('Received waitinglist request!');
+
+    });
+
 /* POST - sends data to server */
-var postCount = 0;
-var array = {
-	waitList : []
-}
-var reservation = {
-	"name" : "",
-	"size" : "",
-	"phoneNumber" : "",
-	"time" : ""
-};
+
 app.post('/postReservation', function (request, response) {
 
-    if (!request.body) return response.sendStatus(400);
+    //if (!request.body) return response.sendStatus(400);
 	postCount++;
 	
-	
-	reservation.name = request.body.name,
-	reservation.size = request.body.size,
-	reservation.phoneNumber = request.body.phoneNumber,
-	reservation.time = request.body.time
+    reservation = request.body;
+	reservation.name = request.body.name;
+	reservation.size = request.body.size;
+	reservation.phoneNumber = request.body.phoneNumber;
+	reservation.time = request.body.time;
+
+    console.log(reservation);
+
 	
 	
 	
 	//Posting to the array 
-	array.waitList.push(name);
-	array.waitlist.push(size);
-	array.waitlist.push(phoneNumber);
-	array.waitlist.push(time);
+	stages.waitList.push(reservation);
 	
+    //console.log(reservation);
         // Get a timestamp that we can use to seeing ordered log messages                                                                 
         var timestamp = new Date().valueOf();
 
@@ -126,9 +141,9 @@ app.post('/postReservation', function (request, response) {
         //networkIORef.emit('log message', timestamp + ': Received /postReservation POST' + logstr);
 
 
-        res.status(200).send('OK');
+        //res.status(200).send('OK');
         
-        res.end();
+        response.end();
     })
 
 /* PUT - sends data to server */
@@ -161,12 +176,12 @@ app.delete('/deleteData', function (request, response) {
  */
 
 app.use(function(request, response, next){
-        request.status(404).send('Sorry, cant find that page!');
+        response.status(404).send('Sorry, cant find that page!');
     });
 
 app.use(function(error, request, response, next){
         console.error(error.stack);
-		request.status(500).send('Something broke!');
+		response.status(500).send('Something broke!');
     });
 
 /* ================================================                                                                                       
