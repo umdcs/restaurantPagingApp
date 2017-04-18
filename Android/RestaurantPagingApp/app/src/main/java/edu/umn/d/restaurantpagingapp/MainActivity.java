@@ -296,13 +296,22 @@ public class MainActivity extends AppCompatActivity implements ModelViewPresente
                     int partySize = intent.getIntExtra("Party size", 0);
                     String phoneNum = intent.getStringExtra("Phone number");
                     String time = intent.getStringExtra("Time");
+                    Reservation reservation = mPresenter.getReservation(editedPosition, "master");
+                    restDELETE(reservation);
                     mPresenter.editReservation(editedPosition, name, partySize, phoneNum, "master");
+                    Reservation newReservation = mPresenter.getReservation(editedPosition,"master");
+                    restPOST(newReservation);
+
                 } else if (requestCode == 3) {
                     String name = intent.getStringExtra("Name");
                     int partySize = intent.getIntExtra("Party size", 0);
                     String phoneNum = intent.getStringExtra("Phone number");
                     String time = intent.getStringExtra("Time");
+                    Reservation reservation = mPresenter.getReservation(editedPosition, "seated");
+                    restDELETE(reservation);
                     mPresenter.editReservation(editedPosition, name, partySize, phoneNum, "seated");
+                    Reservation newReservation = mPresenter.getReservation(editedPosition,"seated");
+                    restPOST(newReservation);
                 }
             } else if (resultCode == Activity.RESULT_CANCELED) {
 
