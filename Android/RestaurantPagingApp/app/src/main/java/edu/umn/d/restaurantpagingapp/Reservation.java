@@ -27,6 +27,8 @@ public class Reservation implements Comparable<Reservation> {
 
         this.otherRequestString = otherRequestString;
 
+        this.isSeated = false;
+
     }
 
     public String toString(){
@@ -107,6 +109,14 @@ public class Reservation implements Comparable<Reservation> {
         return otherRequestString;
     }
 
+    public void toSeated() {
+        this.isSeated = true;
+    }
+
+    public boolean isSeated() {
+        return this.isSeated;
+    }
+
 
     //Helper method creates phone number String
     private String formatPhoneNumber(String phoneNum) {
@@ -176,4 +186,5 @@ public class Reservation implements Comparable<Reservation> {
     private boolean willSplit;
     private boolean otherRequest;
     private String otherRequestString;
+    private boolean isSeated;
 }
