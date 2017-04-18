@@ -8,11 +8,21 @@ import com.google.gson.Gson;
 
 public class Reservation {
 
-    public Reservation(String name, int partySize, String phoneNumber, String time){
+    public Reservation(String name, int partySize, String phoneNumber, String time, boolean[] requests, String otherRequestString){
         this.name = name;
         this.partySize = partySize;
         this.phoneNumber = phoneNumber;
         this.time = time;
+
+        this.highChair = requests[0];
+        this.booth = requests[1];
+        this.wheelChair = requests[2];
+        this.willSplit = requests[3];
+        this.otherRequest = requests[4];
+
+        this.otherRequestString = otherRequestString;
+
+        this.isSeated = false;
 
     }
 
@@ -50,6 +60,36 @@ public class Reservation {
         return time;
     }
 
+    //Special Requests
+    public boolean highChairRequested(){
+        return highChair;
+    }
+
+    public boolean boothRequested(){
+        return booth;
+    }
+
+    public boolean wheelChairRequested() {
+        return wheelChair;
+    }
+
+    public boolean willSplitRequested(){
+        return willSplit;
+    }
+
+    public boolean otherRequested(){
+        return otherRequest;
+    }
+
+    public String getOtherRequest() {
+        return otherRequestString;
+    }
+
+    
+    public boolean isSeated() {
+        return this.isSeated;
+    }
+
     //Helper method creates phone number String
     public String formatPhoneNumber(String phoneNum) {
         char[] phoneNumArray = phoneNum.toCharArray();
@@ -71,4 +111,11 @@ public class Reservation {
     private String phoneNumber;
     private final String time;
     private final Gson gson = new Gson();
+    private boolean highChair;
+    private boolean booth;
+    private boolean wheelChair;
+    private boolean willSplit;
+    private boolean otherRequest;
+    private String otherRequestString;
+    private boolean isSeated;
 }
