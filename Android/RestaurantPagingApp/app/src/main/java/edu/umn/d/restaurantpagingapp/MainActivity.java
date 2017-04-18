@@ -25,6 +25,9 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.Collections;
 
 import java.util.List;
@@ -395,8 +398,54 @@ public class MainActivity extends AppCompatActivity implements ModelViewPresente
             Reservation res = (Reservation) obj;
             seatedListAdapter.add(res);
         }
-
+        restPUT();
+        restGET();
     }
 
+    public void restGET(){
+        new HTTPAsyncTask().execute("http://10.0.2.2:4532/", "GET");
+    }
 
+    public void restPOST(){
+        JSONObject jsonParam = null;
+        try {
+            //Create JSONObject here
+            jsonParam = new JSONObject();
+            jsonParam.put("mpg", 12.323f );
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        Log.d("DEBUG:", jsonParam.toString());
+        new HTTPAsyncTask().execute("http://10.0.2.2:4532/postReservation", "POST", jsonParam.toString());
+    }
+
+    public void restPUT() {
+
+        JSONObject jsonParam = null;
+        try {
+            //Create JSONObject here
+            jsonParam = new JSONObject();
+            jsonParam.put("name", "Melissa");
+            jsonParam.put("Party size", "5");
+            jsonParam.put("Phone number", "7632583591");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        Log.d("DEBUG [PUT]:", jsonParam.toString());
+        new HTTPAsyncTask().execute("http://10.0.2.2:4532/putReservation", "PUT", jsonParam.toString());
+    }
+
+    public void restDELETE() {
+
+        JSONObject jsonParam = null;
+        try {
+            //Create JSONObject here
+            jsonParam = new JSONObject();
+            jsonParam.put("name", "Pete");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        Log.d("DEBUG:", jsonParam.toString());
+        new HTTPAsyncTask().execute("http://10.0.2.2:4532/deleteData", "DELETE", jsonParam.toString());
+    }
 }
