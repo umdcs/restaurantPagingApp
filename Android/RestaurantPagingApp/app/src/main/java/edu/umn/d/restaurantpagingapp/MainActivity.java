@@ -281,13 +281,16 @@ public class MainActivity extends AppCompatActivity implements ModelViewPresente
                 int partySize = intent.getIntExtra("Party size", 0);
                 String phoneNum = intent.getStringExtra("Phone number");
                 String time = intent.getStringExtra("Time");
+                boolean[] specialRequests = intent.getBooleanArrayExtra("Special Requests");
+                String otherRequest = intent.getStringExtra("Other Request");
+
                 ListView waitingList = (ListView) findViewById(R.id.waitingList);
                 waitingList.setSelection(-1);
                 waitingList.setItemChecked(-1, false);
                 waitingList.clearChoices();
 
                 //Create the reservation
-                mPresenter.clickCreateReservation(name, partySize, phoneNum, time);
+                mPresenter.clickCreateReservation(name, partySize, phoneNum, time, specialRequests, otherRequest);
 
                 } else if (requestCode == 2) {
                     String name = intent.getStringExtra("Name");

@@ -74,7 +74,7 @@ var reservation = {
  
  //GET REQUESTS//
 app.get('/', function(request, response) {
-
+	console.log('Beginning of app.get /');
         response.writeHead(200, {'Content-Type': 'text/html'});
 
         /* Each write statement in the response can send text/data into the body                                                          
@@ -112,7 +112,9 @@ app.get('/getWaiting', function(request, response) {
 
 app.post('/postReservation', function (request, response) {
 
-    //if (!request.body) return response.sendStatus(400);
+
+	console.log('beginning of postReservation');
+    if (!request.body) return response.sendStatus(400);
 	postCount++;
 	
     reservation = request.body;
@@ -145,6 +147,7 @@ app.post('/postReservation', function (request, response) {
         
         response.end();
     })
+
 
 /* PUT - sends data to server */
 app.put('/putReservation', function (request, response) {

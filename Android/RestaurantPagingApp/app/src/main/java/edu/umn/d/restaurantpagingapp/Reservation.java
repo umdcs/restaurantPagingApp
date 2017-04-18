@@ -13,18 +13,48 @@ import java.lang.reflect.Type;
 
 public class Reservation implements Comparable<Reservation> {
 
-    public Reservation(String name, int partySize, String phoneNumber, String time){
+    public Reservation(String name, int partySize, String phoneNumber, String time, boolean[] requests, String otherRequestString){
         this.name = name;
         this.partySize = partySize;
         this.phoneNumber = phoneNumber;
         this.time = time;
 
+        this.highChair = requests[0];
+        this.booth = requests[1];
+        this.wheelChair = requests[2];
+        this.willSplit = requests[3];
+        this.otherRequest = requests[4];
+
+        this.otherRequestString = otherRequestString;
+
+        this.isSeated = false;
+
     }
 
     public String toString(){
 
-        return "Name: " + this.name + "\nParty Size: " + this.partySize + "\nPhone Number: " + formatPhoneNumber(this.phoneNumber) + "\n" + this.time;
+        String string = "Name: " + this.name + "\nParty Size: " + this.partySize + "\nPhone Number: " + formatPhoneNumber(this.phoneNumber) + "\n" + this.time;
 
+        if (highChair || booth || wheelChair || willSplit || otherRequest) {
+            string += "\nSpecial Requests:";
+            if (highChair) {
+                string += "\nHigh chair";
+            }
+            if (booth){
+                string += "\nBooth";
+            }
+            if (wheelChair){
+                string += "\nWheel chair";
+            }
+            if(willSplit){
+                string += "\nWill split";
+            }
+            if (otherRequest){
+                string += "\n" + otherRequestString;
+            }
+        }
+
+        return string;
     }
 
     public void setName(String name){
@@ -53,6 +83,38 @@ public class Reservation implements Comparable<Reservation> {
 
     public String getTime() {
         return time;
+    }
+
+    public boolean highChairRequested(){
+        return highChair;
+    }
+
+    public boolean boothRequested(){
+        return booth;
+    }
+
+    public boolean wheelChairRequested() {
+        return wheelChair;
+    }
+
+    public boolean willSplitRequested(){
+        return willSplit;
+    }
+
+    public boolean otherRequested(){
+        return otherRequest;
+    }
+
+    public String getOtherRequest() {
+        return otherRequestString;
+    }
+
+    public void toSeated() {
+        this.isSeated = true;
+    }
+
+    public boolean isSeated() {
+        return this.isSeated;
     }
 
 
@@ -118,4 +180,11 @@ public class Reservation implements Comparable<Reservation> {
     private String phoneNumber;
     private final String time;
     private final Gson gson = new Gson();
+    private boolean highChair;
+    private boolean booth;
+    private boolean wheelChair;
+    private boolean willSplit;
+    private boolean otherRequest;
+    private String otherRequestString;
+    private boolean isSeated;
 }
