@@ -13,6 +13,8 @@
     <string name="to_seated">To Seated</string>
     <string name="name">Name</string>
     <string name="name_field">Enter Name</string>
+    <string name="notify">Send Text Message</string>
+    <string name="message">Your table is ready!</string>
 
     <string name="empty_field_error">Please enter all information.</string>
     <string name="invalid_phone_error">Please enter a valid phone number.</string>

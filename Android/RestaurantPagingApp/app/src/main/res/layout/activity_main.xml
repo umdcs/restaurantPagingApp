@@ -8,7 +8,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="edu.umn.d.restaurantpagingapp.MainActivity">
+    tools:context="edu.umn.d.restaurantpagingapp.MainActivity" >
 
 
     <Button
@@ -50,7 +50,9 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
-        android:divider="@drawable/listdivider"/>
+        android:divider="@drawable/listdivider"
+        android:dividerHeight="2px"
+        android:background="@drawable/listdivider"/>
 
     <ListView
         android:layout_height="match_parent"
@@ -61,6 +63,8 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:divider="@drawable/listdivider"/>
+        android:divider="@drawable/listdivider"
+        android:dividerHeight="2px"
+        android:background="@drawable/listdivider"/>
 
 </RelativeLayout>
