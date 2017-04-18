@@ -362,10 +362,12 @@ public class RPAModel implements ModelViewPresenterComponents.Model {
                 /**/
                 // Make sure there is something in there
                 List newWaitingList = new ArrayList();
-                JSONArray jsonArray = (JSONArray)jsonData.get("waitList");
+                List newSeatedList = new ArrayList();
+
+                JSONArray waitingJson = (JSONArray)jsonData.get("waitList");
                 boolean[] defaultOptions = {false,false,false,false,false};
-                for(int i = 0; i<jsonArray.length();i++){
-                    JSONObject reservationObject = jsonArray.getJSONObject(i);
+                for(int i = 0; i<waitingJson.length();i++){
+                    JSONObject reservationObject = waitingJson.getJSONObject(i);
                     String name = reservationObject.getString("name");
                     int size = reservationObject.getInt("size");
                     String phoneNumber = reservationObject.getString("phoneNumber");
@@ -374,7 +376,21 @@ public class RPAModel implements ModelViewPresenterComponents.Model {
                     newWaitingList.add(reservation);
                 }
 
+
+                JSONArray seatedJson = (JSONArray)jsonData.get("seatedList");
+                for(int i = 0; i<seatedJson.length();i++){
+                    JSONObject reservationObject = seatedJson.getJSONObject(i);
+                    String name = reservationObject.getString("name");
+                    int size = reservationObject.getInt("size");
+                    String phoneNumber = reservationObject.getString("phoneNumber");
+                    String time = reservationObject.getString("time");
+                    Reservation reservation = new Reservation(name,size,phoneNumber,time,defaultOptions,"");
+                    reservation.toSeated();
+                    newSeatedList.add(reservation);
+                }
+
                 waitingReservations = newWaitingList;
+                seatedReservations = newSeatedList;
 
                 mPresenter.notifyModelUpdated();
 
