@@ -170,10 +170,12 @@ public class MainActivity extends AppCompatActivity implements ModelViewPresente
                 intent.putExtra("Phone Number",res.getPhoneNumber());
 
                 startActivityForResult(intent, requestCode);
+
                 break;
             case R.id.delete:
                 Log.d("Delete","Deleted");
                 mPresenter.deleteReservation(arrayAdapterPosition,list);
+                clearListSelections();
                 break;
             case R.id.notify:
 
@@ -282,13 +284,16 @@ public class MainActivity extends AppCompatActivity implements ModelViewPresente
                 int partySize = intent.getIntExtra("Party size", 0);
                 String phoneNum = intent.getStringExtra("Phone number");
                 String time = intent.getStringExtra("Time");
+                boolean[] specialRequests = intent.getBooleanArrayExtra("Special Requests");
+                String otherRequest = intent.getStringExtra("Other Request");
+
                 ListView waitingList = (ListView) findViewById(R.id.waitingList);
                 waitingList.setSelection(-1);
                 waitingList.setItemChecked(-1, false);
                 waitingList.clearChoices();
 
                 //Create the reservation
-                mPresenter.clickCreateReservation(name, partySize, phoneNum, time);
+                mPresenter.clickCreateReservation(name, partySize, phoneNum, time, specialRequests, otherRequest);
 
                 } else if (requestCode == 2) {
                     String name = intent.getStringExtra("Name");
@@ -372,6 +377,17 @@ public class MainActivity extends AppCompatActivity implements ModelViewPresente
     @Override
     public void addReservationToList(Reservation reservation){
         waitingListAdapter.add(reservation);
+    }
+
+    private void clearListSelections(){
+        final ListView waitingList = (ListView) findViewById(R.id.waitingList);
+        final ListView seatedList = (ListView) findViewById(R.id.seatedList);
+        for(int i=0;i<waitingList.getCount();i++){
+            waitingList.setItemChecked(i,false);
+        }
+        for(int i=0;i<seatedList.getCount();i++){
+            seatedList.setItemChecked(i,false);
+        }
     }
 
     /**

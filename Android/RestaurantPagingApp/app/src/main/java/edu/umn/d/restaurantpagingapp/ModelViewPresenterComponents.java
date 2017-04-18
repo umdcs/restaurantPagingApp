@@ -28,7 +28,7 @@ public interface ModelViewPresenterComponents{
         //   to be sent to the master list
 
 
-        void clickCreateReservation(final String name, final int partySize, final String phoneNumber, final String time);
+        void clickCreateReservation(final String name, final int partySize, final String phoneNumber, final String time, boolean[] specialRequests, String otherRequest);
         void moveReservation(int index, String list);
         List getReservations(String list);
         Reservation getReservation(int index, String list);
@@ -52,7 +52,7 @@ public interface ModelViewPresenterComponents{
         void moveToMaster(int index);
         void editReservation(int index, String name, int partySize, String phoneNumber);
         void editSeatedReservation(int index, String name, int partySize, String phoneNumber);
-        Reservation createReservation(String name, int partySize, String phoneNumber, String time);
+        Reservation createReservation(String name, int partySize, String phoneNumber, String time, boolean[] specialRequest, String otherRequest);
 
 
     }

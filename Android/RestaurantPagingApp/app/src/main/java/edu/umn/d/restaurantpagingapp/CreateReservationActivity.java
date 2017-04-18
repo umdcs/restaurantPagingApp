@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -21,8 +22,6 @@ public class CreateReservationActivity extends AppCompatActivity {
         EditText phoneNumEditText = (EditText) findViewById(R.id.phoneNumEditTest);
         Intent intent = getIntent();
 
-
-
         nameEditText.setText(intent.getStringExtra("Name"));
         partySizeEditText.setText(intent.getStringExtra("Party Size"));
         phoneNumEditText.setText(intent.getStringExtra("Phone Number"));
@@ -35,6 +34,22 @@ public class CreateReservationActivity extends AppCompatActivity {
         EditText nameEditText = (EditText) findViewById(R.id.nameEditText);
         EditText partySizeEditText = (EditText) findViewById(R.id.partySizeEditText);
         EditText phoneNumEditText = (EditText) findViewById(R.id.phoneNumEditTest);
+
+        //Grab the check boxes
+        CheckBox highChairCheckBox = (CheckBox) findViewById(R.id.highChairCheckBox);
+        CheckBox boothCheckBox = (CheckBox) findViewById(R.id.boothSeatingCheckBox);
+        CheckBox wheelChairCheckBox = (CheckBox) findViewById(R.id.wheelChairCheckBox);
+        CheckBox willSplitCheckBox = (CheckBox) findViewById(R.id.willSplitCheckBox);
+        CheckBox otherCheckBox = (CheckBox) findViewById(R.id.otherCheckBox);
+
+        boolean[] specialRequests = new boolean[5];
+        specialRequests[0] = highChairCheckBox.isChecked();
+        specialRequests[1] = boothCheckBox.isChecked();
+        specialRequests[2] = wheelChairCheckBox.isChecked();
+        specialRequests[3] = willSplitCheckBox.isChecked();
+        specialRequests[4] = otherCheckBox.isChecked();
+
+        EditText otherRequestEditText = (EditText) findViewById(R.id.otherRequestEditText);
 
         //Check to see that all information is entered
         if (nameEditText.getText().toString().equals("") || partySizeEditText.getText().toString().equals("") || phoneNumEditText.getText().toString().equals("")) {
@@ -49,6 +64,11 @@ public class CreateReservationActivity extends AppCompatActivity {
             TextView enterInfoMessage = (TextView) findViewById(R.id.enterInfoMessage);
             enterInfoMessage.setText(R.string.invalid_phone_error);
         }
+        else if (otherCheckBox.isChecked() && otherRequestEditText.getText().toString().equals("")){
+            //Display message indicating that more info is needed
+            TextView enterInfoMessage = (TextView) findViewById(R.id.enterInfoMessage);
+            enterInfoMessage.setText("Please enter a special request.");
+        }
         else {
 
             //Create an intent with reservation information
@@ -58,6 +78,9 @@ public class CreateReservationActivity extends AppCompatActivity {
 
             intent.putExtra("Phone number", phoneNumEditText.getText().toString());
             intent.putExtra("Time", time());
+
+            intent.putExtra("Special Requests", specialRequests);
+            intent.putExtra("Other Request", otherRequestEditText.getText().toString());
 
             //Finish activity and send info back to main activity
             setResult(Activity.RESULT_OK, intent);
