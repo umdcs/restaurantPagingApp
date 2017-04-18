@@ -67,4 +67,15 @@
         android:dividerHeight="2px"
         android:background="@drawable/listdivider"/>
 
+    <Button
+        android:id="@+id/refresh"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/makeReservation"
+        android:layout_alignEnd="@+id/makeReservation"
+        android:layout_alignRight="@+id/makeReservation"
+        android:layout_marginBottom="35dp"
+        android:onClick="refreshFromServer"
+        android:text="Refresh" />
+
 </RelativeLayout>

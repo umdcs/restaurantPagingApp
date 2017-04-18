@@ -27,7 +27,8 @@ public interface ModelViewPresenterComponents{
         // - in this way, the views communicate data entered by the user
         //   to be sent to the master list
 
-
+        void refresh();
+        void notifyModelUpdated();
         Reservation clickCreateReservation(final String name, final int partySize, final String phoneNumber, final String time, boolean[] specialRequests, String otherRequest);
         void moveReservation(int index, String list);
         List getReservations(String list);
@@ -48,6 +49,7 @@ public interface ModelViewPresenterComponents{
         Reservation getSeatedReservation(int index);
         Reservation deleteReservation(int index);
         Reservation deleteSeatedReservation(int index);
+        void refresh();
         void moveToSeated(int index);
         void moveToMaster(int index);
         void editReservation(int index, String name, int partySize, String phoneNumber);

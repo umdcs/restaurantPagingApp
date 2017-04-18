@@ -4,6 +4,7 @@ import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.os.AsyncTask;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -25,9 +26,19 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.BufferedReader;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.ArrayList;
 import java.util.Collections;
 
 import java.util.List;
@@ -169,7 +180,6 @@ public class MainActivity extends AppCompatActivity implements ModelViewPresente
                 break;
             case R.id.delete:
                 Reservation deletedReservation = mPresenter.deleteReservation(arrayAdapterPosition,list);
-                restDELETE(deletedReservation);
                 clearListSelections();
                 break;
             case R.id.notify:
@@ -289,18 +299,13 @@ public class MainActivity extends AppCompatActivity implements ModelViewPresente
 
                 //Create the reservation
                 Reservation res = mPresenter.clickCreateReservation(name, partySize, phoneNum, time, specialRequests, otherRequest);
-                restPOST(res);
 
                 } else if (requestCode == 2) {
                     String name = intent.getStringExtra("Name");
                     int partySize = intent.getIntExtra("Party size", 0);
                     String phoneNum = intent.getStringExtra("Phone number");
                     String time = intent.getStringExtra("Time");
-                    Reservation reservation = mPresenter.getReservation(editedPosition, "master");
-                    restDELETE(reservation);
                     mPresenter.editReservation(editedPosition, name, partySize, phoneNum, "master");
-                    Reservation newReservation = mPresenter.getReservation(editedPosition,"master");
-                    restPOST(newReservation);
 
                 } else if (requestCode == 3) {
                     String name = intent.getStringExtra("Name");
@@ -308,10 +313,7 @@ public class MainActivity extends AppCompatActivity implements ModelViewPresente
                     String phoneNum = intent.getStringExtra("Phone number");
                     String time = intent.getStringExtra("Time");
                     Reservation reservation = mPresenter.getReservation(editedPosition, "seated");
-                    restDELETE(reservation);
                     mPresenter.editReservation(editedPosition, name, partySize, phoneNum, "seated");
-                    Reservation newReservation = mPresenter.getReservation(editedPosition,"seated");
-                    restPOST(newReservation);
                 }
             } else if (resultCode == Activity.RESULT_CANCELED) {
 
@@ -351,6 +353,10 @@ public class MainActivity extends AppCompatActivity implements ModelViewPresente
         mPresenter = new RPAPresenter(this);
     }
 
+    public void refreshFromServer(View view){
+        mPresenter.refresh();
+    }
+
     /**
      * This method is a button listener for the move to seated button
      * it asks the presenter to move the selected item in the waiting list to the seated list
@@ -368,9 +374,7 @@ public class MainActivity extends AppCompatActivity implements ModelViewPresente
         if (index >= 0 && index < waitingList.getCount()){
             Log.d("index",String.valueOf(index));
             Reservation res = (Reservation)waitingListAdapter.getItem(index);
-            restDELETE(res);
             mPresenter.moveReservation(index,"master");
-            restPOST(res);
 
         }
         else{
@@ -425,58 +429,5 @@ public class MainActivity extends AppCompatActivity implements ModelViewPresente
         }
     }
 
-    public void restGET(){
-        new HTTPAsyncTask().execute("http://10.0.2.2:4532/", "GET");
-    }
 
-    public void restPOST(Reservation res){
-        JSONObject jsonParam = null;
-        try {
-            //Create JSONObject here
-            jsonParam = new JSONObject();
-            jsonParam.put("name", res.getName() );
-            jsonParam.put("size", String.valueOf(res.getPartySize()));
-            jsonParam.put("phoneNumber", res.getPhoneNumber());
-            jsonParam.put("time", res.getTime());
-            jsonParam.put("isSeated", res.isSeated());
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        Log.d("DEBUG:", jsonParam.toString());
-        new HTTPAsyncTask().execute("http://10.0.2.2:4532/postReservation", "POST", jsonParam.toString());
-    }
-
-    public void restPUT() {
-
-        JSONObject jsonParam = null;
-        try {
-            //Create JSONObject here
-            jsonParam = new JSONObject();
-            jsonParam.put("name", "Melissa");
-            jsonParam.put("Party size", "5");
-            jsonParam.put("Phone number", "7632583591");
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        Log.d("DEBUG [PUT]:", jsonParam.toString());
-        new HTTPAsyncTask().execute("http://10.0.2.2:4532/putReservation", "PUT", jsonParam.toString());
-    }
-
-    public void restDELETE(Reservation res) {
-
-        JSONObject jsonParam = null;
-        try {
-            //Create JSONObject here
-            jsonParam = new JSONObject();
-            jsonParam.put("name", res.getName() );
-            jsonParam.put("size", String.valueOf(res.getPartySize()));
-            jsonParam.put("phoneNumber", res.getPhoneNumber());
-            jsonParam.put("time", res.getTime());
-            jsonParam.put("isSeated", res.isSeated());
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        Log.d("DEBUG:", jsonParam.toString());
-        new HTTPAsyncTask().execute("http://10.0.2.2:4532/deleteData", "DELETE", jsonParam.toString());
-    }
 }

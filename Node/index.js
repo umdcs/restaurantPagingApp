@@ -92,9 +92,9 @@ app.get('/', function(request, response) {
   //      res.sendFile(__dirname + '/baseHTML.html');
     //});
 
-app.get('/getWaiting', function(request, response) {
+app.get('/getData', function(request, response) {
 
-        response.json(stages.waitList);
+        response.json(stages);
         
         response.end();
 
@@ -164,11 +164,12 @@ app.delete('/deleteData', function (request, response) {
         deleteReservation.phoneNumber = body.phoneNumber;
         deleteReservation.time = body.time; 
 
-
+        
         if(body.isSeated){
             for (var i = 0; i < stages.seatedList.length; i++) {
                 var res = stages.seatedList[i];
                 if(JSON.stringify(res) === JSON.stringify(deleteReservation)){
+                    console.log("Deleted from seated");
                     stages.seatedList.splice(i,1);
                     break;
                 }
@@ -178,6 +179,7 @@ app.delete('/deleteData', function (request, response) {
             for (var i = 0; i < stages.waitList.length; i++) {
                 var res = stages.waitList[i];
                 if(JSON.stringify(res) === JSON.stringify(deleteReservation)){
+                    console.log("Deleted from seated");
                     stages.waitList.splice(i,1);
                     break;
                 }

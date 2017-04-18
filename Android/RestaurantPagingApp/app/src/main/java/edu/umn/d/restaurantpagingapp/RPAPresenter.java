@@ -20,7 +20,7 @@ public class RPAPresenter implements ModelViewPresenterComponents.RPAPresenterCo
     public RPAPresenter(ModelViewPresenterComponents.View rpaView)
     {
         mView = rpaView;
-        mModel = new RPAModel();
+        mModel = new RPAModel(this);
     }
 
     /**
@@ -125,6 +125,14 @@ public class RPAPresenter implements ModelViewPresenterComponents.RPAPresenterCo
 
         }
 
+    }
+
+    public void refresh(){
+        mModel.refresh();
+    }
+
+    public void notifyModelUpdated(){
+        mView.notifyCustomerListUpdated();
     }
 
     // When the view receives input from the user (after the createReservation button is clicked,
