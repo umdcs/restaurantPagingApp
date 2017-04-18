@@ -28,7 +28,7 @@ public interface ModelViewPresenterComponents{
         //   to be sent to the master list
 
 
-        void clickCreateReservation(final String name, final int partySize, final String phoneNumber, final String time, boolean[] specialRequests, String otherRequest);
+        Reservation clickCreateReservation(final String name, final int partySize, final String phoneNumber, final String time, boolean[] specialRequests, String otherRequest);
         void moveReservation(int index, String list);
         List getReservations(String list);
         Reservation getReservation(int index, String list);

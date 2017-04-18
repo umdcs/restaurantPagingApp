@@ -293,7 +293,8 @@ public class MainActivity extends AppCompatActivity implements ModelViewPresente
                 waitingList.clearChoices();
 
                 //Create the reservation
-                mPresenter.clickCreateReservation(name, partySize, phoneNum, time, specialRequests, otherRequest);
+                Reservation res = mPresenter.clickCreateReservation(name, partySize, phoneNum, time, specialRequests, otherRequest);
+                restPOST(res);
 
                 } else if (requestCode == 2) {
                     String name = intent.getStringExtra("Name");
@@ -419,20 +420,21 @@ public class MainActivity extends AppCompatActivity implements ModelViewPresente
             Reservation res = (Reservation) obj;
             seatedListAdapter.add(res);
         }
-        restPUT();
-        restGET();
     }
 
     public void restGET(){
         new HTTPAsyncTask().execute("http://10.0.2.2:4532/", "GET");
     }
 
-    public void restPOST(){
+    public void restPOST(Reservation res){
         JSONObject jsonParam = null;
         try {
             //Create JSONObject here
             jsonParam = new JSONObject();
-            jsonParam.put("mpg", 12.323f );
+            jsonParam.put("name", res.getName() );
+            jsonParam.put("size", String.valueOf(res.getPartySize()));
+            jsonParam.put("phoneNumber", res.getPhoneNumber());
+            jsonParam.put("time", res.getTime());
         } catch (JSONException e) {
             e.printStackTrace();
         }
