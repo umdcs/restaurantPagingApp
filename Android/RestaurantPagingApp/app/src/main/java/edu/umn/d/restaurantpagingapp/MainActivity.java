@@ -352,6 +352,11 @@ public class MainActivity extends AppCompatActivity implements ModelViewPresente
         ListView seatedList = (ListView) findViewById(R.id.seatedList);
 
         int index = waitingList.getCheckedItemPosition();
+
+        //Get the reservation that we are moving to seated and set "isSeated" to true
+        Reservation res = (Reservation)waitingListAdapter.getItem(index);
+        res.toSeated();
+
         Log.d("Seated",String.valueOf(seatedList.getCheckedItemPosition()));
         seatedList.setItemChecked(0,false); // This makes it so the item doesn't start selected when it ends up on the seated list. I think this is a workaround and might reflect an overarching bug.
         waitingList.setItemChecked(0,false);
