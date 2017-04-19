@@ -34,7 +34,6 @@ public class CreateReservationActivity extends AppCompatActivity {
         CheckBox boothCheckBox = (CheckBox) findViewById(R.id.boothSeatingCheckBox);
         CheckBox wheelChairCheckBox = (CheckBox) findViewById(R.id.wheelChairCheckBox);
         CheckBox willSplitCheckBox = (CheckBox) findViewById(R.id.willSplitCheckBox);
-        CheckBox otherCheckBox = (CheckBox) findViewById(R.id.otherCheckBox);
 
         //Other Request
         EditText otherRequestString = (EditText) findViewById(R.id.otherRequestEditText);
@@ -68,7 +67,7 @@ public class CreateReservationActivity extends AppCompatActivity {
                 intent.putExtra("Time", time());
             }
 
-            boolean[] accomodations = {highChairCheckBox.isChecked(),boothCheckBox.isChecked(),wheelChairCheckBox.isChecked(),willSplitCheckBox.isChecked(),otherCheckBox.isChecked()};
+            boolean[] accomodations = {highChairCheckBox.isChecked(),boothCheckBox.isChecked(),wheelChairCheckBox.isChecked(),willSplitCheckBox.isChecked()};
             intent.putExtra("Accomodations", accomodations);
             intent.putExtra("Other Request",otherRequestString.getText());
 
