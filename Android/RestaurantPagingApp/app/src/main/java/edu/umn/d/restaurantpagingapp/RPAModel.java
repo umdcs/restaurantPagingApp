@@ -178,10 +178,6 @@ public class RPAModel implements ModelViewPresenterComponents.Model {
 
 
 
-
-
-
-
     public void restGET(){
         Log.d("Server address","");
         new HTTPAsyncTask().execute(serverAddress+"/getData", "GET");

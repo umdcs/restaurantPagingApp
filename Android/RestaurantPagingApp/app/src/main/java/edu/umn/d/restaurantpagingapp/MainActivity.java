@@ -378,8 +378,8 @@ public class MainActivity extends AppCompatActivity implements ModelViewPresente
 
         int index = waitingList.getCheckedItemPosition();
 
-        seatedList.setItemChecked(0,false); // This makes it so the item doesn't start selected when it ends up on the seated list. I think this is a workaround and might reflect an overarching bug.
-        waitingList.setItemChecked(0,false);
+        clearListSelections(); // This makes it so the item doesn't start selected when it ends up on the seated list. I think this is a workaround and might reflect an overarching bug.
+
         if (index >= 0 && index < waitingList.getCount()){
             Log.d("index",String.valueOf(index));
             Reservation res = (Reservation)waitingListAdapter.getItem(index);
