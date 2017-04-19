@@ -85,7 +85,7 @@ public class Reservation {
         return otherRequestString;
     }
 
-    
+
     public boolean isSeated() {
         return this.isSeated;
     }
