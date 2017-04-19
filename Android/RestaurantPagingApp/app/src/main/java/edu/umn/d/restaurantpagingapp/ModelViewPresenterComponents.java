@@ -27,13 +27,14 @@ public interface ModelViewPresenterComponents{
         // - in this way, the views communicate data entered by the user
         //   to be sent to the master list
 
-
-        void clickCreateReservation(final String name, final int partySize, final String phoneNumber, final String time, boolean[] specialRequests, String otherRequest);
+        void refresh();
+        void notifyModelUpdated();
+        Reservation clickCreateReservation(final String name, final int partySize, final String phoneNumber, final String time, boolean[] specialRequests, String otherRequest);
         void moveReservation(int index, String list);
         List getReservations(String list);
         Reservation getReservation(int index, String list);
-        void deleteReservation(int index,String list);
-        void editReservation(int index, String name, int partySize, String phoneNumber,String list);
+        Reservation deleteReservation(int index,String list);
+        void editReservation(int index, String name, int partySize, String phoneNumber, boolean[] options, String otherRequests, String list);
     }
 
     /** Model Operations
@@ -46,12 +47,13 @@ public interface ModelViewPresenterComponents{
         List getSeatedReservations();
         Reservation getReservation(int index);
         Reservation getSeatedReservation(int index);
-        void deleteReservation(int index);
-        void deleteSeatedReservation(int index);
+        Reservation deleteReservation(int index);
+        Reservation deleteSeatedReservation(int index);
+        void refresh();
         void moveToSeated(int index);
         void moveToMaster(int index);
-        void editReservation(int index, String name, int partySize, String phoneNumber);
-        void editSeatedReservation(int index, String name, int partySize, String phoneNumber);
+        void editReservation(int index, String name, int partySize, String phoneNumber, boolean[] options, String otherRequests);
+        void editSeatedReservation(int index, String name, int partySize, String phoneNumber, boolean[] options, String otherRequests);
         Reservation createReservation(String name, int partySize, String phoneNumber, String time, boolean[] specialRequest, String otherRequest);
 
 

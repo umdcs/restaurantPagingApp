@@ -4,6 +4,7 @@ import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.os.AsyncTask;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -25,6 +26,19 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.ArrayList;
 import java.util.Collections;
 
 import java.util.List;
@@ -100,11 +114,9 @@ public class MainActivity extends AppCompatActivity implements ModelViewPresente
      * @param menuInfo infor attached to the menu.
      */
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo){
-        Log.d("List",String.valueOf(v));
         if(v.equals(findViewById(R.id.waitingList)) || v.equals(findViewById(R.id.seatedList))) {
             MenuInflater inflater = getMenuInflater();
             inflater.inflate(R.menu.context_menu, menu);
-            Log.d("Menu","Jeff");
         }else {
             menu.setHeaderTitle("Sort by:");
             menu.add(Menu.NONE, 1, Menu.NONE, "Name");
@@ -142,8 +154,7 @@ public class MainActivity extends AppCompatActivity implements ModelViewPresente
                 list = "seated";
                 requestCode = 3;
             }
-            Log.d("List",list);
-            Log.d("requestcode",String.valueOf(requestCode));
+
         }
         else{   // We got here from the button
             arrayAdapterPosition = -1;
@@ -156,8 +167,6 @@ public class MainActivity extends AppCompatActivity implements ModelViewPresente
 
         switch(item.getItemId()){
             case R.id.edit:
-                Log.d("Edit","Open editor");
-                Log.d("Request code",String.valueOf(requestCode));
                 editedPosition = arrayAdapterPosition;
 
                 Intent intent = new Intent(this, CreateReservationActivity.class);
@@ -165,13 +174,14 @@ public class MainActivity extends AppCompatActivity implements ModelViewPresente
                 intent.putExtra("Name",res.getName());
                 intent.putExtra("Party Size",String.valueOf(res.getPartySize()));
                 intent.putExtra("Phone Number",res.getPhoneNumber());
+                intent.putExtra("Options",res.getOptions());
+                intent.putExtra("Special Request",res.getOtherRequest());
 
                 startActivityForResult(intent, requestCode);
 
                 break;
             case R.id.delete:
-                Log.d("Delete","Deleted");
-                mPresenter.deleteReservation(arrayAdapterPosition,list);
+                Reservation deletedReservation = mPresenter.deleteReservation(arrayAdapterPosition,list);
                 clearListSelections();
                 break;
             case R.id.notify:
@@ -290,20 +300,26 @@ public class MainActivity extends AppCompatActivity implements ModelViewPresente
                 waitingList.clearChoices();
 
                 //Create the reservation
-                mPresenter.clickCreateReservation(name, partySize, phoneNum, time, specialRequests, otherRequest);
+                Reservation res = mPresenter.clickCreateReservation(name, partySize, phoneNum, time, specialRequests, otherRequest);
 
                 } else if (requestCode == 2) {
                     String name = intent.getStringExtra("Name");
                     int partySize = intent.getIntExtra("Party size", 0);
                     String phoneNum = intent.getStringExtra("Phone number");
                     String time = intent.getStringExtra("Time");
-                    mPresenter.editReservation(editedPosition, name, partySize, phoneNum, "master");
+                    boolean[] options = intent.getBooleanArrayExtra("Special Requests");
+                    String otherRequest = intent.getStringExtra("Other Request");
+                    mPresenter.editReservation(editedPosition, name, partySize, phoneNum, options, otherRequest,  "master");
+
                 } else if (requestCode == 3) {
                     String name = intent.getStringExtra("Name");
                     int partySize = intent.getIntExtra("Party size", 0);
                     String phoneNum = intent.getStringExtra("Phone number");
                     String time = intent.getStringExtra("Time");
-                    mPresenter.editReservation(editedPosition, name, partySize, phoneNum, "seated");
+                    boolean[] options = intent.getBooleanArrayExtra("Special Requests");
+                    String otherRequest = intent.getStringExtra("Other Request");
+                    Reservation reservation = mPresenter.getReservation(editedPosition, "seated");
+                    mPresenter.editReservation(editedPosition, name, partySize, phoneNum, options, otherRequest,"seated");
                 }
             } else if (resultCode == Activity.RESULT_CANCELED) {
 
@@ -322,6 +338,9 @@ public class MainActivity extends AppCompatActivity implements ModelViewPresente
         intent.putExtra("Name","");
         intent.putExtra("Party Size","");
         intent.putExtra("Phone Number","");
+        boolean[] defaultValue = {false,false,false,false,false};
+        intent.putExtra("Options",defaultValue);
+        intent.putExtra("Speical Request","");
         startActivityForResult(intent, 1);
     }
 
@@ -343,6 +362,10 @@ public class MainActivity extends AppCompatActivity implements ModelViewPresente
         mPresenter = new RPAPresenter(this);
     }
 
+    public void refreshFromServer(View view){
+        mPresenter.refresh();
+    }
+
     /**
      * This method is a button listener for the move to seated button
      * it asks the presenter to move the selected item in the waiting list to the seated list
@@ -355,16 +378,13 @@ public class MainActivity extends AppCompatActivity implements ModelViewPresente
 
         int index = waitingList.getCheckedItemPosition();
 
-        //Get the reservation that we are moving to seated and set "isSeated" to true
-        Reservation res = (Reservation)waitingListAdapter.getItem(index);
-        res.toSeated();
-
-        Log.d("Seated",String.valueOf(seatedList.getCheckedItemPosition()));
         seatedList.setItemChecked(0,false); // This makes it so the item doesn't start selected when it ends up on the seated list. I think this is a workaround and might reflect an overarching bug.
         waitingList.setItemChecked(0,false);
         if (index >= 0 && index < waitingList.getCount()){
             Log.d("index",String.valueOf(index));
+            Reservation res = (Reservation)waitingListAdapter.getItem(index);
             mPresenter.moveReservation(index,"master");
+
         }
         else{
             Log.d("ERROR", "ARRAY INDEX OUT OF BOUNDS IN moveToSeated in MainActivity array is of length " + waitingList.getCount()+ " got index of "+ index);
@@ -416,7 +436,6 @@ public class MainActivity extends AppCompatActivity implements ModelViewPresente
             Reservation res = (Reservation) obj;
             seatedListAdapter.add(res);
         }
-
     }
 
 

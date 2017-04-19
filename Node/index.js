@@ -56,12 +56,7 @@ var stages = {
     waitList : [],
     seatedList : []
 }
-var reservation = {
-    "name" : "",
-    "size" : 0,
-    "phoneNumber" : "",
-    "time" : ""
-};
+
 
 /* -------------------------------------------------                                                                                      
  * ROUTE Descriptions                                                                                                                     
@@ -97,9 +92,9 @@ app.get('/', function(request, response) {
   //      res.sendFile(__dirname + '/baseHTML.html');
     //});
 
-app.get('/getWaiting', function(request, response) {
+app.get('/getData', function(request, response) {
 
-        response.json(stages.waitList);
+        response.json(stages);
         
         response.end();
 
@@ -117,19 +112,26 @@ app.post('/postReservation', function (request, response) {
     if (!request.body) return response.sendStatus(400);
 	postCount++;
 	
-    reservation = request.body;
-	reservation.name = request.body.name;
-	reservation.size = request.body.size;
-	reservation.phoneNumber = request.body.phoneNumber;
-	reservation.time = request.body.time;
+    var body = request.body;
+    var reservation = {};
+    reservation.name = body.name;
+    reservation.size = body.size;
+    reservation.phoneNumber = body.phoneNumber;
+    reservation.time = body.time;
+    reservation.options = body.options;
+    reservation.otherRequests = body.otherRequests;
 
     console.log(reservation);
 
+
+	if(body.isSeated){
+        stages.seatedList.push(reservation);
+    }
+    else{
+        //Posting to the array 
+        stages.waitList.push(reservation);
+    }
 	
-	
-	
-	//Posting to the array 
-	stages.waitList.push(reservation);
 	
     //console.log(reservation);
         // Get a timestamp that we can use to seeing ordered log messages                                                                 
@@ -154,8 +156,43 @@ app.put('/putReservation', function (request, response) {
         console.log('PUT REQUEST: putData');
  });
 
+
+// Only deletes from waitList right now
 /* DELETE - removes data from server */
 app.delete('/deleteData', function (request, response) {
+        var body = request.body;    // We don't directly set deleteReservation = request.body because the body includes extra information like isSeated()
+        var deleteReservation = {};
+        deleteReservation.name = body.name;
+        deleteReservation.size = body.size;
+        deleteReservation.phoneNumber = body.phoneNumber;
+        deleteReservation.time = body.time;
+        deleteReservation.options = body.options;
+        deleteReservation.otherRequests = body.otherRequests;
+        
+        console.log(deleteReservation);
+
+
+        if(body.isSeated){
+            for (var i = 0; i < stages.seatedList.length; i++) {
+                var res = stages.seatedList[i];
+                if(JSON.stringify(res) === JSON.stringify(deleteReservation)){
+                    console.log("Deleted from seated");
+                    stages.seatedList.splice(i,1);
+                    break;
+                }
+            };
+        }
+        else{
+            for (var i = 0; i < stages.waitList.length; i++) {
+                var res = stages.waitList[i];
+                if(JSON.stringify(res) === JSON.stringify(deleteReservation)){
+                    console.log("Deleted from seated");
+                    stages.waitList.splice(i,1);
+                    break;
+                }
+            };
+        }
+        response.end();
         console.log('DELETE REQUEST: Data has been deleted.');
     });
 

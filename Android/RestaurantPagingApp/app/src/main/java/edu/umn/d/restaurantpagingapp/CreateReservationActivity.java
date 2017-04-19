@@ -20,12 +20,25 @@ public class CreateReservationActivity extends AppCompatActivity {
         EditText nameEditText = (EditText) findViewById(R.id.nameEditText);
         EditText partySizeEditText = (EditText) findViewById(R.id.partySizeEditText);
         EditText phoneNumEditText = (EditText) findViewById(R.id.phoneNumEditTest);
+        EditText specialRequestText = (EditText) findViewById(R.id.otherRequestEditText);
         Intent intent = getIntent();
 
         nameEditText.setText(intent.getStringExtra("Name"));
         partySizeEditText.setText(intent.getStringExtra("Party Size"));
         phoneNumEditText.setText(intent.getStringExtra("Phone Number"));
+        specialRequestText.setText(intent.getStringExtra("Special Request"));
 
+        boolean[] options = intent.getBooleanArrayExtra("Options");
+        CheckBox highChairCheckBox = (CheckBox) findViewById(R.id.highChairCheckBox);
+        CheckBox boothCheckBox = (CheckBox) findViewById(R.id.boothSeatingCheckBox);
+        CheckBox wheelChairCheckBox = (CheckBox) findViewById(R.id.wheelChairCheckBox);
+        CheckBox willSplitCheckBox = (CheckBox) findViewById(R.id.willSplitCheckBox);
+        CheckBox otherCheckBox = (CheckBox) findViewById(R.id.otherCheckBox);
+        highChairCheckBox.setChecked(options[0]);
+        boothCheckBox.setChecked(options[1]);
+        wheelChairCheckBox.setChecked(options[2]);
+        willSplitCheckBox.setChecked(options[3]);
+        otherCheckBox.setChecked(options[4]);
     }
 
     public void onClickCreateReservation(View view){
