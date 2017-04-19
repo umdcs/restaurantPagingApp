@@ -90,9 +90,11 @@ public class MainActivity extends AppCompatActivity {
                 int partySize = intent.getIntExtra("Party Size", 0);
                 String phoneNum = intent.getStringExtra("Phone Number");
                 String time = intent.getStringExtra("Time");
+                boolean[] accomodations = intent.getBooleanArrayExtra("Accomodations");
+                String otherRequest = intent.getStringExtra("Other Request");
 
                 //Create the reservation
-                mPresenter.clickCreateReservation(name, partySize, phoneNum, time);
+                mPresenter.clickCreateReservation(name, partySize, phoneNum, time, accomodations, otherRequest);
 
                 TextView reservationTextView = (TextView) findViewById(R.id.reservationTextView);
                 if (mPresenter.getReservation() != null) {

@@ -42,7 +42,7 @@ public class RPAPresenter{
     // When the view receives input from the user (after the createReservation button is clicked,
     // this will be called by the view to relay the user data here.  Once here, it can
     // be checked and potentially sent on to the model.
-    public void clickCreateReservation(String name, int partySize, String phoneNum, String time) {
-        Reservation reservation = mModel.createReservation(name,partySize,phoneNum,time);
+    public void clickCreateReservation(String name, int partySize, String phoneNum, String time, boolean[] accomodations, String otherRequest) {
+        Reservation reservation = mModel.createReservation(name,partySize,phoneNum,time,accomodations,otherRequest);
     }
 }

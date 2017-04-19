@@ -24,9 +24,9 @@ public class RPAModel {
      * @param time  The time when the reservation was created
      * @return  A reference to the reservation that was created.
      */
-    public Reservation createReservation(String name, int partySize, String phoneNumber, String time){
+    public Reservation createReservation(String name, int partySize, String phoneNumber, String time,boolean[] accomodations, String otherRequest){
 
-        Reservation res = new Reservation(name,partySize,phoneNumber,time);
+        Reservation res = new Reservation(name,partySize,phoneNumber,time,accomodations,otherRequest);
         this.reservation = res;
 
         return res;
