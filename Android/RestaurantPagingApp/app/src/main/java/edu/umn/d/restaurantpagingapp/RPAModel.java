@@ -173,7 +173,7 @@ public class RPAModel implements ModelViewPresenterComponents.Model {
     private List waitingReservations = new ArrayList();
     private List seatedReservations = new ArrayList();
     private ModelViewPresenterComponents.RPAPresenterContract mPresenter;
-    private String serverAddress = "http://akka.d.umn.edu:4532";
+    private String serverAddress = "http://ukko.d.umn.edu:4532";
 
 
 
@@ -396,8 +396,8 @@ public class RPAModel implements ModelViewPresenterComponents.Model {
                 List newWaitingList = new ArrayList();
                 List newSeatedList = new ArrayList();
 
+                // create the waiting list from the data on the server
                 JSONArray waitingJson = (JSONArray)jsonData.get("waitList");
-
                 for(int i = 0; i<waitingJson.length();i++){
                     JSONObject reservationObject = waitingJson.getJSONObject(i);
                     String name = reservationObject.getString("name");
@@ -418,7 +418,7 @@ public class RPAModel implements ModelViewPresenterComponents.Model {
                     newWaitingList.add(reservation);
                 }
 
-
+                // create the seated list reservations out of the info from server
                 JSONArray seatedJson = (JSONArray)jsonData.get("seatedList");
                 for(int i = 0; i<seatedJson.length();i++){
                     JSONObject reservationObject = seatedJson.getJSONObject(i);
@@ -437,7 +437,6 @@ public class RPAModel implements ModelViewPresenterComponents.Model {
 
 
                     Reservation reservation = new Reservation(name,size,phoneNumber,time,options,otherRequests);
-                    Log.d("reservationssss",String.valueOf(reservation.getOptions()[2]));
                     reservation.toSeated();
                     newSeatedList.add(reservation);
                 }
