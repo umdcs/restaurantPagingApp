@@ -28,7 +28,16 @@ public class CreateReservationActivity extends AppCompatActivity {
         EditText nameEditText = (EditText) findViewById(R.id.nameEditText);
         EditText partySizeEditText = (EditText) findViewById(R.id.partySizeEditText);
         EditText phoneNumEditText = (EditText) findViewById(R.id.phoneNumEditTest);
-        CheckBox highChairCheckBox = (CheckBox) findViewById(R.id.)
+
+        //Check Boxes
+        CheckBox highChairCheckBox = (CheckBox) findViewById(R.id.highChairCheckBox);
+        CheckBox boothCheckBox = (CheckBox) findViewById(R.id.boothSeatingCheckBox);
+        CheckBox wheelChairCheckBox = (CheckBox) findViewById(R.id.wheelChairCheckBox);
+        CheckBox willSplitCheckBox = (CheckBox) findViewById(R.id.willSplitCheckBox);
+        CheckBox otherCheckBox = (CheckBox) findViewById(R.id.otherCheckBox);
+
+        //Other Request
+        EditText otherRequestString = (EditText) findViewById(R.id.otherRequestEditText);
 
         //Check to see that all information is entered
         if (nameEditText.getText().toString().equals("") || partySizeEditText.getText().toString().equals("") || phoneNumEditText.getText().toString().equals("")) {
@@ -59,8 +68,9 @@ public class CreateReservationActivity extends AppCompatActivity {
                 intent.putExtra("Time", time());
             }
 
-            //boolean[] accomodations = {}
-            //intent.putExtra("Accomodations",)
+            boolean[] accomodations = {highChairCheckBox.isChecked(),boothCheckBox.isChecked(),wheelChairCheckBox.isChecked(),willSplitCheckBox.isChecked(),otherCheckBox.isChecked()};
+            intent.putExtra("Accomodations", accomodations);
+            intent.putExtra("Other Request",otherRequestString.getText());
 
             //Finish activity and send info back to main activity
             setResult(Activity.RESULT_OK, intent);
