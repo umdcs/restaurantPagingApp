@@ -85,6 +85,16 @@ public class Reservation implements Comparable<Reservation> {
         return time;
     }
 
+    public boolean[] getOptions(){
+        boolean[] options =  {this.highChair,
+        this.booth,
+        this.wheelChair,
+        this.willSplit,
+        this.otherRequest};
+
+        return options;
+    }
+
     public boolean highChairRequested(){
         return highChair;
     }

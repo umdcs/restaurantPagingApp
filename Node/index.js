@@ -118,7 +118,10 @@ app.post('/postReservation', function (request, response) {
     reservation.size = body.size;
     reservation.phoneNumber = body.phoneNumber;
     reservation.time = body.time;
+    reservation.options = body.options;
+    reservation.otherRequests = body.otherRequests;
 
+    console.log(reservation);
 
 
 	if(body.isSeated){
@@ -162,9 +165,13 @@ app.delete('/deleteData', function (request, response) {
         deleteReservation.name = body.name;
         deleteReservation.size = body.size;
         deleteReservation.phoneNumber = body.phoneNumber;
-        deleteReservation.time = body.time; 
-
+        deleteReservation.time = body.time;
+        deleteReservation.options = body.options;
+        deleteReservation.otherRequests = body.otherRequests;
         
+        console.log(deleteReservation);
+
+
         if(body.isSeated){
             for (var i = 0; i < stages.seatedList.length; i++) {
                 var res = stages.seatedList[i];

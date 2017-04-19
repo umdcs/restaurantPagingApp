@@ -17,6 +17,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -177,9 +178,17 @@ public class RPAModel implements ModelViewPresenterComponents.Model {
             //Create JSONObject here
             jsonParam = new JSONObject();
             jsonParam.put("name", res.getName() );
-            jsonParam.put("size", String.valueOf(res.getPartySize()));
+            jsonParam.put("size", res.getPartySize());
             jsonParam.put("phoneNumber", res.getPhoneNumber());
             jsonParam.put("time", res.getTime());
+            JSONArray options = new JSONArray();
+            options.put(res.highChairRequested());
+            options.put(res.boothRequested());
+            options.put(res.wheelChairRequested());
+            options.put(res.willSplitRequested());
+            options.put(res.otherRequested());
+            jsonParam.put("options", options);
+            jsonParam.put("otherRequests",res.getOtherRequest());
             jsonParam.put("isSeated", res.isSeated());
         } catch (JSONException e) {
             e.printStackTrace();
@@ -211,9 +220,17 @@ public class RPAModel implements ModelViewPresenterComponents.Model {
             //Create JSONObject here
             jsonParam = new JSONObject();
             jsonParam.put("name", res.getName() );
-            jsonParam.put("size", String.valueOf(res.getPartySize()));
+            jsonParam.put("size", res.getPartySize());
             jsonParam.put("phoneNumber", res.getPhoneNumber());
             jsonParam.put("time", res.getTime());
+            JSONArray options = new JSONArray();
+            options.put(res.highChairRequested());
+            options.put(res.boothRequested());
+            options.put(res.wheelChairRequested());
+            options.put(res.willSplitRequested());
+            options.put(res.otherRequested());
+            jsonParam.put("options", options);
+            jsonParam.put("otherRequests",res.getOtherRequest());
             jsonParam.put("isSeated", res.isSeated());
         } catch (JSONException e) {
             e.printStackTrace();
@@ -365,14 +382,24 @@ public class RPAModel implements ModelViewPresenterComponents.Model {
                 List newSeatedList = new ArrayList();
 
                 JSONArray waitingJson = (JSONArray)jsonData.get("waitList");
-                boolean[] defaultOptions = {false,false,false,false,false};
+
                 for(int i = 0; i<waitingJson.length();i++){
                     JSONObject reservationObject = waitingJson.getJSONObject(i);
                     String name = reservationObject.getString("name");
                     int size = reservationObject.getInt("size");
                     String phoneNumber = reservationObject.getString("phoneNumber");
                     String time = reservationObject.getString("time");
-                    Reservation reservation = new Reservation(name,size,phoneNumber,time,defaultOptions,"");
+                    JSONArray jsonOptions = reservationObject.getJSONArray("options");
+                    boolean[] options = new boolean[5];
+                    for(int j=0;j<5;j++){
+                        Log.d("option",String.valueOf(jsonOptions.getBoolean(j)));
+                        options[j] = jsonOptions.getBoolean(j);
+                    }
+                    String otherRequests = reservationObject.getString("otherRequests");
+
+
+
+                    Reservation reservation = new Reservation(name,size,phoneNumber,time,options,otherRequests);
                     newWaitingList.add(reservation);
                 }
 
@@ -384,7 +411,18 @@ public class RPAModel implements ModelViewPresenterComponents.Model {
                     int size = reservationObject.getInt("size");
                     String phoneNumber = reservationObject.getString("phoneNumber");
                     String time = reservationObject.getString("time");
-                    Reservation reservation = new Reservation(name,size,phoneNumber,time,defaultOptions,"");
+
+                    JSONArray jsonOptions = reservationObject.getJSONArray("options");
+                    boolean[] options = new boolean[5];
+                    for(int j=0;j<5;j++){
+                        options[j] = jsonOptions.getBoolean(j);
+                    }
+
+                    String otherRequests = reservationObject.getString("otherRequests");
+
+
+                    Reservation reservation = new Reservation(name,size,phoneNumber,time,options,otherRequests);
+                    Log.d("reservationssss",String.valueOf(reservation.getOptions()[2]));
                     reservation.toSeated();
                     newSeatedList.add(reservation);
                 }
