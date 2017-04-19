@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -27,6 +28,7 @@ public class CreateReservationActivity extends AppCompatActivity {
         EditText nameEditText = (EditText) findViewById(R.id.nameEditText);
         EditText partySizeEditText = (EditText) findViewById(R.id.partySizeEditText);
         EditText phoneNumEditText = (EditText) findViewById(R.id.phoneNumEditTest);
+        CheckBox highChairCheckBox = (CheckBox) findViewById(R.id.)
 
         //Check to see that all information is entered
         if (nameEditText.getText().toString().equals("") || partySizeEditText.getText().toString().equals("") || phoneNumEditText.getText().toString().equals("")) {
@@ -56,6 +58,9 @@ public class CreateReservationActivity extends AppCompatActivity {
             else {
                 intent.putExtra("Time", time());
             }
+
+            //boolean[] accomodations = {}
+            //intent.putExtra("Accomodations",)
 
             //Finish activity and send info back to main activity
             setResult(Activity.RESULT_OK, intent);
