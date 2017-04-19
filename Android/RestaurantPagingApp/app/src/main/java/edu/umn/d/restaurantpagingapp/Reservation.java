@@ -1,6 +1,8 @@
 package edu.umn.d.restaurantpagingapp;
 
 
+import android.util.Log;
+
 import com.google.gson.Gson;
 import java.util.Comparator;
 
@@ -23,11 +25,11 @@ public class Reservation implements Comparable<Reservation> {
         this.booth = requests[1];
         this.wheelChair = requests[2];
         this.willSplit = requests[3];
-        this.otherRequest = requests[4];
 
         this.otherRequestString = otherRequestString;
 
         this.isSeated = false;
+        Log.d("Other request string",String.valueOf(otherRequestString!=""));
 
     }
 
@@ -35,7 +37,7 @@ public class Reservation implements Comparable<Reservation> {
 
         String string = "Name: " + this.name + "\nParty Size: " + this.partySize + "\nPhone Number: " + formatPhoneNumber(this.phoneNumber) + "\n" + this.time;
 
-        if (highChair || booth || wheelChair || willSplit || otherRequest) {
+        if (highChair || booth || wheelChair || willSplit || !otherRequestString.equals("")) {
             string += "\nSpecial Requests:";
             if (highChair) {
                 string += "\nHigh chair";
@@ -49,7 +51,7 @@ public class Reservation implements Comparable<Reservation> {
             if(willSplit){
                 string += "\nWill split";
             }
-            if (otherRequest){
+            if (!otherRequestString.equals("")){
                 string += "\n" + otherRequestString;
             }
         }
@@ -94,15 +96,13 @@ public class Reservation implements Comparable<Reservation> {
         this.booth = options[1];
         this.wheelChair = options[2];
         this.willSplit = options[3];
-        this.otherRequest = options[4];
     }
 
     public boolean[] getOptions(){
         boolean[] options =  {this.highChair,
         this.booth,
         this.wheelChair,
-        this.willSplit,
-        this.otherRequest};
+        this.willSplit};
 
         return options;
     }
@@ -121,10 +121,6 @@ public class Reservation implements Comparable<Reservation> {
 
     public boolean willSplitRequested(){
         return willSplit;
-    }
-
-    public boolean otherRequested(){
-        return otherRequest;
     }
 
     public String getOtherRequest() {
@@ -208,7 +204,6 @@ public class Reservation implements Comparable<Reservation> {
     private boolean booth;
     private boolean wheelChair;
     private boolean willSplit;
-    private boolean otherRequest;
     private String otherRequestString;
     private boolean isSeated;
 }

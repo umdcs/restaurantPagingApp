@@ -33,12 +33,10 @@ public class CreateReservationActivity extends AppCompatActivity {
         CheckBox boothCheckBox = (CheckBox) findViewById(R.id.boothSeatingCheckBox);
         CheckBox wheelChairCheckBox = (CheckBox) findViewById(R.id.wheelChairCheckBox);
         CheckBox willSplitCheckBox = (CheckBox) findViewById(R.id.willSplitCheckBox);
-        CheckBox otherCheckBox = (CheckBox) findViewById(R.id.otherCheckBox);
         highChairCheckBox.setChecked(options[0]);
         boothCheckBox.setChecked(options[1]);
         wheelChairCheckBox.setChecked(options[2]);
         willSplitCheckBox.setChecked(options[3]);
-        otherCheckBox.setChecked(options[4]);
     }
 
     public void onClickCreateReservation(View view){
@@ -53,14 +51,12 @@ public class CreateReservationActivity extends AppCompatActivity {
         CheckBox boothCheckBox = (CheckBox) findViewById(R.id.boothSeatingCheckBox);
         CheckBox wheelChairCheckBox = (CheckBox) findViewById(R.id.wheelChairCheckBox);
         CheckBox willSplitCheckBox = (CheckBox) findViewById(R.id.willSplitCheckBox);
-        CheckBox otherCheckBox = (CheckBox) findViewById(R.id.otherCheckBox);
 
         boolean[] specialRequests = new boolean[5];
         specialRequests[0] = highChairCheckBox.isChecked();
         specialRequests[1] = boothCheckBox.isChecked();
         specialRequests[2] = wheelChairCheckBox.isChecked();
         specialRequests[3] = willSplitCheckBox.isChecked();
-        specialRequests[4] = otherCheckBox.isChecked();
 
         EditText otherRequestEditText = (EditText) findViewById(R.id.otherRequestEditText);
 
@@ -76,11 +72,6 @@ public class CreateReservationActivity extends AppCompatActivity {
             //Display message indicating that an invalid phone number was entered
             TextView enterInfoMessage = (TextView) findViewById(R.id.enterInfoMessage);
             enterInfoMessage.setText(R.string.invalid_phone_error);
-        }
-        else if (otherCheckBox.isChecked() && otherRequestEditText.getText().toString().equals("")){
-            //Display message indicating that more info is needed
-            TextView enterInfoMessage = (TextView) findViewById(R.id.enterInfoMessage);
-            enterInfoMessage.setText("Please enter a special request.");
         }
         else {
 
