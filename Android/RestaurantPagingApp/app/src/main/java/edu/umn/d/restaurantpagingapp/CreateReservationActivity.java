@@ -52,7 +52,7 @@ public class CreateReservationActivity extends AppCompatActivity {
         CheckBox wheelChairCheckBox = (CheckBox) findViewById(R.id.wheelChairCheckBox);
         CheckBox willSplitCheckBox = (CheckBox) findViewById(R.id.willSplitCheckBox);
 
-        boolean[] specialRequests = new boolean[5];
+        boolean[] specialRequests = new boolean[4];
         specialRequests[0] = highChairCheckBox.isChecked();
         specialRequests[1] = boothCheckBox.isChecked();
         specialRequests[2] = wheelChairCheckBox.isChecked();
