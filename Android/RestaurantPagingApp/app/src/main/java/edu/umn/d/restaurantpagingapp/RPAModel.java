@@ -201,7 +201,6 @@ public class RPAModel implements ModelViewPresenterComponents.Model {
             options.put(res.boothRequested());
             options.put(res.wheelChairRequested());
             options.put(res.willSplitRequested());
-            options.put(res.otherRequested());
             jsonParam.put("options", options);
             jsonParam.put("otherRequests",res.getOtherRequest());
             jsonParam.put("isSeated", res.isSeated());
@@ -243,7 +242,6 @@ public class RPAModel implements ModelViewPresenterComponents.Model {
             options.put(res.boothRequested());
             options.put(res.wheelChairRequested());
             options.put(res.willSplitRequested());
-            options.put(res.otherRequested());
             jsonParam.put("options", options);
             jsonParam.put("otherRequests",res.getOtherRequest());
             jsonParam.put("isSeated", res.isSeated());
@@ -405,8 +403,8 @@ public class RPAModel implements ModelViewPresenterComponents.Model {
                     String phoneNumber = reservationObject.getString("phoneNumber");
                     String time = reservationObject.getString("time");
                     JSONArray jsonOptions = reservationObject.getJSONArray("options");
-                    boolean[] options = new boolean[5];
-                    for(int j=0;j<5;j++){
+                    boolean[] options = new boolean[4];
+                    for(int j=0;j<4;j++){
                         Log.d("option",String.valueOf(jsonOptions.getBoolean(j)));
                         options[j] = jsonOptions.getBoolean(j);
                     }
@@ -428,8 +426,8 @@ public class RPAModel implements ModelViewPresenterComponents.Model {
                     String time = reservationObject.getString("time");
 
                     JSONArray jsonOptions = reservationObject.getJSONArray("options");
-                    boolean[] options = new boolean[5];
-                    for(int j=0;j<5;j++){
+                    boolean[] options = new boolean[4];
+                    for(int j=0;j<4;j++){
                         options[j] = jsonOptions.getBoolean(j);
                     }
 

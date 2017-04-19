@@ -338,7 +338,7 @@ public class MainActivity extends AppCompatActivity implements ModelViewPresente
         intent.putExtra("Name","");
         intent.putExtra("Party Size","");
         intent.putExtra("Phone Number","");
-        boolean[] defaultValue = {false,false,false,false,false};
+        boolean[] defaultValue = {false,false,false,false};
         intent.putExtra("Options",defaultValue);
         intent.putExtra("Speical Request","");
         startActivityForResult(intent, 1);
@@ -366,7 +366,7 @@ public class MainActivity extends AppCompatActivity implements ModelViewPresente
         mPresenter.refresh();
     }
 
-    /**
+    /*
      * This method is a button listener for the move to seated button
      * it asks the presenter to move the selected item in the waiting list to the seated list
      * @param view View is the view that this listener is linked to. Button in this case.

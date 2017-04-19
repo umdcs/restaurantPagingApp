@@ -95,7 +95,7 @@
         android:layout_height="wrap_content"
         android:onClick="onClickCreateReservation"
         android:text="Save"
-        android:layout_above="@+id/otherRequestEditText"
+        android:layout_above="@+id/cancelButton"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
 
@@ -166,24 +166,15 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true" />
 
-    <CheckBox
-        android:id="@+id/otherCheckBox"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/willSplitCheckBox"
-        android:text="Other:" />
-
     <EditText
         android:id="@+id/otherRequestEditText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/otherCheckBox"
         android:ems="10"
         android:hint="Enter a special request"
-        android:inputType="textPersonName" />
+        android:inputType="textPersonName"
+        android:layout_below="@+id/willSplitCheckBox"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
 </RelativeLayout>
