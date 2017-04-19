@@ -68,7 +68,7 @@ public class RPAModel {
 
     private List waitingReservations = new ArrayList();
     private List seatedReservations = new ArrayList();
-    private String serverAddress = "http://akka.d.umn.edu:4532";
+    private String serverAddress = "http://ukko.d.umn.edu:4532";
 
     public void restGET() {
         Log.d("Server address", "");

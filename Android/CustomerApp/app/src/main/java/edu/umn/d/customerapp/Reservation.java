@@ -18,7 +18,7 @@ public class Reservation {
         this.booth = requests[1];
         this.wheelChair = requests[2];
         this.willSplit = requests[3];
-        this.otherRequest = requests[4];
+
 
         this.otherRequestString = otherRequestString;
 
@@ -96,11 +96,7 @@ public class Reservation {
     public boolean willSplitRequested(){
         return willSplit;
     }
-
-    public boolean otherRequested(){
-        return otherRequest;
-    }
-
+    
     public String getOtherRequest() {
         return otherRequestString;
     }
