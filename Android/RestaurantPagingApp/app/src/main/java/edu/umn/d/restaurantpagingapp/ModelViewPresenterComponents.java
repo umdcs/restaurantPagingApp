@@ -34,7 +34,7 @@ public interface ModelViewPresenterComponents{
         List getReservations(String list);
         Reservation getReservation(int index, String list);
         Reservation deleteReservation(int index,String list);
-        void editReservation(int index, String name, int partySize, String phoneNumber,String list);
+        void editReservation(int index, String name, int partySize, String phoneNumber, boolean[] options, String otherRequests, String list);
     }
 
     /** Model Operations
@@ -52,8 +52,8 @@ public interface ModelViewPresenterComponents{
         void refresh();
         void moveToSeated(int index);
         void moveToMaster(int index);
-        void editReservation(int index, String name, int partySize, String phoneNumber);
-        void editSeatedReservation(int index, String name, int partySize, String phoneNumber);
+        void editReservation(int index, String name, int partySize, String phoneNumber, boolean[] options, String otherRequests);
+        void editSeatedReservation(int index, String name, int partySize, String phoneNumber, boolean[] options, String otherRequests);
         Reservation createReservation(String name, int partySize, String phoneNumber, String time, boolean[] specialRequest, String otherRequest);
 
 

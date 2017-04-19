@@ -89,12 +89,14 @@ public class RPAModel implements ModelViewPresenterComponents.Model {
      * @param partySize New party size for the reservation
      * @param phoneNumber   New phone number for the reservation
      */
-    public void editReservation(int index, String name, int partySize, String phoneNumber){
+    public void editReservation(int index, String name, int partySize, String phoneNumber,boolean[] options, String otherRequests){
         Reservation res = (Reservation)waitingReservations.remove(index);
         restDELETE(res);
         res.setName(name);
         res.setPartySize(partySize);
         res.setPhoneNumber(phoneNumber);
+        res.setOptions(options);
+        res.setOtherRequest(otherRequests);
         waitingReservations.add(index, res);
         restPOST(res);
     }
@@ -106,12 +108,14 @@ public class RPAModel implements ModelViewPresenterComponents.Model {
      * @param partySize New party size for the reservation
      * @param phoneNumber   New phone number for the reservation
      */
-    public void editSeatedReservation(int index, String name, int partySize, String phoneNumber){
+    public void editSeatedReservation(int index, String name, int partySize, String phoneNumber,boolean[] options, String otherRequests){
         Reservation res = (Reservation)seatedReservations.remove(index);
         restDELETE(res);
         res.setName(name);
         res.setPartySize(partySize);
         res.setPhoneNumber(phoneNumber);
+        res.setOptions(options);
+        res.setOtherRequest(otherRequests);
         seatedReservations.add(index, res);
         restPOST(res);
     }

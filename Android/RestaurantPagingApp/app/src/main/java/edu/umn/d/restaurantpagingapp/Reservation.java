@@ -85,6 +85,18 @@ public class Reservation implements Comparable<Reservation> {
         return time;
     }
 
+    public void setOtherRequest(String otherRequest){
+        this.otherRequestString = otherRequest;
+    }
+
+    public void setOptions(boolean[] options){
+        this.highChair = options[0];
+        this.booth = options[1];
+        this.wheelChair = options[2];
+        this.willSplit = options[3];
+        this.otherRequest = options[4];
+    }
+
     public boolean[] getOptions(){
         boolean[] options =  {this.highChair,
         this.booth,

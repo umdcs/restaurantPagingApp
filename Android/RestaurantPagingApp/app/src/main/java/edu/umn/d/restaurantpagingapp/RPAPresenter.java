@@ -111,15 +111,15 @@ public class RPAPresenter implements ModelViewPresenterComponents.RPAPresenterCo
      * @param phoneNumber   The new phone number on the reservation
      * @param list  A string determining which list to edit from
      */
-    public void editReservation(int index, String name, int partySize, String phoneNumber, String list){
+    public void editReservation(int index, String name, int partySize, String phoneNumber, boolean[] options, String otherRequests, String list){
         switch (list){
             case "master":
-                mModel.editReservation(index,name,partySize,phoneNumber);
+                mModel.editReservation(index,name,partySize,phoneNumber,options,otherRequests);
                 mView.notifyCustomerListUpdated();
                 break;
 
             case "seated":
-                mModel.editSeatedReservation(index,name,partySize,phoneNumber);
+                mModel.editSeatedReservation(index,name,partySize,phoneNumber,options,otherRequests);
                 mView.notifyCustomerListUpdated();
                 break;
 

@@ -174,6 +174,8 @@ public class MainActivity extends AppCompatActivity implements ModelViewPresente
                 intent.putExtra("Name",res.getName());
                 intent.putExtra("Party Size",String.valueOf(res.getPartySize()));
                 intent.putExtra("Phone Number",res.getPhoneNumber());
+                intent.putExtra("Options",res.getOptions());
+                intent.putExtra("Special Request",res.getOtherRequest());
 
                 startActivityForResult(intent, requestCode);
 
@@ -305,15 +307,19 @@ public class MainActivity extends AppCompatActivity implements ModelViewPresente
                     int partySize = intent.getIntExtra("Party size", 0);
                     String phoneNum = intent.getStringExtra("Phone number");
                     String time = intent.getStringExtra("Time");
-                    mPresenter.editReservation(editedPosition, name, partySize, phoneNum, "master");
+                    boolean[] options = intent.getBooleanArrayExtra("Special Requests");
+                    String otherRequest = intent.getStringExtra("Other Request");
+                    mPresenter.editReservation(editedPosition, name, partySize, phoneNum, options, otherRequest,  "master");
 
                 } else if (requestCode == 3) {
                     String name = intent.getStringExtra("Name");
                     int partySize = intent.getIntExtra("Party size", 0);
                     String phoneNum = intent.getStringExtra("Phone number");
                     String time = intent.getStringExtra("Time");
+                    boolean[] options = intent.getBooleanArrayExtra("Special Requests");
+                    String otherRequest = intent.getStringExtra("Other Request");
                     Reservation reservation = mPresenter.getReservation(editedPosition, "seated");
-                    mPresenter.editReservation(editedPosition, name, partySize, phoneNum, "seated");
+                    mPresenter.editReservation(editedPosition, name, partySize, phoneNum, options, otherRequest,"seated");
                 }
             } else if (resultCode == Activity.RESULT_CANCELED) {
 
@@ -332,6 +338,9 @@ public class MainActivity extends AppCompatActivity implements ModelViewPresente
         intent.putExtra("Name","");
         intent.putExtra("Party Size","");
         intent.putExtra("Phone Number","");
+        boolean[] defaultValue = {false,false,false,false,false};
+        intent.putExtra("Options",defaultValue);
+        intent.putExtra("Speical Request","");
         startActivityForResult(intent, 1);
     }
 
