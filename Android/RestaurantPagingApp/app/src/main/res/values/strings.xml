@@ -19,6 +19,11 @@
     <string name="empty_field_error">Please enter all information.</string>
     <string name="invalid_phone_error">Please enter a valid phone number.</string>
 
+    <string name="serverAddress">http://akka.d.umn.edu:4532</string>
+
+
+
+
 
 
 

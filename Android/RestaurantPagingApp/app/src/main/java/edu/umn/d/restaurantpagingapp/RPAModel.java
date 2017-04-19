@@ -1,5 +1,6 @@
 package edu.umn.d.restaurantpagingapp;
 
+import android.content.res.Resources;
 import android.os.AsyncTask;
 import android.service.restrictions.RestrictionsReceiver;
 import android.util.Log;
@@ -172,8 +173,18 @@ public class RPAModel implements ModelViewPresenterComponents.Model {
     private List waitingReservations = new ArrayList();
     private List seatedReservations = new ArrayList();
     private ModelViewPresenterComponents.RPAPresenterContract mPresenter;
+    private String serverAddress = "http://akka.d.umn.edu:4532";
+
+
+
+
+
+
+
+
     public void restGET(){
-        new HTTPAsyncTask().execute("http://10.0.2.2:4532/getData", "GET");
+        Log.d("Server address","");
+        new HTTPAsyncTask().execute(serverAddress+"/getData", "GET");
     }
 
     public void restPOST(Reservation res){
@@ -198,7 +209,7 @@ public class RPAModel implements ModelViewPresenterComponents.Model {
             e.printStackTrace();
         }
         Log.d("DEBUG:", jsonParam.toString());
-        new HTTPAsyncTask().execute("http://10.0.2.2:4532/postReservation", "POST", jsonParam.toString());
+        new HTTPAsyncTask().execute(serverAddress + "/postReservation", "POST", jsonParam.toString());
     }
 
     public void restPUT() {
@@ -214,7 +225,7 @@ public class RPAModel implements ModelViewPresenterComponents.Model {
             e.printStackTrace();
         }
         Log.d("DEBUG [PUT]:", jsonParam.toString());
-        new HTTPAsyncTask().execute("http://10.0.2.2:4532/putReservation", "PUT", jsonParam.toString());
+        new HTTPAsyncTask().execute(serverAddress + "/putReservation", "PUT", jsonParam.toString());
     }
 
     public void restDELETE(Reservation res) {
@@ -240,7 +251,7 @@ public class RPAModel implements ModelViewPresenterComponents.Model {
             e.printStackTrace();
         }
         Log.d("DEBUG:", jsonParam.toString());
-        new HTTPAsyncTask().execute("http://10.0.2.2:4532/deleteData", "DELETE", jsonParam.toString());
+        new HTTPAsyncTask().execute(serverAddress+ "/deleteData", "DELETE", jsonParam.toString());
     }
     /**
      * HTTPAsyncTask for managing HTTP messages in a separate thread
