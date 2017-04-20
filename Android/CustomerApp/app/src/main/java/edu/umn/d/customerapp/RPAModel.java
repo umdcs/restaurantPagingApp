@@ -44,6 +44,7 @@ public class RPAModel {
 
         Reservation res = new Reservation(name, partySize, phoneNumber, time, accomodations, otherRequest);
         this.reservation = res;
+        restPOST(res);
 
         return res;
 
