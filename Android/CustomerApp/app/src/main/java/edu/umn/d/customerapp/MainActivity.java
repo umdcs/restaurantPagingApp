@@ -74,6 +74,12 @@ public class MainActivity extends AppCompatActivity {
             intent.putExtra("Phone Number", mPresenter.getReservation().getPhoneNumber());
             intent.putExtra("Party Size", mPresenter.getReservation().getPartySize());
             intent.putExtra("Time", mPresenter.getReservation().getTime());
+
+            //Accomodations
+            boolean[] accomodations = {mPresenter.getReservation().highChairRequested(), mPresenter.getReservation().boothRequested(), mPresenter.getReservation().wheelChairRequested(), mPresenter.getReservation().willSplitRequested()};
+            intent.putExtra("Accomodations", accomodations);
+            intent.putExtra("Other Request", mPresenter.getReservation().getOtherRequest());
+
             intent.putExtra("Editting", true);
 
             startActivityForResult(intent, 1);

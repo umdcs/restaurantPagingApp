@@ -117,6 +117,20 @@ public class CreateReservationActivity extends AppCompatActivity {
             EditText phoneNumEditText = (EditText) findViewById(R.id.phoneNumEditTest);
             phoneNumEditText.setText(this.getIntent().getStringExtra("Phone Number"));
 
+            CheckBox highChairCheckBox = (CheckBox) findViewById(R.id.highChairCheckBox);
+            highChairCheckBox.setChecked(this.getIntent().getBooleanArrayExtra("Accomodations")[0]);
+
+            CheckBox boothCheckBox = (CheckBox) findViewById(R.id.boothSeatingCheckBox);
+            boothCheckBox.setChecked(this.getIntent().getBooleanArrayExtra("Accomodations")[1]);
+
+            CheckBox wheelChairCheckBox = (CheckBox) findViewById(R.id.wheelChairCheckBox);
+            wheelChairCheckBox.setChecked(this.getIntent().getBooleanArrayExtra("Accomodations")[2]);
+
+            CheckBox willSplitCheckBox = (CheckBox) findViewById(R.id.willSplitCheckBox);
+            willSplitCheckBox.setChecked(this.getIntent().getBooleanArrayExtra("Accomodations")[3]);
+
+            EditText otherRequestEditText = (EditText) findViewById(R.id.otherRequestEditText);
+            otherRequestEditText.setText(this.getIntent().getStringExtra("Other Request"));
         }
     }
 }
