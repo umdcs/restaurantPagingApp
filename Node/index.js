@@ -7,24 +7,9 @@
 var express = require('express');
 var http = require('http');
 
-// Socket.io allows for network streaming between connected                                                                               
-// clients. It's a convenient way to broadcast data to specific                                                                           
-// clients and also implement real-time services, such as chat                                                                            
-//var socketio = require('socket.io');
-                                                                                           
-
-// The main instanced class, called app will be initialized by express                                                                    
 
 var app = express();
-//var app = express(),
-//	httpServer = http.createServer(app),
-//	networkIORef = socketio.listen(httpServer);
-	
 
-// Much of the Socket.io use in this example is derived from                                                                              
-//   https://socket.io/get-started/chat/                                                                                                  
-
-// Set the port in the app system                                                                                                         
 app.set("port", 4532);
 
 var bodyParser = require('body-parser');
@@ -33,23 +18,6 @@ app.use(bodyParser.urlencoded({   // support encoded bodies
             extended: true
                 }));
 app.use(bodyParser.json());  // support json encoded bodies
-
-//Start the app and let it listen for connections                                                                                         
-//httpServer.listen(app.get("port"), function () {
-  //      console.log('Node app listening on port: ', app.get("port"));
-    //});
-
-//Socket.io handler                                                                                                                       
-//networkIORef.on('connection', function(socket) {
-  //      console.log('user connected');
-
-    //    socket.on('log message', function(msg){
-      //          networkIORef.emit('log message', msg);
-        //    });
-        //socket.on('disconnect', function(){
-          //      console.log('user now disconnected');
-            //});
-    //});
 
 var postCount = 0;
 var stages = {
@@ -86,11 +54,6 @@ app.get('/', function(request, response) {
         console.log('Received Dashboard request!');
 
     });
-
-/* GET - retrieves data from server */
-//app.get('/getData', function (request, response) {
-  //      res.sendFile(__dirname + '/baseHTML.html');
-    //});
 
 app.get('/getData', function(request, response) {
 
@@ -131,21 +94,9 @@ app.post('/postReservation', function (request, response) {
         //Posting to the array 
         stages.waitList.push(reservation);
     }
-	
-	
-    //console.log(reservation);
+
         // Get a timestamp that we can use to seeing ordered log messages                                                                 
         var timestamp = new Date().valueOf();
-
-        //var logstr = '';
-        //for(var elemName in req.body) {
-          //  logstr = logstr + "[" + elemName + ": " + req.body[elemName] + "] ";
-        //}
-
-        //networkIORef.emit('log message', timestamp + ': Received /postReservation POST' + logstr);
-
-
-        //res.status(200).send('OK');
         
         response.end();
     })
@@ -196,11 +147,7 @@ app.delete('/deleteData', function (request, response) {
         console.log('DELETE REQUEST: Data has been deleted.');
     });
 
-/* Functions */
-//networkIORef.emit('name', name);
-//networkIORef.emit('size', size);
-//networkIORef.emit('phoneNumber', phoneNumber);
-//networkIORef.emit('time', time);
+
 /* ================================================                                                                                       
  * ================================================                                                                                       
  * ================================================                                                                                       
