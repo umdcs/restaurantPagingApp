@@ -69,7 +69,8 @@ public class CreateReservationActivity extends AppCompatActivity {
 
             boolean[] accomodations = {highChairCheckBox.isChecked(),boothCheckBox.isChecked(),wheelChairCheckBox.isChecked(),willSplitCheckBox.isChecked()};
             intent.putExtra("Accomodations", accomodations);
-            intent.putExtra("Other Request",otherRequestString.getText());
+
+            intent.putExtra("Other Request",otherRequestString.getText().toString());
 
             //Finish activity and send info back to main activity
             setResult(Activity.RESULT_OK, intent);
