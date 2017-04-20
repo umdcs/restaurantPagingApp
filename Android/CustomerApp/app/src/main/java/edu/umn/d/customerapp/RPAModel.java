@@ -50,6 +50,12 @@ public class RPAModel {
 
     }
 
+    public Reservation deleteReservation(int index){
+        Reservation res = (Reservation)waitingReservations.remove(index);
+        restDELETE(res);
+        return res;
+    }
+
     public void deleteReservation() {
         reservation = null;
     }
