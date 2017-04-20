@@ -43,7 +43,8 @@ app.get('/', function(request, response) {
         /* Each write statement in the response can send text/data into the body                                                          
          * of the HTTP Response body */
         response.write('<!DOCTYPE html><head><title>Client DashBoard</title></head><body>');
-        response.write('<H1>Restaurant Paging App</H1>');
+        response.write('<H1>Restaurant Paging Ap</H1>');
+
         response.write(JSON.stringify(stages));
 
         response.write('</body></html>');
@@ -77,6 +78,7 @@ app.post('/postReservation', function (request, response) {
 	
     var body = request.body;
     var reservation = {};
+
     reservation.name = body.name;
     reservation.size = body.size;
     reservation.phoneNumber = body.phoneNumber;
