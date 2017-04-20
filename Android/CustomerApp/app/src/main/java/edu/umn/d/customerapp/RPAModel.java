@@ -270,60 +270,6 @@ public class RPAModel {
 
             try {
                 JSONObject jsonData = new JSONObject(result);
-                /**/
-                // Make sure there is something in there
-                List newWaitingList = new ArrayList();
-                List newSeatedList = new ArrayList();
-
-                JSONArray waitingJson = (JSONArray) jsonData.get("waitList");
-
-                for (int i = 0; i < waitingJson.length(); i++) {
-                    JSONObject reservationObject = waitingJson.getJSONObject(i);
-                    String name = reservationObject.getString("name");
-                    int size = reservationObject.getInt("size");
-                    String phoneNumber = reservationObject.getString("phoneNumber");
-                    String time = reservationObject.getString("time");
-                    JSONArray jsonOptions = reservationObject.getJSONArray("options");
-                    boolean[] options = new boolean[4];
-                    for (int j = 0; j < 4; j++) {
-                        Log.d("option", String.valueOf(jsonOptions.getBoolean(j)));
-                        options[j] = jsonOptions.getBoolean(j);
-                    }
-                    String otherRequests = reservationObject.getString("otherRequests");
-
-
-                    Reservation reservation = new Reservation(name, size, phoneNumber, time, options, otherRequests);
-                    newWaitingList.add(reservation);
-                }
-
-
-                JSONArray seatedJson = (JSONArray) jsonData.get("seatedList");
-                for (int i = 0; i < seatedJson.length(); i++) {
-                    JSONObject reservationObject = seatedJson.getJSONObject(i);
-                    String name = reservationObject.getString("name");
-                    int size = reservationObject.getInt("size");
-                    String phoneNumber = reservationObject.getString("phoneNumber");
-                    String time = reservationObject.getString("time");
-
-                    JSONArray jsonOptions = reservationObject.getJSONArray("options");
-                    boolean[] options = new boolean[4];
-                    for (int j = 0; j < 4; j++) {
-                        options[j] = jsonOptions.getBoolean(j);
-                    }
-
-                    String otherRequests = reservationObject.getString("otherRequests");
-
-
-                    Reservation reservation = new Reservation(name, size, phoneNumber, time, options, otherRequests);
-                    newSeatedList.add(reservation);
-                }
-
-                waitingReservations = newWaitingList;
-                seatedReservations = newSeatedList;
-
-
-                //Log.d("waitingList", String.valueOf(waitingReservations));
-
                 Log.d("onPostExecute JSON:", jsonData.toString());
             } catch (JSONException e) {
                 e.printStackTrace();
