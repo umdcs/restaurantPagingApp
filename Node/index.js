@@ -20,6 +20,7 @@ app.use(bodyParser.urlencoded({   // support encoded bodies
 app.use(bodyParser.json());  // support json encoded bodies
 
 var postCount = 0;
+
 var stages = {
     waitList : [],
     seatedList : []
@@ -43,7 +44,7 @@ app.get('/', function(request, response) {
         /* Each write statement in the response can send text/data into the body                                                          
          * of the HTTP Response body */
         response.write('<!DOCTYPE html><head><title>Client DashBoard</title></head><body>');
-        response.write('<H1>Restaurant Paging Ap</H1>');
+        response.write('<H1>Restaurant Paging App</H1>');
 
         response.write(JSON.stringify(stages));
 
@@ -79,6 +80,7 @@ app.post('/postReservation', function (request, response) {
     var body = request.body;
     var reservation = {};
 
+    response.write("<H1>Name</H1>")
     reservation.name = body.name;
     reservation.size = body.size;
     reservation.phoneNumber = body.phoneNumber;
@@ -106,6 +108,7 @@ app.post('/postReservation', function (request, response) {
 
 /* PUT - sends data to server */
 app.put('/putReservation', function (request, response) {
+
         console.log('PUT REQUEST: putData');
  });
 
@@ -113,6 +116,7 @@ app.put('/putReservation', function (request, response) {
 // Only deletes from waitList right now
 /* DELETE - removes data from server */
 app.delete('/deleteData', function (request, response) {
+
         var body = request.body;    // We don't directly set deleteReservation = request.body because the body includes extra information like isSeated()
         var deleteReservation = {};
         deleteReservation.name = body.name;
