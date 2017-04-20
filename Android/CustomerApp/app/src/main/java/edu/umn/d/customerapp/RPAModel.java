@@ -50,13 +50,8 @@ public class RPAModel {
 
     }
 
-    public Reservation deleteReservation(int index){
-        Reservation res = (Reservation)waitingReservations.remove(index);
-        restDELETE(res);
-        return res;
-    }
-
     public void deleteReservation() {
+        restDELETE(this.reservation);
         reservation = null;
     }
 
@@ -327,7 +322,7 @@ public class RPAModel {
                 seatedReservations = newSeatedList;
 
 
-                Log.d("waitingList", String.valueOf(waitingReservations));
+                //Log.d("waitingList", String.valueOf(waitingReservations));
 
                 Log.d("onPostExecute JSON:", jsonData.toString());
             } catch (JSONException e) {
