@@ -43,8 +43,9 @@ app.get('/', function(request, response) {
 
         /* Each write statement in the response can send text/data into the body                                                          
          * of the HTTP Response body */
-        response.write('<!DOCTYPE html><head><title>Client DashBoard</title></head><body>');
+        response.write('<!DOCTYPE html><head><title>Restaurant Paging App</title></head><body>');
         response.write('<H1>Restaurant Paging App</H1>');
+        response.write('<h2> Reservation List');
 
         response.write(JSON.stringify(stages));
 
