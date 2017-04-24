@@ -22,6 +22,7 @@ app.use(bodyParser.json());  // support json encoded bodies
 var postCount = 0;
 
 var stages = {
+
     waitList : [],
     seatedList : []
 }
@@ -81,7 +82,6 @@ app.post('/postReservation', function (request, response) {
     var body = request.body;
     var reservation = {};
 
-    response.write("<H1>Name</H1>")
     reservation.name = body.name;
     reservation.size = body.size;
     reservation.phoneNumber = body.phoneNumber;
@@ -177,6 +177,12 @@ app.use(function(error, request, response, next){
         console.error(error.stack);
 		response.status(500).send('Something broke!');
     });
+
+ app.get('/', function(request, response){
+
+    response.sendFile(__dirname + 'index.html');
+
+ });
 
 /* ================================================                                                                                       
  * ================================================                                                                                       
