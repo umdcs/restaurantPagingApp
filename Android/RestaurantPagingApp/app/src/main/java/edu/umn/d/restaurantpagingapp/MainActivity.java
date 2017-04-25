@@ -50,7 +50,7 @@ import static edu.umn.d.restaurantpagingapp.Reservation.TIME_CREATED_ASC;
 import static edu.umn.d.restaurantpagingapp.Reservation.TIME_CREATED_DESC;
 
 public class MainActivity extends AppCompatActivity implements ModelViewPresenterComponents.View {
-    private final String version = "0.2.0";
+    private final String version = "0.3.10";
     private ModelViewPresenterComponents.RPAPresenterContract mPresenter;
     private ArrayAdapter waitingListAdapter;
     private ArrayAdapter seatedListAdapter;

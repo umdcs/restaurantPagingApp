@@ -437,6 +437,8 @@ public class RPAModel implements ModelViewPresenterComponents.Model {
 
                 waitingReservations = newWaitingList;
                 seatedReservations = newSeatedList;
+                Log.d("waiting",String.valueOf(waitingReservations));
+                Log.d("seated",String.valueOf(seatedReservations));
 
                 mPresenter.notifyModelUpdated();
 
