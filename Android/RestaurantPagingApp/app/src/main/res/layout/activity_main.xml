@@ -8,10 +8,74 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="edu.umn.d.restaurantpagingapp.MainActivity">
+    tools:context="edu.umn.d.restaurantpagingapp.MainActivity" >
 
-    <TextView
+
+    <Button
+        android:text="@string/make_res"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!" />
+        android:id="@+id/makeReservation"
+        android:onClick="onClickCreateReservation"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:text="@string/to_seated"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/moveToSeated"
+        android:onClick="moveToSeated"
+        android:layout_marginBottom="144dp"
+        android:layout_above="@+id/makeReservation"
+        android:layout_alignRight="@+id/makeReservation"
+        android:layout_alignEnd="@+id/makeReservation" />
+
+    <Button
+        android:text="@string/sort"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/sort"
+        android:onClick="onClickSort"
+        android:layout_alignParentTop="true"
+        android:layout_alignLeft="@+id/makeReservation"
+        android:layout_alignStart="@+id/makeReservation" />
+
+    <ListView
+        android:layout_height="match_parent"
+        android:listSelector="@drawable/bg_key"
+        android:choiceMode="singleChoice"
+        android:layout_width="150dp"
+        android:id="@+id/seatedList"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:divider="@drawable/listdivider"
+        android:dividerHeight="2px"
+        android:background="@drawable/listdivider"/>
+
+    <ListView
+        android:layout_height="match_parent"
+        android:choiceMode="singleChoice"
+        android:listSelector="@drawable/bg_key"
+        android:layout_width="150dp"
+        android:id="@+id/waitingList"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:divider="@drawable/listdivider"
+        android:dividerHeight="2px"
+        android:background="@drawable/listdivider"/>
+
+    <Button
+        android:id="@+id/refresh"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/makeReservation"
+        android:layout_alignEnd="@+id/makeReservation"
+        android:layout_alignRight="@+id/makeReservation"
+        android:layout_marginBottom="35dp"
+        android:onClick="refreshFromServer"
+        android:text="Refresh" />
+
 </RelativeLayout>
