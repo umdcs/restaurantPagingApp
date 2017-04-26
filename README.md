@@ -1,6 +1,9 @@
 RESTAURANT PAGING APPLICATION
+
         The Restaurant Paging app is designed to eliminate the use of standard pager based paging systems and provide customers with a more convenient method of communication with their restaurant of choice.
- 	Our focus for this semester was to create a distributed application that allows the client to add, edit, remove a reservation and allow the customer to add and remove their own reservations.
+        
+ 	Our focus for this semester was to create a distributed application that allows the client to add, edit, remove a reservation and
+ 	allow the customer to add and remove their own reservations.
  	
  	This application was conceptualized and designed by University of Minnesota Duluth students in the CS4531 course under the supervision of Professor Pete Willemsen. 
  	
