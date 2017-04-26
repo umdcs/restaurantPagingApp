@@ -1,28 +1,22 @@
-# restaurantPagingApp
+RESTAURANT PAGING APPLICATION
+        The Restaurant Paging app is designed to eliminate the use of standard pager based paging systems and provide customers with a more convenient method of communication with their restaurant of choice.
+ 	Our focus for this semester was to create a distributed application that allows the client to add, edit, remove a reservation and allow the customer to add and remove their own reservations.
+ 	
+ 	This application was conceptualized and designed by University of Minnesota Duluth students in the CS4531 course under the supervision of Professor Pete Willemsen. 
+ 	
+ 	The application is fully functional and ready for general use. The intedned custmers will need to have a SIM card and cellular plan inorder to use utilize the SMS capabilities. 
 
-Testing
-"ReservationTest" - Tests the Reservation class's methods.
-	"toString_isCorrect" - Test the toString method by comparing the result of toString to an expected string.
-	"getName_works" - Tests the getName method by comparing the result of getName to an expected string.
-	"setName_works" - Tests the setName method by calling setName and comparing the result of getName to an expected string.
-	"getPartySize_works" - Tests the getPartySize method by comparing the result of getPartySize to an expected integer.
-	"setPartySize_works" - Tests the setPartySize method by calling setPartySize and comparing the result of getPartySize to an expected integer.
-	"getPhoneNumber_works" - Tests the getPhoneNumber method by comparing the result of getPhoneNumber to an expected string.
-	"setPhoneNumber_works" - Tests the setPhoneNumber method by calling setPhoneNumber and comparing the result of getPhoneNumber to an expected string.
-	"getTime_works" - Tests the getTime method by comparing the result of getTime to an expected string.
+ANDROID CLIENT AND VERSION
+        This applciation is intended for
+                Android v23.2. 
+                Android Studio 2.3.1 
+                Node 1.0.0
+                Minimum Android SDK: Minimum Ice Cream Sandwich 4.0.3
 
+FUTURE DEVELOPMENT
+        A way for the customer to see their position on the waitlist from the client application.
+        Color coding for reservations in the seated and waiting lists that show what stage of the process they’re in, waiting, seated, call-ahead, etc.
+        Notification through the customer application when a reservation is ready, instead of the text message to a number.
+                
 
-"ListTest" - This class aims to ensure that the back end of the list views are maintained properly.
-
-	create_reservation - Creates a reservation and makes sure that the same reservation is returned
-
-	same_edit - Checks to see that an edit with the same values does not change the reservation's data
-
-	different_edit - Checks to see that editing a reservation does change the values
-
-	length_test - Makes sure that the lists returned when getting all reservations are of the right length
-
-	delete_move - Makes sure that the lists remove elements for deleting and moving cases
-
-	testReservationsEqual - Private function that is used to make sure that all data is equal. If you just use assertEquals(res1,res2) it falsely raises an error for some reason.
-
+        
